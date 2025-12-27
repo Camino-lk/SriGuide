@@ -10,6 +10,9 @@
 ![GitHub stars](https://img.shields.io/github/stars/Camino-lk/SriGuide?style=for-the-badge)
 ![GitHub forks](https://img.shields.io/github/forks/Camino-lk/SriGuide?style=for-the-badge)
 
+<img width="1259" height="619" alt="SriGuide - Github Banner" src="https://github.com/user-attachments/assets/64815221-3e7e-4b0e-bdd9-8bb05701b01c" />
+
+
 **Explore Sri Lanka with Confidence:** SriGuide is a free, open-source web app offering practical, up-to-date tips for travelers in Sri Lanka – built with accuracy and ease in mind.
 
 Powered by [Astro](https://astro.build) and [Starlight](https://starlight.astro.build), SriGuide delivers a fast, multilingual, and mobile-friendly experience.
