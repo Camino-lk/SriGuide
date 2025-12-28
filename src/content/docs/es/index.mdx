@@ -1,0 +1,81 @@
+---
+title: Bienvenido a Starlight
+description: Comienza a construir tu sitio de documentación con Starlight.
+template: splash
+hero:
+  tagline: ¡Felicitaciones por configurar un nuevo proyecto de Starlight!
+  image:
+    file: ../../../assets/images/houston.webp
+  actions:
+    - text: Guía de ejemplo
+      link: /es/guides/example/
+      icon: right-arrow
+    - text: Lee la documentación de Starlight
+      link: https://starlight.astro.build
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+## Next steps
+
+<CardGrid>
+  <Card title="Actualizar contenido" icon="pencil">
+    Edita `src/content/docs/index.mdx` para ver los cambios en esta página.
+  </Card>
+  <Card title="Cambiar el diseño de la página" icon="document">
+    Elimina `template: splash` en `src/content/docs/index.mdx` para mostrar una
+    barra lateral en esta página.
+  </Card>
+  <Card title="Agregar nuevo contenido" icon="add-document">
+    Agrega archivos Markdown o MDX a `src/content/docs` para crear nuevas
+    páginas.
+  </Card>
+  <Card title="Configurar tu sitio" icon="setting">
+    Edita tu `sidebar` y otras configuraciones en `astro.config.mjs`.
+  </Card>
+  <Card title="Leer la documentación" icon="open-book">
+    Aprende más en [la documentación de
+    Starlight](https://starlight.astro.build/).
+  </Card>
+</CardGrid>
+
+:::tip[¿Sabías qué?]
+Astro te ayuda a construir sitios web más rápidos con la [“Arquitectura de Islas”](https://docs.astro.build/en/concepts/islands/).
+:::
+
+:::note
+Starlight es un kit de herramientas de sitios web de documentación construido con [Astro](https://astro.build/). Puedes comenzar con este comando:
+
+```sh
+npm create astro@latest -- --template starlight
+```
+
+:::
+
+:::caution
+Si no estás seguro de querer un sitio de documentación increíble, piénsalo dos veces antes de usar [Starlight](/).
+:::
+
+:::danger
+Tus usuarios pueden ser más productivos y encontrar tu producto más fácil de usar gracias a las útiles características de Starlight.
+
+- Navegación clara
+- Tema de color configurable por el usuario
+- [Soporte i18n](/guides/i18n/)
+
+:::
+
+<details>
+<summary>¿Dónde y cuándo es más visible la constelación de Andrómeda?</summary>
+
+La constelación de Andrómeda es más visible en el cielo nocturno durante el mes de noviembre en latitudes entre +90° y −40°.
+
+</details>
+<details>
+<summary>¿Dónde y cuándo es más visible la constelación de Andrómeda?</summary>
+
+La constelación de Andrómeda es más visible en el cielo nocturno durante el mes de noviembre en latitudes entre +90° y −40°.
+
+</details>

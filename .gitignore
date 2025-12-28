@@ -22,4 +22,11 @@ pnpm-debug.log*
 
 # other
 workflow.md
+TODO
 llms.txt
+
+# temporary files
+tmp/
+
+# project files
+project_data/
