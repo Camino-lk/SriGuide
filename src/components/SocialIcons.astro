@@ -1,0 +1,47 @@
+<!-- Override SocialIcons component to display text labels with icons -->
+
+---
+import config from 'virtual:starlight/user-config';
+import { Icon } from '@astrojs/starlight/components';
+
+const links = config.social || [];
+---
+
+{
+	links.length > 0 && (
+		<div class="social-links sl-flex">
+			{links.map(({ label, href, icon }) => (
+				<a href={href} rel="me" class="link sl-flex" aria-label={label}>
+					<Icon name={icon} size="1.2em" />
+					<span class="label">{label}</span>
+				</a>
+			))}
+		</div>
+	)
+}
+
+<style>
+	@layer starlight.core {
+		.social-links {
+			gap: 1rem;
+			align-items: center;
+		}
+		.link {
+			color: var(--sl-color-text-accent);
+			display: flex;
+			align-items: center;
+			gap: 0.5rem;
+			padding: 0.5rem;
+			margin: -0.5rem;
+			border-radius: 0.25rem;
+			text-decoration: none;
+		}
+		.link:hover {
+			background: var(--sl-color-gray-6);
+		}
+		.label {
+			font-size: 0.9rem;
+			font-weight: 500;
+		}
+	}
+</style>

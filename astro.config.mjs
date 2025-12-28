@@ -9,6 +9,14 @@ export default defineConfig({
     starlight({
       plugins: [starlightThemeNext()],
       title: "SriGuide",
+      // ---- Begin Customizations ----
+      components: {
+        PageFrame: "./src/components/PageFrame.astro",
+        SocialIcons: "./src/components/SocialIcons.astro",
+      },
+      customCss: ["./src/styles/customstyles.css"],
+
+      // ---- End Customizations ----
       logo: {
         light: "./src/assets/images/SriGuideLogo-LM-Xmas.svg",
         dark: "./src/assets/images/SriGuideLogo-DM-Xmas.svg",
@@ -39,6 +47,11 @@ export default defineConfig({
           autogenerate: { directory: "reference" },
         },
       ],
+      defaultLocale: "en",
+      locales: {
+        en: { label: "English" },
+        es: { label: "Español", lang: "es" },
+      },
     }),
   ],
 });

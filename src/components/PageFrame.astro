@@ -1,0 +1,22 @@
+<!-- Override PageFrame component to include MobileMenuFooter on splash template -->
+
+---
+import MobileMenuFooter from "@astrojs/starlight/components/MobileMenuFooter.astro";
+import DefaultPageFrame from "@astrojs/starlight/components/PageFrame.astro";
+const { template } = Astro.locals.starlightRoute.entry.data;
+---
+
+<DefaultPageFrame {...Astro.props}>
+  <div transition:persist="header" slot="header">
+    <slot name="header" />
+  </div>
+  <slot name="sidebar" slot="sidebar" />
+  <slot />
+  {
+    template === "splash" && (
+      <div class="md:sl-hidden" style="margin-left: 25px; margin-right: 25px;">
+        <MobileMenuFooter {...Astro.props} />
+      </div>
+    )
+  }
+</DefaultPageFrame>
