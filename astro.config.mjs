@@ -1,16 +1,18 @@
 // @ts-check
 import { defineConfig } from "astro/config";
+import AstroPWA from "@vite-pwa/astro";
 import starlight from "@astrojs/starlight";
-import starlightThemeNext from "starlight-theme-next";
 
 // https://astro.build/config
 export default defineConfig({
+  trailingSlash: "never",
+  // TODO: Add site url
   integrations: [
     starlight({
-      plugins: [starlightThemeNext()],
       title: "SriGuide",
       // ---- Begin Customizations ----
       components: {
+        Head: "./src/components/Head.astro",
         PageFrame: "./src/components/PageFrame.astro",
         SocialIcons: "./src/components/SocialIcons.astro",
       },
@@ -36,22 +38,43 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: "Guides",
-          items: [
-            // Each item here is one entry in the navigation menu.
-            { label: "Example Guide", slug: "guides/example" },
-          ],
+          label: "Quick Essentials",
+          translations: { es: "Esenciales Rápidas" },
+          link: "quick-essentials",
         },
         {
-          label: "Reference",
-          autogenerate: { directory: "reference" },
+          label: "Getting Around",
+          translations: { es: "Cómo Moverse" },
+          link: "getting-around",
+        },
+        {
+          label: "Safety & Health",
+          translations: { es: "Seguridad y Salud" },
+          link: "safety-health",
+        },
+        {
+          label: "Emergency",
+          translations: { es: "Emergencias" },
+          link: "emergency",
+        },
+        {
+          label: "FAQ",
+          translations: { es: "Preguntas Frecuentes" },
+          link: "faq",
         },
       ],
-      defaultLocale: "en",
       locales: {
-        en: { label: "English" },
-        es: { label: "Español", lang: "es" },
+        root: {
+          label: "English",
+          lang: "en",
+        },
+        es: {
+          label: "Español",
+          lang: "es",
+        },
       },
     }),
+    // ---- PWA Integration ----
+    AstroPWA({}),
   ],
 });
