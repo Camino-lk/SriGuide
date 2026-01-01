@@ -1,0 +1,73 @@
+<div id="pwa-toast" role="alert" aria-labelledby="toast-message">
+  <div class="toast-inner">
+    <span id="toast-message"></span>
+    <button id="pwa-dismiss" aria-label="Dismiss notification">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-x-icon lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  #pwa-toast {
+    visibility: hidden;
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100%);
+    max-width: 380px;
+    width: calc(100% - 32px);
+    background: #B4FFA0;
+    color: #0c2817;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 16px;
+    padding: 14px 18px;
+    box-shadow: var(--sl-shadow-lg);
+    z-index: 9999;
+    font-size: 0.95rem;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  }
+
+  #pwa-toast.show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  .toast-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    line-height: 1.5;
+    font-weight: 500;
+  }
+
+  #pwa-dismiss {
+    background: none;
+    border: none;
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    color: #0c2817;
+    padding: 4px;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  #pwa-dismiss:hover {
+    background: #12151347;
+  }
+
+  @media (max-width: 480px) {
+    #pwa-toast {
+      bottom: 20px;
+      padding: 12px 16px;
+    }
+  }
+</style>

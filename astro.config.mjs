@@ -10,6 +10,8 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "SriGuide",
+      description:
+        "Explore Sri Lanka with Confidence - practical, up-to-date travel tips for transport, stays, safety, and more.",
       // ---- Begin Customizations ----
       components: {
         Head: "./src/components/Head.astro",
@@ -75,6 +77,93 @@ export default defineConfig({
       },
     }),
     // ---- PWA Integration ----
-    AstroPWA({}),
+    AstroPWA({
+      workbox: { navigateFallback: "/404" },
+      registerType: "autoUpdate",
+      manifest: {
+        name: "SriGuide",
+        short_name: "SriGuide",
+        start_url: "/?utm_source=pwa",
+        description:
+          "Explore Sri Lanka with Confidence - practical, up-to-date travel tips for transport, stays, safety, and more.",
+        theme_color: "#42b883",
+        icons: [
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+          {
+            src: "pwa-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "pwa-maskable-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+            purpose: "maskable",
+          },
+          {
+            src: "pwa-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "any",
+          },
+          {
+            src: "pwa-maskable-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+            purpose: "maskable",
+          },
+        ],
+        screenshots: [
+          // mobile screenshots
+          {
+            src: "/screenshots/screenshot-n-1.png",
+            sizes: "1080x1920",
+            type: "image/png",
+            form_factor: "narrow",
+          },
+          {
+            src: "/screenshots/screenshot-n-2.png",
+            sizes: "1080x1920",
+            type: "image/png",
+            form_factor: "narrow",
+          },
+          {
+            src: "/screenshots/screenshot-n-3.png",
+            sizes: "1080x1920",
+            type: "image/png",
+            form_factor: "narrow",
+          },
+          // desktop
+          {
+            src: "/screenshots/screenshot-w-1.png",
+            sizes: "1920x1080",
+            type: "image/png",
+            form_factor: "wide",
+          },
+          {
+            src: "/screenshots/screenshot-w-2.png",
+            sizes: "1920x1080",
+            type: "image/png",
+            form_factor: "wide",
+          },
+          {
+            src: "/screenshots/screenshot-w-3.png",
+            sizes: "1920x1080",
+            type: "image/png",
+            form_factor: "wide",
+          },
+        ],
+      },
+    }),
   ],
 });

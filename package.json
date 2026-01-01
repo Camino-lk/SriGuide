@@ -2,6 +2,13 @@
   "name": "sri-guide",
   "type": "module",
   "version": "0.1.0",
+  "description": "Explore Sri Lanka with Confidence - open-source travel guide web app",
+  "author": "dilshan-h",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Camino-lk/SriGuide.git"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",

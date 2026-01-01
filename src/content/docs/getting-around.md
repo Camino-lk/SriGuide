@@ -19,11 +19,13 @@ Sri Lanka offers diverse transport options from modern apps to iconic train jour
 
 **What**: Sri Lanka's most popular ride-hailing app (like Uber)
 
-**Cost**: 
+**Cost**:
+
 - To Negombo: ~LKR 1,000-1,500 ($3-5)
 - To Colombo: ~LKR 2,500-3,500 ($8-12)
 
 **How to Use**:
+
 1. Download PickMe app before arrival (works offline if downloaded)
 2. Get SIM card at airport for data
 3. Exit terminal and wait in designated pickup area
@@ -45,7 +47,7 @@ Similar to PickMe but less common. Works the same way. Slightly higher prices.
 **Where**: Official counter inside arrivals hall  
 **Cost**: ~LKR 3,000-4,000 to Negombo, ~LKR 4,500-5,500 to Colombo  
 **Pros**: Easy, no haggling  
-**Cons**: More expensive than apps  
+**Cons**: More expensive than apps
 
 #### 4. Regular Taxi (Negotiate)
 
@@ -110,8 +112,9 @@ Tuk-tuks are everywhere—affordable, fun, and perfect for short distances.
 - **PickMe Sedan**: Regular car (most comfortable)
 - **PickMe Bike**: Motorcycle taxi (fastest, cheapest)
 
-**Cost Example**: Colombo Fort to Mount Lavinia (~12km)  
-- Tuk: ~LKR 600-800  
+**Cost Example**: Colombo Fort to Mount Lavinia (~12km)
+
+- Tuk: ~LKR 600-800
 - Car: ~LKR 1,200-1,500
 
 ## Trains
@@ -126,12 +129,14 @@ Sri Lankan trains offer stunning views, especially hill country routes.
 
 **The Experience**: Tea plantations, mountains, misty valleys—one of the world's most scenic train rides
 
-**Cost**: 
-- 3rd class: ~LKR 300 ($1) 
+**Cost**:
+
+- 3rd class: ~LKR 300 ($1)
 - 2nd class: ~LKR 600 ($2)
 - 1st class: ~LKR 1,500 ($5)
 
 **Tips**:
+
 - Book 2nd/1st class tickets in advance (online or at station)
 - 3rd class is unreserved (crowded but atmospheric)
 - Sit on right side Kandy→Ella for best views
@@ -152,6 +157,7 @@ Sri Lankan trains offer stunning views, especially hill country routes.
 **Through Hotels**: Many guesthouses can book for small fee
 
 **Classes**:
+
 - **1st class**: Reserved seats, A/C or observation car (some routes)
 - **2nd class**: Reserved seats, fans
 - **3rd class**: Unreserved, crowded, authentic experience
@@ -172,6 +178,7 @@ Buses go everywhere, but can be crowded and chaotic.
 **Private buses**: Varies, slightly more expensive, often faster
 
 **Cost Examples**:
+
 - Colombo to Kandy: ~LKR 200-300 (3-4 hours)
 - Colombo to Galle: ~LKR 250-350 (2-3 hours)
 - Kandy to Ella: ~LKR 300-400 (4-5 hours)
@@ -196,7 +203,8 @@ Buses go everywhere, but can be crowded and chaotic.
 **Includes**: Driver, fuel, vehicle  
 **Excludes**: Driver's meals/accommodation (you cover if overnight trip)
 
-**Best For**: 
+**Best For**:
+
 - Groups (split cost)
 - Families with kids
 - Custom itineraries
@@ -211,6 +219,7 @@ Buses go everywhere, but can be crowded and chaotic.
 **Requirements**: International Driving Permit + home license
 
 **Challenges**:
+
 - Chaotic traffic
 - Roads poorly marked
 - Driving on LEFT side
@@ -227,6 +236,7 @@ Buses go everywhere, but can be crowded and chaotic.
 **Popular Areas**: Beach towns (Mirissa, Arugam Bay, Hikkaduwa)
 
 **Safety Notes**:
+
 - Sri Lankan traffic is chaotic
 - Roads can be poor quality
 - Wear helmet ALWAYS

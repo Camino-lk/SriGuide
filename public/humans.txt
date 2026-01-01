@@ -1,0 +1,15 @@
+/* TEAM */
+	Dev:Dilshan-H
+	Contact: growl-cherub-why@duck.com
+	From:Sri Lanka
+
+
+/* THANKS */
+		
+
+/* SITE */
+	Last update:2026/01/01
+	Language: English / Spanish
+	Doctype:HTML5
+	IDE: VS Code
+    Tools: Inkscape, Photoshop
