@@ -5,7 +5,9 @@
 
 
 /* THANKS */
-		
+	Pagefind PWA Fix: Abdulhakim Alshanqiti
+	Telegram: abdullhakim_alshanqiti
+
 
 /* SITE */
 	Last update:2026/01/01

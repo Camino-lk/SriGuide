@@ -78,12 +78,19 @@ export default defineConfig({
     }),
     // ---- PWA Integration ----
     AstroPWA({
-      workbox: { navigateFallback: "/404" },
+      workbox: {
+        navigateFallback: "/404",
+        globPatterns: [
+          "**/*.{js,css,html,svg,ico,png,jpg,jpeg,gif,webp,woff,woff2}",
+          "pagefind/**/*.{pf_fragment,pf_index,pf_meta,json,pagefind,js,wasm}",
+        ],
+      },
       registerType: "autoUpdate",
       manifest: {
         name: "SriGuide",
         short_name: "SriGuide",
         start_url: "/?utm_source=pwa",
+        id: "/?utm_source=pwa",
         description:
           "Explore Sri Lanka with Confidence - practical, up-to-date travel tips for transport, stays, safety, and more.",
         theme_color: "#42b883",

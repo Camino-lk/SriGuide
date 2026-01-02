@@ -12,9 +12,10 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run pagefind-fix",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pagefind-fix": "sed -i 's/?ts=${Date.now()}//g' dist/pagefind/pagefind.js"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.1",

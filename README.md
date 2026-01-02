@@ -12,7 +12,6 @@
 
 <img width="1259" height="619" alt="SriGuide - Github Banner" src="https://github.com/user-attachments/assets/64815221-3e7e-4b0e-bdd9-8bb05701b01c" />
 
-
 **Explore Sri Lanka with Confidence:** SriGuide is a free, open-source web app offering practical, up-to-date tips for travelers in Sri Lanka – built with accuracy and ease in mind.
 
 Powered by [Astro](https://astro.build) and [Starlight](https://starlight.astro.build), SriGuide delivers a fast, multilingual, and mobile-friendly experience.
@@ -65,6 +64,10 @@ It helps others discover the project and motivates continued development :)
 **The MIT License**
 
 This program is free software: you can redistribute it and/or modify it under the terms of the MIT License. See the [LICENSE](LICENSE) file for more details. Attribution is required by leaving the author name and license info intact.
+
+## Special Thanks
+
+- Thanks to Abdulhakim Alshanqiti (https://github.com/abdulhakim-alshanqiti/) for the fix on pagefind search issue on PWA (offline state)
 
 ---
 
