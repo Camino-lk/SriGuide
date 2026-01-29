@@ -2,17 +2,27 @@
   "name": "sri-guide",
   "type": "module",
   "version": "0.1.0",
+  "description": "Explore Sri Lanka with Confidence - open-source travel guide web app",
+  "author": "dilshan-h",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Camino-lk/SriGuide.git"
+  },
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run pagefind-fix",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pagefind-fix": "node -e \"const fs=require('fs'); const f='dist/pagefind/pagefind.js'; let c=fs.readFileSync(f,'utf8'); c=c.split('?ts=${Date.now()}').join(''); fs.writeFileSync(f,c);\""
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.1",
     "astro": "^5.6.1",
-    "sharp": "^0.34.2",
-    "starlight-theme-next": "^0.3.3"
+    "sharp": "^0.34.2"
+  },
+  "devDependencies": {
+    "@vite-pwa/astro": "^1.2.0"
   }
 }

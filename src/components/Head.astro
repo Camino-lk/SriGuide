@@ -1,0 +1,17 @@
+---
+import DefaultHead from '@astrojs/starlight/components/Head.astro';
+import { pwaInfo } from 'virtual:pwa-info';
+---
+
+<DefaultHead {...Astro.props}>
+    <slot />
+</DefaultHead>
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="mask-icon" href="/favicon.svg" color="#FFFFFF">
+<meta name="msapplication-TileColor" content="#FFFFFF">
+<meta name="theme-color" content="#42b883">
+
+{ pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} /> }
+<script src="/src/pwa.ts"></script>
