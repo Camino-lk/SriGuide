@@ -15,7 +15,7 @@
     "build": "astro build && npm run pagefind-fix",
     "preview": "astro preview",
     "astro": "astro",
-    "pagefind-fix": "sed -i 's/?ts=${Date.now()}//g' dist/pagefind/pagefind.js"
+    "pagefind-fix": "node -e \"const fs=require('fs'); const f='dist/pagefind/pagefind.js'; let c=fs.readFileSync(f,'utf8'); c=c.split('?ts=${Date.now()}').join(''); fs.writeFileSync(f,c);\""
   },
   "dependencies": {
     "@astrojs/starlight": "^0.37.1",
