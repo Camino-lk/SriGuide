@@ -12,11 +12,15 @@ export default defineConfig({
       title: "SriGuide",
       description:
         "Explore Sri Lanka with Confidence - practical, up-to-date travel tips for transport, stays, safety, and more.",
+      editLink: {
+        baseUrl: "https://github.com/Camino-lk/SriGuide/edit/main/",
+      },
       // ---- Begin Customizations ----
       components: {
         Head: "./src/components/Head.astro",
         PageFrame: "./src/components/PageFrame.astro",
         SocialIcons: "./src/components/SocialIcons.astro",
+        Footer: "./src/components/Footer.astro",
       },
       customCss: ["./src/styles/customstyles.css"],
 
