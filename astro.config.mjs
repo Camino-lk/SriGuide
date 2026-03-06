@@ -15,6 +15,7 @@ export default defineConfig({
       editLink: {
         baseUrl: "https://github.com/Camino-lk/SriGuide/edit/main/",
       },
+      lastUpdated: true,
       // ---- Begin Customizations ----
       components: {
         Head: "./src/components/Head.astro",
@@ -26,8 +27,8 @@ export default defineConfig({
 
       // ---- End Customizations ----
       logo: {
-        light: "./src/assets/images/SriGuideLogo-LM-Xmas.svg",
-        dark: "./src/assets/images/SriGuideLogo-DM-Xmas.svg",
+        light: "./src/assets/images/SriGuideLogo-LM.svg",
+        dark: "./src/assets/images/SriGuideLogo-DM.svg",
         replacesTitle: true,
       },
       social: [
