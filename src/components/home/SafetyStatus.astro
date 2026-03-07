@@ -1,0 +1,222 @@
+---
+const safety = {
+  level: 90, // <----- 0-100 value indicating safety level
+  label: "Safe to visit", // <----- Short label for safety status
+  updated: "March 6, 2026",
+  message:
+    "Sri Lanka remains a safe destination for travelers right now. There are no active wars, significant protests, or natural disasters disrupting visits." 
+}
+
+const globalTravel = {
+  status: "Caution", // <----- Stable > Caution > Warning > Disrupted
+  description:
+    "Regional airspace closures in the Middle East are causing flight delays and rerouting. Most destinations remain open, but some long-haul routes may experience disruptions."
+}
+---
+
+<section class="safety-grid">
+
+  <!-- Safety meter card -->
+  <div class="stat-card">
+    <h3 class="cursive-text">Travel Safety Status</h3>
+    <span class="sr-only">
+      Current safety status: {safety.label}. Safety score {safety.level} out of 100. Last updated {safety.updated}.
+    </span>
+    <div class="meter"
+      role="progressbar"
+      aria-label="Sri Lanka travel safety level"
+      aria-valuenow={safety.level}
+      aria-valuemin="0"
+      aria-valuemax="100"
+    >
+
+      <!-- segments -->
+      <div class="segment red"></div>
+      <div class="segment orange"></div>
+      <div class="segment yellow"></div>
+      <div class="segment green"></div>
+
+      <!-- indicator -->
+      <div
+        class="meter-fill"
+        aria-hidden="true"
+        style={`left:${safety.level}%`}
+        title={`${safety.label} (${safety.level}%) - Updated ${safety.updated}`}
+      ></div>
+
+    </div>
+
+    <p class="status">
+      {safety.label} ({safety.level}%)
+    </p>
+
+    <p class="message">{safety.message}</p>
+
+    <span class="updated">Updated {safety.updated}</span>
+  </div>
+
+
+  <!-- Global travel conditions -->
+  <div class="stat-card stat">
+    <h3 class="cursive-text">Global Travel Conditions</h3>
+    <span class="sr-only">
+      Current global travel conditions: {globalTravel.status}. {globalTravel.description}
+    </span>
+    <div class={`big-stat ${globalTravel.status.toLowerCase()}`}
+      role="status"
+      aria-label={`Global travel conditions: ${globalTravel.status}`}
+    >
+      {globalTravel.status}
+    </div>
+
+    <p class="stat-text">
+      {globalTravel.description}
+    </p>
+  </div>
+
+</section>
+
+<style>
+.safety-grid {
+  display: grid;
+  gap: 1.2rem;
+  margin: 3rem 0;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: stretch;
+}
+
+@media (max-width: 800px) {
+  .safety-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* cards */
+
+.stat-card {
+  padding: 1.4rem;
+  margin-top: 0px;
+  border-radius: 14px;
+  background: var(--sl-color-bg-nav);
+  border: 1px solid var(--sl-color-gray-5);
+  display: flex;
+  flex-direction: column;
+}
+
+/* meter */
+
+.meter {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  height: 12px;
+  border-radius: 999px;
+  margin: 1rem 0 .8rem;
+  border: 1px solid var(--sl-color-gray-5);
+}
+
+/* segments */
+.segment {
+  margin-top: 0px;
+}
+
+.segment.red {
+  background: #ff4d4d;
+}
+
+.segment.orange {
+  background: #ff9900;
+}
+
+.segment.yellow {
+  background: #ffcc00;
+}
+
+.segment.green {
+  background: #4CAF50;
+}
+
+/* indicator dot */
+
+.meter-fill {
+  position: absolute;
+  top: -21px;
+  width: 12px;
+  height: 20px;
+  background: white;
+  border-radius: 15px;
+  border: 2px solid var(--sl-color-gray-4);
+  transform: translateX(-50%);
+  box-shadow: 0 0 6px rgba(0,0,0,.35);
+}
+
+/* text */
+
+.stat-card h3 {
+  margin-bottom: .6rem;
+}
+
+.status {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: .3rem;
+}
+
+.message {
+  font-size: .9rem;
+  margin-top: 5px;
+  color: var(--sl-color-text-secondary);
+}
+
+/* updated */
+
+.updated {
+  display: inline-block;
+  margin-top: 5px;
+  font-size: .8rem;
+  color: var(--sl-color-text-secondary);
+  border: 1px solid var(--sl-color-gray-5);
+  padding: 1px 5px;
+  border-radius: 6px;
+  width: fit-content;
+  background-color: var(--sl-color-gray-5);
+}
+
+/* stat card */
+
+.stat {
+  text-align: center;
+  justify-content: center;
+}
+
+.big-stat {
+  font-size: 2.6rem;
+  font-weight: 700;
+  margin: .5rem 0;
+}
+
+/* status colors */
+
+.big-stat.stable {
+  color: #16a34a;
+}
+
+.big-stat.caution {
+  color: #ffe169;
+  -webkit-text-stroke: 1px #000000bf;
+}
+
+.big-stat.warning {
+  color: #CF7917;
+}
+
+.big-stat.disrupted {
+  color: #d92d20;
+}
+
+.stat-text {
+  font-size: .9rem;
+  color: var(--sl-color-text-secondary);
+  text-align: justify;
+}
+</style>

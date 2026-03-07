@@ -23,7 +23,10 @@ export default defineConfig({
         SocialIcons: "./src/components/SocialIcons.astro",
         Footer: "./src/components/Footer.astro",
       },
-      customCss: ["./src/styles/customstyles.css"],
+      customCss: [
+        "./src/styles/customstyles.css",
+        "./src/styles/font-face.css"
+      ],
 
       // ---- End Customizations ----
       logo: {

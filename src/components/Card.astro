@@ -11,7 +11,7 @@ const { title, icon, href, variant  } = Astro.props;
     </div>
   )}
 
-  <h3>{title}</h3>
+  <h3 class="cursive-text">{title}</h3>
 
   <div class="content">
     <slot />
@@ -61,8 +61,8 @@ const { title, icon, href, variant  } = Astro.props;
 /* title */
 .card h3 {
   margin: 0 0 .35rem 0;
-  font-size: 1.05rem;
-  font-weight: 600;
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 /* description */

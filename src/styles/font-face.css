@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'yanone-kaffeesatz';
+  src: url('../fonts/yanone-kaffeesatz-latin-500-normal.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,0 +1,132 @@
+<section class="testimonials">
+
+<h2 class="cursive-text">What Travelers Say...</h2>
+
+<div class="grid">
+
+<!-- Card 1 -->
+<div class="testimonial">
+<img src="/img/testimonials/testimonial-1.jpg" alt="Jane Doe">
+<p>
+SriGuide is a free, open-source web app offering practical, up-to-date tips for travelers in Sri Lanka
+</p>
+<span class="name">Jane Doe, Germany</span>
+</div>
+
+<!-- Card 2 -->
+<!-- <div class="testimonial">
+<img src="/img/testimonials/testimonial-2.jpg" alt="John Doe">
+<p>
+“The safety updates were incredibly helpful.
+It gave me confidence planning my trip.”
+</p>
+<span class="name">John Doe, Canada </span>
+</div> -->
+
+
+<a class="testimonial placeholder" href="#" target="_blank">
+  Did you find this guide helpful?
+  <span class="name">Send us your feedback... </span>
+</a>
+
+</div>
+
+</section>
+
+<style>
+.testimonials {
+  margin: 4rem 0;
+}
+
+.testimonials h2 {
+  margin-bottom: 1rem;
+}
+
+/* grid */
+
+.grid {
+  display: grid;
+  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+/* testimonial card */
+
+.testimonial {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 1.3rem;
+  border-radius: 14px;
+  border: 1px solid var(--sl-color-gray-5);
+  background: var(--sl-color-bg);
+  min-height: 160px;
+  margin-top: 10px;
+  transition:
+    transform .18s ease,
+    box-shadow .18s ease,
+    border-color .18s ease;
+}
+
+/* hover */
+
+.testimonial:hover {
+  transform: translateY(-3px);
+  border-color: var(--sl-color-accent);
+  box-shadow:
+    0 6px 18px rgba(0,0,0,.08);
+}
+
+/* avatar */
+
+.testimonial img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: .6rem;
+  border: 2px solid var(--sl-color-gray-5);
+}
+
+/* quote */
+
+.testimonial p {
+  flex-grow: 1;
+  margin: 0;
+  font-size: .95rem;
+  line-height: 1.45;
+}
+
+/* name */
+
+.name {
+  display: block;
+  margin-top: .8rem;
+  font-size: .85rem;
+  font-weight: 600;
+  color: var(--sl-color-accent-high);
+}
+
+/* placeholder card */
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 14px;
+  border: 2px dashed var(--sl-color-accent);
+  color: var(--sl-color-text-secondary);
+  min-height: 160px;
+  transition:
+    border-color .18s ease,
+    color .18s ease,
+    transform .18s ease;
+}
+
+.placeholder:hover {
+  color: var(--sl-color-accent);
+  background: var(--sl-color-bg-nav);
+  transform: translateY(-3px);
+}
+</style>
