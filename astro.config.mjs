@@ -18,10 +18,11 @@ export default defineConfig({
       lastUpdated: true,
       // ---- Begin Customizations ----
       components: {
-        Head: "./src/components/Head.astro",
-        PageFrame: "./src/components/PageFrame.astro",
-        SocialIcons: "./src/components/SocialIcons.astro",
-        Footer: "./src/components/Footer.astro",
+        Head: "./src/components/astro/Head.astro",
+        PageFrame: "./src/components/astro/PageFrame.astro",
+        Banner: "./src/components/astro/Banner.astro",
+        SocialIcons: "./src/components/astro/SocialIcons.astro",
+        Footer: "./src/components/astro/Footer.astro",
       },
       customCss: [
         "./src/styles/customstyles.css",
@@ -43,7 +44,7 @@ export default defineConfig({
         {
           icon: "heart",
           label: "Support",
-          href: "https://www.buymeacoffee.com/dilshanh",
+          href: "/help-us",
         },
       ],
       sidebar: [
@@ -58,9 +59,34 @@ export default defineConfig({
           link: "getting-around",
         },
         {
+          label: "Where to Stay",
+          translations: { es: "Dónde Alojarse" },
+          link: "where-to-stay",
+        },
+        {
+          label: "Food & Eats",
+          translations: { es: "Comida y Bebidas" },
+          link: "food-and-eats",
+        },
+        {
+          label: "Things to Do",
+          translations: { es: "Cosas para Hacer" },
+          link: "things-to-do",
+        },
+        {
+          label: "Trip Plans",
+          translations: { es: "Planes de Viaje" },
+          link: "trip-plans",
+        },
+        {
+          label: "Culture & Etiquette",
+          translations: { es: "Cultura y Etiqueta" },
+          link: "culture-and-etiquette",
+        },
+        {
           label: "Safety & Health",
           translations: { es: "Seguridad y Salud" },
-          link: "safety-health",
+          link: "safety-and-health",
         },
         {
           label: "Emergency",
@@ -71,6 +97,16 @@ export default defineConfig({
           label: "FAQ",
           translations: { es: "Preguntas Frecuentes" },
           link: "faq",
+        },
+        {
+          label: "Travel Toolkit",
+          translations: { es: "Herramientas de Viaje" },
+          link: "travel-toolkit",
+        },
+        {
+          label: "Apps & Extras",
+          translations: { es: "Aplicaciones y Extras" },
+          link: "apps",
         },
       ],
       locales: {
@@ -89,7 +125,7 @@ export default defineConfig({
       workbox: {
         navigateFallback: "/404",
         globPatterns: [
-          "**/*.{js,css,html,svg,ico,png,jpg,jpeg,gif,webp,woff,woff2}",
+          "**/*.{js,css,html,svg,ico,png,jpg,jpeg,gif,webp,avif,mp3,woff,woff2}",
           "pagefind/**/*.{pf_fragment,pf_index,pf_meta,json,pagefind,js,wasm}",
         ],
       },
@@ -141,40 +177,40 @@ export default defineConfig({
         screenshots: [
           // mobile screenshots
           {
-            src: "/screenshots/screenshot-n-1.png",
+            src: "/screenshots/screenshot-n-1.jpg",
             sizes: "1080x1920",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "narrow",
           },
           {
-            src: "/screenshots/screenshot-n-2.png",
+            src: "/screenshots/screenshot-n-2.jpg",
             sizes: "1080x1920",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "narrow",
           },
           {
-            src: "/screenshots/screenshot-n-3.png",
+            src: "/screenshots/screenshot-n-3.jpg",
             sizes: "1080x1920",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "narrow",
           },
           // desktop
           {
-            src: "/screenshots/screenshot-w-1.png",
+            src: "/screenshots/screenshot-w-1.jpg",
             sizes: "1920x1080",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "wide",
           },
           {
-            src: "/screenshots/screenshot-w-2.png",
+            src: "/screenshots/screenshot-w-2.jpg",
             sizes: "1920x1080",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "wide",
           },
           {
-            src: "/screenshots/screenshot-w-3.png",
+            src: "/screenshots/screenshot-w-3.jpg",
             sizes: "1920x1080",
-            type: "image/png",
+            type: "image/jpeg",
             form_factor: "wide",
           },
         ],

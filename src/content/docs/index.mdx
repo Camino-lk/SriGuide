@@ -20,53 +20,69 @@ hero:
         id: install-app-btn
 ---
 
-import Card from "../../components/Card.astro"
-import CardGrid from "../../components/CardGrid.astro"
-import SafetyStatus from "../../components/home/SafetyStatus.astro"
-import TestimonialSection from "../../components/home/TestimonialSection.astro"
-import TrustSection from "../../components/home/TrustSection.astro"
-
+import Card from "../../components/home/Card.astro";
+import CardGrid from "../../components/home/CardGrid.astro";
+import SafetyStatus from "../../components/Guides/SafetyStatus.astro";
+import TestimonialSection from "../../components/home/TestimonialSection.astro";
+import TrustSection from "../../components/home/TrustSection.astro";
+import UnderConstruction from "../../components/home/UnderConstruction.astro";
 
 <CardGrid>
-  <Card title="Quick Essentials" icon="open-book" href="/quick-essentials">
-    Visas, packing lists, budget tips, and everything you need to get started.
-  </Card>
+<Card title="Quick Essentials" icon="open-book" href="/quick-essentials">
+  Visas, packing lists, budget tips, and everything you need to get started.
+</Card>
 
-  <Card title="Getting Around" icon="random" href="/getting-around">
-    Taxis, trains, tuk-tuks, useful apps - Cheap and easy ways to move.
-  </Card>
+<Card title="Getting Around" icon="random" href="/getting-around">
+  Taxis, trains, tuk-tuks, useful apps - Cheap and easy ways to move.
+</Card>
 
-  <Card title="Places to Stay" icon="warning" href="/safety-health">
-    Budget guesthouses, beach resorts, homestays - Find the right fit fast.
-  </Card>
+<Card title="Where to Stay" icon="farcaster" href="/where-to-stay">
+  Budget guesthouses, beach resorts, homestays - Find the right fit fast.
+</Card>
 
-  <Card title="Food & Eats" icon="warning" href="/safety-health">
-    Must-try dishes, safe street food, vegetarian options, and hygiene tips.
-  </Card>
+<Card title="Food & Eats" icon="homebrew" href="/food-and-eats">
+  Must-try dishes, safe street food, vegetarian options, and hygiene tips.
+</Card>
 
-  <Card title="Things to Do" icon="warning" href="/safety-health">
-    Beaches, ancient ruins, safaris, hikes - The top experiences in Sri Lanka.
-  </Card>
+<Card title="Things to Do" icon="star" href="/things-to-do">
+  Beaches, ancient ruins, safaris, hikes - The top experiences in Sri Lanka.
+</Card>
 
-  <Card title="Trip Plans" icon="warning" href="/safety-health">
-    Ready-made 7-14 day itineraries for different travel styles and budgets.
-  </Card>
+<Card title="Trip Plans" icon="seti:notebook" href="/trip-plans">
+  Find best places to visit and itineraries for different travel styles and
+  budgets.
+</Card>
 
-  <Card title="Culture & Extras" icon="warning" href="/safety-health">
-    Temple etiquette, souvenirs, nightlife, festivals - Connect like a local.
-  </Card>
+<Card title="Culture & Extras" icon="puzzle" href="/culture-and-etiquette">
+  Temple etiquette, souvenirs, nightlife, festivals - Connect like a local.
+</Card>
 
-  <Card title="Safety & Health" icon="warning" href="/safety-health" variant="warn">
-    Avoid scams, health advice, emergency numbers - Stay safe and worry-free.
-  </Card>
+<Card
+  title="Safety & Health"
+  icon="warning"
+  href="/safety-and-health"
+  variant="warn"
+>
+  Avoid scams, health advice, emergency numbers - Stay safe and worry-free.
+</Card>
 
-  <Card title="Emergency" icon="error" href="/emergency" variant="danger">
-    Police, ambulance, tourist hotline, lost passport - Critical contacts saved here.
-  </Card>
+<Card title="Emergency" icon="error" href="/emergency" variant="danger">
+  Police, ambulance, tourist hotline, lost passport - Critical contacts saved
+  here.
+</Card>
 
-  <Card title="FAQ" icon="list-format" href="/faq">
-    Common questions answered: visas, best time to visit, safety, and more.
-  </Card>
+<Card title="FAQ" icon="list-format" href="/faq">
+  Common questions answered: visas, best time to visit, safety, and more.
+</Card>
+
+<Card title="Travel Toolkit" icon="setting" href="/travel-toolkit">
+  Interactive tools to plan & manage your trip: Checklists, currency converter
+  and more.
+</Card>
+
+<Card title="Apps & Extras" icon="setting" href="/apps">
+  Essential apps for every traveler - Transport, accommodation, food and more.
+</Card>
 </CardGrid>
 
 <SafetyStatus />
@@ -74,3 +90,5 @@ import TrustSection from "../../components/home/TrustSection.astro"
 <TestimonialSection />
 
 <TrustSection />
+
+<UnderConstruction />

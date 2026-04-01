@@ -1,0 +1,177 @@
+<div class="time-card">
+  <div
+    class="clock"
+    id="lk-clock"
+    role="timer"
+    aria-label="Current time in Sri Lanka"
+    aria-live="off"
+  >
+    --:--:--
+  </div>
+  <div class="time-info">
+    <div class="gmt">Sri Lanka Time • GMT+5:30</div>
+    <time class="date" id="lk-date" datetime="">Loading date...</time>
+    <div class="difference" id="time-diff" aria-live="polite">
+      Checking your time zone...
+    </div>
+  </div>
+</div>
+
+<script>
+  const clock = document.getElementById("lk-clock")!;
+  const dateBox = document.getElementById("lk-date")!;
+  const diffBox = document.getElementById("time-diff")!;
+  const LK_TIMEZONE = "Asia/Colombo";
+
+  function updateTime() {
+    const now = new Date();
+    const options = {
+      timeZone: LK_TIMEZONE,
+      hour12: false,
+    };
+
+    clock.textContent = now.toLocaleTimeString("en-GB", {
+      ...options,
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+
+    dateBox.textContent = now.toLocaleDateString("en-GB", {
+      ...options,
+      weekday: "long",
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
+    // Set datetime attribute (CA format=YYYY-MM-DD)
+    dateBox.setAttribute(
+      "datetime",
+      now.toLocaleDateString("en-CA", { timeZone: LK_TIMEZONE }),
+    );
+
+    // Get offset
+    const lkTimeStr = now.toLocaleString("en-US", { timeZone: LK_TIMEZONE });
+    const lkDate = new Date(lkTimeStr);
+    const userTime = new Date();
+    const diffMs = lkDate.getTime() - userTime.getTime();
+
+    // Convert to hours/minutes
+    const diffHours = diffMs / 3600000;
+
+    // Format the string
+    if (Math.abs(diffHours) < 0.016) {
+      diffBox.textContent = "Same as your local time";
+    } else {
+      const hours = Math.floor(Math.abs(diffHours));
+      const minutes = Math.round((Math.abs(diffHours) % 1) * 60);
+      const label = diffHours > 0 ? "ahead" : "behind";
+      diffBox.textContent = `${hours}h ${minutes}m ${label} your time`;
+    }
+  }
+  // Initial call and update every second
+  updateTime();
+  setInterval(updateTime, 1000);
+</script>
+
+<style>
+  .time-card {
+    display: grid;
+    align-items: stretch;
+    gap: 1.4rem;
+    padding: 1.25rem 1.6rem;
+    border-radius: 16px;
+    border: 1px solid var(--sl-color-gray-6);
+    background: var(--sl-color-bg-nav);
+    box-shadow: var(--sl-shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .time-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--sl-color-accent) 10%, transparent),
+      transparent 75%
+    );
+    pointer-events: none;
+  }
+
+  /* CLOCK */
+
+  .clock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    font-weight: 700;
+    font-family: "dseg7-classic-mini", monospace;
+    letter-spacing: 0.04em;
+    color: var(--sl-color-text);
+    padding: 0.7rem 1.2rem;
+    background: var(--sl-color-gray-5);
+    border-radius: 12px;
+    box-shadow:
+      inset 0 2px 4px rgba(255, 255, 255, 0.6),
+      inset 0 -2px 8px rgba(0, 0, 0, 0.15),
+      0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* RIGHT SIDE */
+
+  .time-info {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
+    margin-top: 0px;
+  }
+
+  /* TEXT */
+
+  .gmt {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--sl-color-text-accent);
+    white-space: nowrap;
+    margin-top: 0px;
+  }
+
+  .date {
+    font-size: 0.95rem;
+    color: var(--sl-color-text);
+    margin-top: 0px;
+  }
+
+  .difference {
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 0.35rem 0.8rem;
+    margin-top: 0px;
+    border-radius: 999px;
+    background: var(--sl-color-gray-6);
+    border: 1px solid var(--sl-color-gray-5);
+    width: fit-content;
+  }
+
+  /* MOBILE */
+
+  @media (max-width: 640px) {
+    .time-card {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .clock {
+      font-size: 2.2rem;
+    }
+
+    .time-info {
+      align-items: center;
+    }
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+/*
+ * Props:
+ *   title   (optional) — Card Title ("Help us build SriGuide!" [def])
+ *   message (optional) — Supporting message below title ([def] below)
+ */
+
+const {
+  title = "Help us build SriGuide!",
+  message = "We're actively working on many topics. Your feedback and contributions are well appreciated...",
+} = Astro.props;
+---
+
+<a
+  class="help-card"
+  href="/help-us"
+  aria-label="Help us build SriGuide"
+  role="button"
+>
+  <div class="wip-card">
+    <div class="wip-body">
+      <p class="wip-title">{title}</p>
+      <p class="wip-message">{message}</p>
+    </div>
+    <div class="wip-heart" aria-hidden="true">
+      <svg
+        class="heart-icon"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+      >
+        <path
+          d="M12 21.593c-5.63-5.539-11-10.297-11-14.402
+           0-3.791 3.068-5.191 5.281-5.191
+           1.312 0 4.151.501 5.719 4.457
+           1.59-3.968 4.464-4.447 5.726-4.447
+           2.54 0 5.274 1.621 5.274 5.181
+           0 4.069-5.136 8.625-11 14.402z"
+        ></path>
+      </svg>
+    </div>
+  </div>
+</a>
+
+<style>
+  .help-card {
+    text-decoration: none;
+  }
+  .wip-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25rem;
+    padding: 1.1rem 1.5rem;
+    margin-top: 0rem;
+    border-radius: 10px;
+    border: 1px solid color-mix(in srgb, var(--sl-color-red) 28%, transparent);
+    background: color-mix(in srgb, var(--sl-color-red) 6%, var(--sl-color-bg));
+    position: relative;
+    overflow: hidden;
+  }
+
+  .wip-card:hover {
+    border-color: color-mix(in srgb, var(--sl-color-red) 55%, transparent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px
+      color-mix(in srgb, var(--sl-color-red) 15%, transparent);
+  }
+
+  /* Faint left-edge accent stripe */
+  .wip-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    border-radius: 10px 0 0 10px;
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sl-color-red) 70%, transparent),
+      color-mix(in srgb, var(--sl-color-red) 25%, transparent)
+    );
+  }
+
+  /* ── Text side ── */
+  .wip-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .wip-title {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: color-mix(in srgb, var(--sl-color-red) 80%, var(--sl-color-text));
+    letter-spacing: 0.01em;
+  }
+
+  .wip-message {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--sl-color-text);
+    opacity: 0.82;
+  }
+
+  /* ── Heart side ── */
+  .wip-heart {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0rem 2rem;
+  }
+
+  .heart-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--sl-color-red);
+    animation: heartbeat 2.6s ease-in-out infinite;
+    filter: drop-shadow(
+        0 0 5px color-mix(in srgb, var(--sl-color-red) 55%, transparent)
+      )
+      drop-shadow(
+        0 0 12px color-mix(in srgb, var(--sl-color-red) 25%, transparent)
+      );
+  }
+
+  @keyframes heartbeat {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    14% {
+      transform: scale(1.18);
+      opacity: 1;
+    }
+    28% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+    42% {
+      transform: scale(1.12);
+      opacity: 1;
+    }
+    70% {
+      transform: scale(1);
+      opacity: 0.85;
+    }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 480px) {
+    .wip-card {
+      padding: 1rem 1.15rem;
+      gap: 1rem;
+    }
+    .wip-title {
+      font-size: 1rem;
+    }
+    .wip-heart {
+      margin: 0 0.5rem;
+    }
+    .wip-message {
+      font-size: 0.9rem;
+    }
+    .heart-icon {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+</style>

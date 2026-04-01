@@ -1,0 +1,91 @@
+---
+/*
+ * Props:
+ *   src    (required) — URL of the audio file
+ *   label   (optional) — Accessible label for the button ("Play pronunciation" [def])
+ *   title   (optional) — Title of the phrase, shown in media metadata ("Phrase" [def])
+ */
+
+import { Icon } from "@astrojs/starlight/components";
+
+const { src, label = "Play pronunciation", title = "Phrase" } = Astro.props;
+const uniqueId = `audio-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<button
+  class="speak-btn"
+  aria-label={label}
+  data-title={title}
+  data-audio-id={uniqueId}
+  type="button"
+  title="Listen to pronunciation"
+>
+  <Icon class="speaker-icon" name="seti:audio" size="1em" aria-hidden="true" />
+</button>
+
+<audio id={uniqueId} src={src} preload="auto"></audio>
+
+<script>
+  const audioController: { current: HTMLAudioElement | null } = {
+    current: null,
+  };
+
+  document.addEventListener("click", (e) => {
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+
+    const button = target.closest(".speak-btn");
+    if (!(button instanceof HTMLButtonElement)) return;
+
+    const id = button.dataset.audioId;
+    const title = button.dataset.title;
+    if (!id) return;
+
+    const audio = document.getElementById(id);
+    if (!(audio instanceof HTMLAudioElement)) return;
+
+    // Pause any currently playing audio
+    if (audioController.current && audioController.current !== audio) {
+      audioController.current.pause();
+      audioController.current.currentTime = 0;
+    }
+
+    // Point to the new audio
+    audioController.current = audio;
+
+    // Inject metadata
+    if ("mediaSession" in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({
+        title: title ?? "Phrase",
+        artist: "SriGuide | Explore Sri Lanka with Confidence",
+        album: "Useful Sinhala Phrases",
+        artwork: [
+          { src: "/pwa-192x192.png", sizes: "192x192", type: "image/png" },
+        ],
+      });
+    }
+
+    audio.play().catch((err) => console.error("Playback failed:", err));
+  });
+</script>
+
+<style>
+  .speak-btn {
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    padding: 0 0.2rem;
+    margin-top: -5px;
+    opacity: 0.7;
+    color: var(--sl-color-text-secondary);
+    vertical-align: middle;
+    transform: translateY(1px);
+  }
+
+  .speak-btn:hover {
+    opacity: 1;
+    color: var(--sl-color-text-accent);
+  }
+</style>

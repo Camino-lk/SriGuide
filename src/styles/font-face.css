@@ -1,7 +1,17 @@
+/* Custom Fonts */
+
 @font-face {
   font-family: 'yanone-kaffeesatz';
   src: url('../fonts/yanone-kaffeesatz-latin-500-normal.woff2') format('woff2');
-  font-weight: normal;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'dseg7-classic-mini';
+  src: url('../fonts/dseg7-classic-mini-latin-400-normal.woff2') format('woff2');
+  font-weight: 500;
   font-style: normal;
   font-display: swap;
 }

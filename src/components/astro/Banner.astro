@@ -1,0 +1,266 @@
+---
+import { Icon } from "@astrojs/starlight/components";
+
+type NoticeSeverity = "info" | "success" | "warning" | "danger";
+
+// ╔══════════════════════════════════════════════════╗
+// ║             MANAGE ACTIVE NOTICE                 ║
+// ╚══════════════════════════════════════════════════╝
+const notice = {
+  active: true, // toggle visibility
+  id: "ME-airspace-closure-2026-03-04", // change id whenever message changes
+  severity: "warning" as NoticeSeverity, // ["info", "success", "warning", "danger"]
+  message:
+    "Middle East airspace closures: Contact the 24/7 tourism hotline for any assistance - sltda.gov.lk",
+  link: { label: "Call 1912", href: "tel:1912" },
+};
+// ═══════════════════════════════════════════════════
+
+if (!notice.active) return;
+
+const { id, message, severity, link } = notice;
+const isDanger = severity === "danger";
+
+const iconMap = {
+  info: "information",
+  success: "approve-check-circle",
+  warning: "warning",
+  danger: "error",
+} as const;
+---
+
+<div
+  class="en-wrap"
+  data-notice-id={id}
+  data-severity={severity}
+  data-danger={isDanger ? "true" : undefined}
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true"
+  aria-label={`${severity} notice`}
+>
+  <div class="en-inner">
+    <Icon name={iconMap[severity]} class="en-icon" aria-hidden="true" />
+
+    <p class="en-message">{message}</p>
+
+    {
+      link && (
+        <a
+          class="en-link"
+          href={link.href}
+          aria-label={`${link.label} — ${message}`}
+        >
+          {link.label}
+          <Icon name="external" aria-hidden="true" />
+        </a>
+      )
+    }
+
+    <button
+      class="en-close"
+      aria-label="Dismiss this notice"
+      title={isDanger ? "Dismiss for this session" : "Dismiss permanently"}
+    >
+      <Icon name="close" aria-hidden="true" />
+    </button>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".en-wrap").forEach((wrap) => {
+    const noticeId = wrap.dataset.noticeId;
+    const isDanger = wrap.dataset.danger === "true";
+
+    if (!noticeId) return;
+
+    const storageKey = `en-dismissed:${noticeId}`;
+
+    // ── Check if already dismissed ───────────────────────────
+    if (
+      sessionStorage.getItem(storageKey) ||
+      localStorage.getItem(storageKey)
+    ) {
+      wrap.remove();
+      return;
+    }
+
+    // ── Slide in ──────────────────────────────────────────────
+    wrap.style.maxHeight = "0";
+    wrap.style.overflow = "hidden";
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        wrap.style.transition =
+          "max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s ease";
+        wrap.style.maxHeight = `${wrap.scrollHeight}px`;
+        wrap.style.opacity = "1";
+
+        wrap.addEventListener(
+          "transitionend",
+          () => {
+            wrap.style.maxHeight = "none";
+            wrap.style.overflow = "visible";
+          },
+          { once: true },
+        );
+      });
+    });
+
+    // ── Dismiss ───────────────────────────────────────────────
+    wrap
+      .querySelector<HTMLButtonElement>(".en-close")
+      ?.addEventListener("click", () => {
+        wrap.style.maxHeight = `${wrap.scrollHeight}px`;
+        wrap.style.overflow = "hidden";
+
+        requestAnimationFrame(() => {
+          wrap.style.transition =
+            "max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease";
+          wrap.style.maxHeight = "0";
+          wrap.style.opacity = "0";
+        });
+
+        wrap.addEventListener("transitionend", () => wrap.remove(), {
+          once: true,
+        });
+
+        isDanger
+          ? sessionStorage.setItem(storageKey, "1")
+          : localStorage.setItem(storageKey, "1");
+      });
+  });
+</script>
+
+<style is:global>
+  /* ── Severity tokens using Starlight vars ────────────────── */
+  .en-wrap[data-severity="info"] {
+    --en-bg: var(--sl-color-blue-low);
+    --en-border: var(--sl-color-blue);
+    --en-text: var(--sl-color-blue-high);
+  }
+
+  .en-wrap[data-severity="success"] {
+    --en-bg: var(--sl-color-green-low);
+    --en-border: var(--sl-color-green);
+    --en-text: var(--sl-color-green-high);
+  }
+
+  .en-wrap[data-severity="warning"] {
+    --en-bg: var(--sl-color-orange-low);
+    --en-border: var(--sl-color-orange);
+    --en-text: var(--sl-color-orange-high);
+  }
+
+  .en-wrap[data-severity="danger"] {
+    --en-bg: var(--sl-color-red-low);
+    --en-border: var(--sl-color-red);
+    --en-text: var(--sl-color-red-high);
+  }
+
+  /* ── Wrap ────────────────────────────────────────────────── */
+  .en-wrap {
+    width: 100%;
+    opacity: 0;
+    box-sizing: border-box;
+  }
+
+  /* ── Inner bar ───────────────────────────────────────────── */
+  .en-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+
+    padding: 0.6rem 1rem;
+
+    background: var(--en-bg);
+    border-bottom: 1px solid var(--en-border);
+    color: var(--en-text);
+
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* ── Icon ────────────────────────────────────────────────── */
+  .en-icon {
+    flex-shrink: 0;
+    width: 1.1rem;
+    height: 1.1rem;
+    color: var(--en-border);
+  }
+
+  /* ── Message ─────────────────────────────────────────────── */
+  .en-message {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+  }
+
+  /* ── CTA link ────────────────────────────────────────────── */
+  .en-link {
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    padding: 0.2rem 0.55rem;
+    border-radius: 5px;
+
+    background: color-mix(in srgb, var(--en-border) 15%, transparent);
+    color: var(--en-text);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    border: 1px solid color-mix(in srgb, var(--en-border) 40%, transparent);
+    transition: background 0.15s;
+  }
+
+  .en-link:hover {
+    background: color-mix(in srgb, var(--en-border) 25%, transparent);
+    text-decoration: none;
+  }
+
+  .en-link svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  /* ── Close button ────────────────────────────────────────── */
+  .en-close {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto;
+
+    width: 24px;
+    height: 24px;
+    padding: 0;
+
+    border: none;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+
+    color: var(--en-text);
+    opacity: 0.6;
+    transition:
+      opacity 0.15s,
+      background 0.15s;
+  }
+
+  .en-close:hover {
+    opacity: 1;
+    background: color-mix(in srgb, var(--en-border) 20%, transparent);
+  }
+
+  .en-close svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+</style>
