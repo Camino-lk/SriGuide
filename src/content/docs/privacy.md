@@ -3,7 +3,7 @@ title: Privacy Policy
 description: How SriGuide handles your data - what is collected, what isn't, and which third-party services are in use.
 ---
 
-_Last updated: 2026.03.30_
+_Last updated: 2026.04.01_
 
 This privacy policy explains what data is collected when you use SriGuide (the "Site"), how it is used, and which third-party services are involved. The Site is operated as an open-source project, initiated under 'Camino', an online startup foundation focused on tourism sector in Sri Lanka and is not a commercial entity.
 
@@ -34,6 +34,7 @@ What Simple Analytics does **not** collect:
 Simple Analytics is based in the EU, processes all data within the EU, and is fully compliant with the GDPR, ePrivacy Directive, the UK GDPR, and the PECT. No cookie consent banner is required for Simple Analytics because no personal data is processed. For more information, see [Simple Analytics' privacy documentation](https://docs.simpleanalytics.com/introduction-to-legal).
 
 The data retained is limited to a 30-day rolling window and traffic data older than 30 days will be automatically deleted from their servers.
+The Site respects the Do Not Track (DNT) browser setting. Visitors with DNT enabled are excluded from analytics entirely.
 
 ---
 
