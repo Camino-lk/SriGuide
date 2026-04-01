@@ -1,0 +1,136 @@
+---
+/*
+ * Props:
+ *   number (optional) — Phone number to call ("119" [def])
+ *   label  (optional) — Description of the number for accessibility ("Emergency Hotline" [def])
+ *   text   (optional) — Call-to-action text shown above the number ("Tap to call emergency services" [def])
+ */
+
+import { Icon } from "@astrojs/starlight/components";
+
+const {
+  number = "119",
+  label = "Emergency Hotline",
+  text = "Tap to call emergency services",
+} = Astro.props;
+---
+
+<a
+  class="emergency-card"
+  href={`tel:${number}`}
+  aria-label={`Call ${label} ${number}`}
+>
+  <div class="content">
+    <span class="cta">{text}</span>
+    <span class="number-box">
+      <Icon class="number-icon" name="phone" size="2rem" />
+      {number}
+    </span>
+  </div>
+</a>
+
+<style>
+  .emergency-card {
+    display: block;
+    margin: 1.2rem 0;
+    padding: 1.5rem 1.6rem;
+    border-radius: 14px;
+    border: 1px solid var(--sl-color-red-low);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .emergency-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      120deg,
+      transparent,
+      var(--sl-color-red),
+      transparent
+    );
+    opacity: 0.15;
+    pointer-events: none;
+  }
+
+  /* layout */
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
+    text-align: center;
+  }
+
+  /* text */
+
+  .cta {
+    font-size: 1.2rem;
+    color: var(--sl-color-text-secondary);
+  }
+
+  /* big number */
+
+  .number-box {
+    display: flex;
+    align-items: center;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--sl-color-red);
+  }
+  .number-box .number-icon {
+    margin: 10px 5px;
+    margin-top: 15px;
+    color: var(--sl-color-red);
+  }
+
+  /* hover */
+
+  .emergency-card:hover {
+    border-color: var(--sl-color-red);
+    box-shadow: 0 5px 20px
+      color-mix(in srgb, var(--sl-color-red) 20%, transparent);
+    background:
+      linear-gradient(var(--sl-color-red-low), transparent 100px),
+      var(--sl-color-bg);
+    transform: translateY(-4px);
+  }
+
+  /* Animate card content */
+  .emergency-card:hover .number-box {
+    transform: scale(1.05);
+  }
+  .emergency-card:hover .number-icon {
+    animation: wiggle 1.2s infinite;
+  }
+  @keyframes wiggle {
+    0%,
+    100% {
+      transform: rotate(0deg) scale(0.6);
+    }
+    25% {
+      transform: rotate(15deg);
+    }
+    50% {
+      transform: rotate(-15deg);
+    }
+    75% {
+      transform: rotate(10deg) scale(1);
+    }
+  }
+
+  /* make cta text one line in mobile */
+  @media (max-width: 415px) {
+    .cta {
+      font-size: 1.05rem;
+    }
+  }
+</style>

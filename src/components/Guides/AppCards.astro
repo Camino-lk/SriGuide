@@ -1,0 +1,264 @@
+---
+/*
+* Props:
+*   apps (required) — Array of app objects with the following structure:
+*     - icon (required) — Path to app icon image ("/img/app-icons/xxxx.avif")
+*     - title (required) — Display name of the application
+*     - description (required) — Short description of the app's purpose
+*     - category (required) — App category label ("Navigation", "Finance", "Communication" etc.)
+*     - platforms (required) — Object containing platform download links:
+*       - android (optional) — Google Play Store URL
+*       - ios (optional) — Apple App Store URL
+*       - web (optional) — Web URL
+*/
+
+interface Platform {
+  android?: string;
+  ios?: string;
+  web?: string;
+}
+
+interface AppCardData {
+  icon: string;
+  title: string;
+  description: string;
+  category?: string;
+  platforms: Platform;
+}
+
+interface Props {
+  apps: AppCardData[];
+}
+
+const { apps } = Astro.props;
+---
+
+<div class="app-grid">
+  {apps.map((app) => (
+    <article class="app-card">
+      <!-- Icon -->
+      <div class="app-card__icon">
+        <img src={app.icon} alt={`${app.title} icon`} width="48" height="48" loading="lazy" />
+      </div>
+
+      <div class="app-card__body">
+        <div class="app-card__header">
+          <h3 class="app-card__title">{app.title}</h3>
+          {app.category && (
+            <span class="app-card__badge">{app.category}</span>
+          )}
+        </div>
+        <p class="app-card__desc">{app.description}</p>
+      </div>
+
+      <div class="app-card__platforms">
+        {app.platforms.android && (
+          <a
+            href={app.platforms.android}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="app-card__platform-link"
+            aria-label={`Get ${app.title} on Android`}
+            title="Google Play"
+          >
+            <!-- Android robot icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M17.523 15.342a.81.81 0 0 1-.814-.814.81.81 0 0 1 .814-.814.81.81 0 0 1 .814.814.81.81 0 0 1-.814.814m-11.046 0a.81.81 0 0 1-.814-.814.81.81 0 0 1 .814-.814.81.81 0 0 1 .814.814.81.81 0 0 1-.814.814m11.411-6.235 1.63-2.822a.338.338 0 0 0-.124-.462.338.338 0 0 0-.462.124l-1.652 2.861A10.268 10.268 0 0 0 12 8.099c-1.512 0-2.946.338-4.28.91L6.068 6.147a.338.338 0 0 0-.462-.124.338.338 0 0 0-.124.462l1.63 2.822C4.637 10.696 2.9 13.044 2.9 15.8h18.2c0-2.756-1.737-5.104-4.212-6.693"/>
+            </svg>
+            <span class="app-card__platform-label">Android</span>
+          </a>
+        )}
+
+        {app.platforms.ios && (
+          <a
+            href={app.platforms.ios}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="app-card__platform-link"
+            aria-label={`Get ${app.title} on iOS`}
+            title="App Store"
+          >
+            <!-- Apple logo icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/>
+            </svg>
+            <span class="app-card__platform-label">iOS</span>
+          </a>
+        )}
+
+        {app.platforms.web && (
+          <a
+            href={app.platforms.web}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="app-card__platform-link"
+            aria-label={`Visit ${app.title} website`}
+            title="Website"
+          >
+            <!-- Globe icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            <span class="app-card__platform-label">Web</span>
+          </a>
+        )}
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  /* ─── Grid ──────────────────────────────────────────────────── */
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 1rem;
+    margin-block: 1.5rem;
+  }
+
+  /* ─── Card ───────────────────────────────────────────────────── */
+  .app-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.125rem 1.25rem 1rem;
+    margin-top: 0px;
+    border-radius: 0.75rem;
+    border: 1px solid var(--sl-color-hairline-light, var(--sl-color-gray-5));
+    background-color: var(--sl-color-bg-nav);
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      transform 200ms ease;
+    will-change: transform;
+  }
+
+  .app-card:hover {
+    border-color: var(--sl-color-accent);
+    box-shadow:
+      0 4px 16px -4px color-mix(in srgb, var(--sl-color-accent) 25%, transparent),
+      0 1px 4px -1px color-mix(in srgb, var(--sl-color-black, #000) 10%, transparent);
+    transform: translateY(-2px);
+  }
+
+  /* ─── Icon area ──────────────────────────────────────────────── */
+  .app-card__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background-color: color-mix(in srgb, var(--sl-color-accent) 12%, var(--sl-color-bg));
+    flex-shrink: 0;
+    overflow: hidden;
+  }
+
+  .app-card__icon img,
+  .app-card__icon :global(svg) {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  /* ─── Body ───────────────────────────────────────────────────── */
+  .app-card__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .app-card__header {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .app-card__title {
+    font-size: var(--sl-text-base, 1rem);
+    font-weight: 600;
+    color: var(--sl-color-white);
+    margin: 0;
+    line-height: 1.3;
+    border: none;
+    padding: 0;
+  }
+
+  .app-card__badge {
+    display: inline-block;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    line-height: 1;
+    padding: 0.25em 0.55em;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--sl-color-accent) 18%, transparent);
+    color: var(--sl-color-accent-high, var(--sl-color-accent));
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .app-card__desc {
+    font-size: var(--sl-text-sm, 0.875rem);
+    color: var(--sl-color-gray-2, var(--sl-color-text));
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ─── Platform links ─────────────────────────────────────────── */
+  .app-card__platforms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--sl-color-hairline-light, var(--sl-color-gray-6));
+    margin-top: auto;
+  }
+
+  .app-card__platform-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--sl-color-text);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--sl-color-gray-5);
+    background: transparent;
+    transition:
+      color 150ms ease,
+      border-color 150ms ease,
+      background-color 150ms ease;
+  }
+
+  .app-card__platform-link:hover {
+    color: var(--sl-color-accent-high, var(--sl-color-accent));
+    border-color: var(--sl-color-accent);
+    background-color: color-mix(in srgb, var(--sl-color-accent) 10%, transparent);
+    text-decoration: none;
+  }
+
+  .app-card__platform-label {
+    display: inline;
+  }
+
+  /* ─── Responsive tweaks ──────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .app-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .app-card__platform-label {
+      display: none;
+    }
+
+    .app-card__platform-link {
+      padding: 0.35rem 0.5rem;
+    }
+  }
+</style>

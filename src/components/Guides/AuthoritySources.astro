@@ -1,0 +1,165 @@
+---
+/**
+ * Props:
+ *   title (optional) — Section title ("Official Sources" [def])
+ *   items (array) — List of sources, each with:
+ *     - name        (required) — Display name of the source
+ *     - url         (optional) — URL to the official page
+ *     - description (optional) — Short description shown below the name
+ *     - phone       (optional) — Contact phone number, ideally in E.164 format e.g. "+66 1155"
+ *     - email       (optional) — Contact email address
+ *     - icon        (optional) — Icon name from Starlight Icons
+ */
+
+import { Icon } from "@astrojs/starlight/components";
+
+const { title = "Official Sources", items = [] } = Astro.props;
+---
+
+<div class="authority-card">
+  <div class="header">
+    <Icon name="open-book" size="1rem" />
+    {title}
+  </div>
+
+  <ul class="sources">
+    {
+      items.map((item) => (
+        <li class="source">
+          {item.icon && (
+            <span class="source-icon">
+              <Icon name={item.icon} size="0.95rem" />
+            </span>
+          )}
+
+          <div class="content">
+            {item.url && (
+              <a href={item.url} target="_blank" rel="noopener">
+                {item.name}
+              </a>
+            )}
+
+            {item.description && <span class="desc">{item.description}</span>}
+
+            {(item.phone || item.email) && (
+              <div class="contacts">
+                {item.phone && (
+                  <span class="chip">
+                    <Icon name="phone" size="0.85rem" />
+                    {item.phone}
+                  </span>
+                )}
+
+                {item.email && (
+                  <span class="chip">
+                    <Icon name="email" size="0.85rem" />
+                    {item.email}
+                  </span>
+                )}
+              </div>
+            )}
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .authority-card {
+    margin: 1.5rem 0;
+    padding: 1.1rem 1.2rem;
+    border-radius: 14px;
+    border: 1px solid var(--sl-color-gray-5);
+    background: var(--sl-color-bg-nav);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* accent glow */
+
+  .authority-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      circle at top right,
+      color-mix(in srgb, var(--sl-color-accent) 18%, transparent),
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  /* header */
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  /* list */
+
+  .sources {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  /* item */
+
+  .source {
+    display: flex;
+    gap: 0.6rem;
+  }
+
+  .source-icon {
+    padding-top: 8px;
+  }
+
+  /* content */
+
+  .content {
+    margin-bottom: 8px;
+  }
+  .content a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .content a:hover {
+    text-decoration: underline;
+  }
+
+  .desc {
+    display: block;
+    font-size: 0.85rem;
+    color: var(--sl-color-text-secondary);
+  }
+
+  /* contact chips */
+
+  .contacts {
+    margin-top: 0.35rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    background: var(--sl-color-gray-5);
+    color: var(--sl-color-text-secondary);
+  }
+</style>
