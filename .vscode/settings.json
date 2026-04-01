@@ -7,6 +7,8 @@
     "āyubōvan",
     "bohoma",
     "camino",
+    "Ciberseguridad",
+    "cingalés",
     "customstyles",
     "gāna",
     "homestays",
@@ -23,8 +25,12 @@
     "rasayi",
     "særa",
     "særada",
+    "Seriya",
     "Sinhala",
+    "SLCERT",
+    "SLGIC",
     "stūtiyi",
+    "Suwa",
     "tsconfigs",
     "tuks",
     "udav",
@@ -66,5 +72,6 @@
   "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "cSpell.language": "en,es-ES"
 }

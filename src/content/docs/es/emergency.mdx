@@ -1,0 +1,193 @@
+---
+title: Contactos de Emergencia
+description: Números de emergencia, contactos policiales y qué hacer en una crisis durante tu viaje por Sri Lanka - todo en un solo lugar.
+---
+
+import UnderConstruction from "../../../components/home/UnderConstruction.astro";
+import EmergencyCall from "../../../components/Guides/EmergencyCall.astro";
+import EmergencyContact from "../../../components/Guides/EmergencyContact.astro";
+import AuthoritySources from "../../../components/Guides/AuthoritySources.astro";
+import Speak from "../../../components/Guides/Speak.astro";
+
+Llama el siguiente número para **conectarte con la División de Policía Turística, obtener información de viaje y ayuda de emergencia ante cualquier imprevisto**.
+(Los códigos cortos de marcación solo funcionan dentro de Sri Lanka)
+
+<EmergencyCall
+  number="1912"
+  label="Línea Turística"
+  text="Toca para llamar a la Línea Turística de Sri Lanka"
+/>
+
+Las siguientes secciones contienen números de contacto importantes que podrías necesitar. Toca `Save` para añadirlos a los contactos de tu teléfono.
+Busca **SriGuide** en tu pantalla de marcador para encontrar cualquier número que necesites.
+
+## Policía de Sri Lanka
+
+<EmergencyContact
+  name="Centro de Emergencias"
+  phone="119"
+  note="Asistencia policial en situaciones urgentes, disponible 24x7"
+  category="police"
+/>
+<EmergencyContact
+  name="Servicio de Información de Emergencias"
+  phone="118"
+  note="Asistencia de servicios de emergencia, disponible 24x7"
+  category="police"
+/>
+<EmergencyContact
+  name="Guardacostas de Sri Lanka"
+  phone="106"
+  note="Línea directa para incidentes marítimos"
+  category="police"
+/>
+<EmergencyContact
+  name="SLCERT"
+  phone="101"
+  note="Centro de Coordinación de Ciberseguridad"
+  category="police"
+/>
+
+<AuthoritySources
+  items={[
+    {
+      icon: "external",
+      name: "Policía de Sri Lanka",
+      url: "https://www.police.lk/?page_id=1334",
+      description: "Ver página de números de emergencia",
+    },
+    {
+      icon: "external",
+      name: "Centro de Información del Gobierno de Sri Lanka",
+      url: "https://gic.gov.lk/",
+      phone: 1919,
+      description:
+        "Obtén información sobre servicios, trámites gubernamentales y más.",
+    },
+  ]}
+/>
+
+## Accidentes | Emergencias Médicas
+
+<EmergencyContact
+  name="Ambulancia (Suwa Seriya)"
+  phone="1990"
+  note="Atención gratuita en el lugar y traslado, disponible 24x7"
+  category="medical"
+/>
+
+## Incendios | Desastres Naturales
+
+<EmergencyContact
+  name="Bomberos y Rescate"
+  phone="110"
+  note="Servicio nacional de bomberos y rescate, disponible 24x7"
+  category="fire"
+/>
+
+<EmergencyContact
+  name="Centro de Gestión de Desastres (DMC)"
+  phone="117"
+  note="Centro de llamadas del DMC, disponible 24x7"
+  category="fire"
+/>
+
+## Contactos de Embajadas
+
+<EmergencyContact
+  name="Embajada de EE.UU. en Sri Lanka"
+  phone="+94-11-202-8500"
+  category="embassy"
+/>
+<EmergencyContact
+  name="Alta Comisión Británica"
+  phone="+94-11-539-0639"
+  category="embassy"
+/>
+<EmergencyContact
+  name="Alta Comisión de Canadá"
+  phone="+94-11-522-6232"
+  category="embassy"
+/>
+<EmergencyContact
+  name="Alta Comisión de Australia"
+  phone="+94-11-246-3200"
+  category="embassy"
+/>
+<EmergencyContact
+  name="Alta Comisión de India"
+  phone="+94-11-232-7587"
+  category="embassy"
+/>
+<EmergencyContact
+  name="Embajada de la República Federal de Alemania"
+  phone="+94-11-258-0431"
+  category="embassy"
+/>
+<EmergencyContact
+  name="Embajada de la Federación Rusa"
+  phone="+94-11-269-7036"
+  category="embassy"
+/>
+
+## Consejos Generales de Seguridad
+
+- Comparte tu itinerario con alguien en tu país de origen
+- Guarda copias del pasaporte y del seguro en la nube (como Google Drive, Proton Drive etc.)
+- Ten los contactos de emergencia guardados sin conexión
+- Lleva siempre una pequeña cantidad de dinero en efectivo local para imprevistos
+- Conoce la dirección de tu alojamiento en el idioma local
+- Las lluvias intensas pueden causar inundaciones y deslizamientos (mayo-sept. en el suroeste, oct.-ene. en el noreste)
+- Mantén distancia de elefantes salvajes y monos. Llama a los guardabosques si te sientes amenazado
+- Si sientes un terremoto (muy poco frecuente en Sri Lanka) en la costa, aléjate tierra adentro de inmediato.
+
+:::tip[Acceso sin conexión]
+Esta página funciona sin internet. Instala **SriGuide** como PWA o añádela a tu pantalla de inicio para acceder a la información de emergencia sin conexión.
+:::
+
+### Qué Hacer en Caso de Emergencia
+
+Mantén la calma y pide ayuda. Evalúa la situación y decide a qué autoridad llamar según el caso.
+Recuerda que puedes llamar el número de emergencia `119` (desde cualquier móvil, incluso sin tarjeta SIM) para contactar a la policía en una emergencia.
+
+**Frases que podrías necesitar:**
+
+- Ayuda(me) - උදව් කරන්න `udav karanna` <Speak src="/audio/Help-me.mp3" title="Help (me)"/>
+- Estoy perdido/a - මම අතරමං වෙලා `mama ataramaṁ velā` <Speak src="/audio/I-am-lost.mp3" title="I'm lost"/>
+
+### Desastres Naturales (Inundaciones, Deslizamientos)
+
+- Sigue las alertas meteorológicas del [Departamento de Meteorología](https://www.meteo.gov.lk/), el [Centro de Gestión de Desastres](https://www.dmc.gov.lk/) y los medios locales.
+- Ante una alerta de inundación o tsunami, dirígete de inmediato a terrenos más altos.
+- Si estás en peligro, llama a los servicios de emergencia `117`/`119`.
+- Si es necesario, contacta la Línea Turística de Sri Lanka - `1912` y avisa a tu embajada o consulado.
+
+### Robo o Delito
+
+- Pide ayuda e informa a quienes estén cerca de que estás en peligro.
+- Busca un lugar seguro y público si es necesario, y llama a la policía al `119`.
+- Anota los detalles (hora, lugar, descripciones) y presenta una denuncia policial.
+- Contacta a tu banco y bloquea o cancela tus tarjetas robadas.
+
+:::note[Pasaporte Perdido]
+Contacta a tu embajada de inmediato si pierdes el pasaporte. La mayoría de las embajadas exige un informe policial antes de emitir documentos de viaje de emergencia.
+:::
+
+### Perdido en Zonas Remotas
+
+- Consulta el mapa o el teléfono, anota los puntos de referencia y el último recorrido conocido.
+- Intenta contactar a los servicios de emergencia llamando los números indicados arriba si es necesario.
+- Pide ayuda a los lugareños y usa las frases en cingalés de [aquí](/quick-essentials#useful-phrases) si necesitas comunicarte con alguien.
+
+---
+
+**Verifica**: Los números locales reservados para embajadas pueden cambiar en cualquier momento. Tomamos medidas para actualizarlos con regularidad, pero te recomendamos verificarlos en el sitio web de tu embajada si es necesario.
+
+Si no sabes a qué número llamar, marca `1919` - [Centro de Información del Gobierno de Sri Lanka](https://gic.gov.lk/) para obtener ayuda oficial.
+
+<EmergencyContact
+  name="SLGIC"
+  phone="1919"
+  note="Centro de Información del Gobierno de Sri Lanka"
+  category="police"
+/>
