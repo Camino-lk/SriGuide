@@ -124,6 +124,7 @@ export default defineConfig({
     AstroPWA({
       workbox: {
         navigateFallback: "/",
+        globIgnores: ['404.html'],
         globPatterns: [
           "**/*.{js,css,html,svg,ico,png,jpg,jpeg,gif,webp,avif,mp3,woff,woff2}",
           "pagefind/**/*.{pf_fragment,pf_index,pf_meta,json,pagefind,js,wasm}",
