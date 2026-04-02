@@ -123,7 +123,7 @@ export default defineConfig({
     // ---- PWA Integration ----
     AstroPWA({
       workbox: {
-        navigateFallback: "/404",
+        navigateFallback: "/",
         globPatterns: [
           "**/*.{js,css,html,svg,ico,png,jpg,jpeg,gif,webp,avif,mp3,woff,woff2}",
           "pagefind/**/*.{pf_fragment,pf_index,pf_meta,json,pagefind,js,wasm}",
@@ -178,38 +178,38 @@ export default defineConfig({
           // mobile screenshots
           {
             src: "/screenshots/screenshot-n-1.jpg",
-            sizes: "1080x1920",
+            sizes: "540x720",
             type: "image/jpeg",
             form_factor: "narrow",
           },
           {
             src: "/screenshots/screenshot-n-2.jpg",
-            sizes: "1080x1920",
+            sizes: "540x720",
             type: "image/jpeg",
             form_factor: "narrow",
           },
           {
             src: "/screenshots/screenshot-n-3.jpg",
-            sizes: "1080x1920",
+            sizes: "540x720",
             type: "image/jpeg",
             form_factor: "narrow",
           },
           // desktop
           {
             src: "/screenshots/screenshot-w-1.jpg",
-            sizes: "1920x1080",
+            sizes: "1024x593",
             type: "image/jpeg",
             form_factor: "wide",
           },
           {
             src: "/screenshots/screenshot-w-2.jpg",
-            sizes: "1920x1080",
+            sizes: "1024x593",
             type: "image/jpeg",
             form_factor: "wide",
           },
           {
             src: "/screenshots/screenshot-w-3.jpg",
-            sizes: "1920x1080",
+            sizes: "1024x593",
             type: "image/jpeg",
             form_factor: "wide",
           },
