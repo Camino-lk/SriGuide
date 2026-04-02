@@ -5,7 +5,8 @@ template: splash
 hero:
   tagline: Explora Sri Lanka con confianza.
   image:
-    file: ../../../assets/images/houston.webp
+    file: ../../../assets/images/hero-image.avif
+    alt: Hero image of SriGuide
   actions:
     - text: Empezar
       link: /es/quick-essentials
@@ -19,66 +20,83 @@ hero:
         id: install-app-btn
 ---
 
-import { Card, CardGrid } from "@astrojs/starlight/components";
-
-## Next steps
+import Card from "../../../components/home/Card.astro";
+import CardGrid from "../../../components/home/CardGrid.astro";
+import SafetyStatus from "../../../components/Guides/SafetyStatus.astro";
+import TestimonialSection from "../../../components/home/TestimonialSection.astro";
+import TrustSection from "../../../components/home/TrustSection.astro";
+import UnderConstruction from "../../../components/home/UnderConstruction.astro";
 
 <CardGrid>
-  <Card title="Actualizar contenido" icon="pencil">
-    Edita `src/content/docs/index.mdx` para ver los cambios en esta página.
+  <Card title="Lo Esencial" icon="open-book" href="/es/quick-essentials">
+    Visas, listas de equipaje, consejos de presupuesto y todo lo que necesitas
+    para empezar.
   </Card>
-  <Card title="Cambiar el diseño de la página" icon="document">
-    Elimina `template: splash` en `src/content/docs/index.mdx` para mostrar una
-    barra lateral en esta página.
-  </Card>
-  <Card title="Agregar nuevo contenido" icon="add-document">
-    Agrega archivos Markdown o MDX a `src/content/docs` para crear nuevas
-    páginas.
-  </Card>
-  <Card title="Configurar tu sitio" icon="setting">
-    Edita tu `sidebar` y otras configuraciones en `astro.config.mjs`.
-  </Card>
-  <Card title="Leer la documentación" icon="open-book">
-    Aprende más en [la documentación de
-    Starlight](https://starlight.astro.build/).
+
+<Card title="Cómo Moverse" icon="random" href="/es/getting-around">
+  Taxis, trenes, tuk-tuks, apps útiles - Formas baratas y sencillas de
+  desplazarse.
+</Card>
+
+<Card title="Dónde Alojarse" icon="farcaster" href="/es/where-to-stay">
+  Hostales económicos, resorts de playa, casas de familia - Encuentra tu opción
+  ideal rápido.
+</Card>
+
+<Card title="Gastronomía" icon="homebrew" href="/es/food-and-eats">
+  Platos imprescindibles, comida callejera segura, opciones vegetarianas y
+  consejos de higiene.
+</Card>
+
+<Card title="Qué Hacer" icon="star" href="/es/things-to-do">
+  Playas, ruinas antiguas, safaris, senderismo - Las mejores experiencias en Sri
+  Lanka.
+</Card>
+
+<Card title="Itinerarios" icon="seti:notebook" href="/es/trip-plans">
+  Descubre los mejores lugares y planes de viaje para distintos estilos y
+  presupuestos.
+</Card>
+
+<Card title="Cultura y Más" icon="puzzle" href="/es/culture-and-etiquette">
+  Normas en templos, vida nocturna, festivales - Vívelo como un local.
+</Card>
+
+<Card
+  title="Seguridad y Salud"
+  icon="warning"
+  href="/es/safety-and-health"
+  variant="warn"
+>
+  Evita estafas, consejos de salud, números de emergencia - Viaja seguro y
+  tranquilo.
+</Card>
+
+<Card title="Emergencias" icon="error" href="/es/emergency" variant="danger">
+  Policía, ambulancia, línea turística, pasaporte perdido - Contactos clave
+  siempre a mano.
+</Card>
+
+<Card title="Preguntas Frecuentes" icon="list-format" href="/es/faq">
+  Respuestas a las dudas más comunes: visas, mejor época para viajar, seguridad
+  y más.
+</Card>
+
+<Card title="Herramientas de Viaje" icon="setting" href="/es/travel-toolkit">
+  Herramientas interactivas para planificar tu viaje: listas, conversor de
+  moneda y más.
+</Card>
+
+  <Card title="Apps y Extras" icon="setting" href="/es/apps">
+    Apps imprescindibles para cualquier viajero - Transporte, alojamiento,
+    comida y más.
   </Card>
 </CardGrid>
 
-:::tip[¿Sabías qué?]
-Astro te ayuda a construir sitios web más rápidos con la [“Arquitectura de Islas”](https://docs.astro.build/en/concepts/islands/).
-:::
+<SafetyStatus />
 
-:::note
-Starlight es un kit de herramientas de sitios web de documentación construido con [Astro](https://astro.build/). Puedes comenzar con este comando:
+<TestimonialSection />
 
-```sh
-npm create astro@latest -- --template starlight
-```
+<TrustSection />
 
-:::
-
-:::caution
-Si no estás seguro de querer un sitio de documentación increíble, piénsalo dos veces antes de usar [Starlight](/).
-:::
-
-:::danger
-Tus usuarios pueden ser más productivos y encontrar tu producto más fácil de usar gracias a las útiles características de Starlight.
-
-- Navegación clara
-- Tema de color configurable por el usuario
-- [Soporte i18n](/guides/i18n/)
-
-:::
-
-<details>
-<summary>¿Dónde y cuándo es más visible la constelación de Andrómeda?</summary>
-
-La constelación de Andrómeda es más visible en el cielo nocturno durante el mes de noviembre en latitudes entre +90° y −40°.
-
-</details>
-<details>
-<summary>¿Dónde y cuándo es más visible la constelación de Andrómeda?</summary>
-
-La constelación de Andrómeda es más visible en el cielo nocturno durante el mes de noviembre en latitudes entre +90° y −40°.
-
-</details>
+<UnderConstruction />

@@ -1,13 +1,12 @@
-<!-- Override PageFrame component to include MobileMenuFooter on splash template -->
-
 ---
 import MobileMenuFooter from "@astrojs/starlight/components/MobileMenuFooter.astro";
 import DefaultPageFrame from "@astrojs/starlight/components/PageFrame.astro";
 const { template } = Astro.locals.starlightRoute.entry.data;
 
-import OfflineReadyPrompt from './OfflineReadyPrompt.astro';
+import OfflineReadyPrompt from "../pwa/OfflineReadyPrompt.astro";
 ---
 
+<!-- Override PageFrame component to include MobileMenuFooter on splash template -->
 <DefaultPageFrame {...Astro.props}>
   <div transition:persist="header" slot="header">
     <slot name="header" />
@@ -27,44 +26,44 @@ import OfflineReadyPrompt from './OfflineReadyPrompt.astro';
 <!-- PWA Install Button -->
 <script>
   (function () {
-    const installBtn = document.getElementById('install-app-btn');
+    const installBtn = document.getElementById("install-app-btn");
     if (!installBtn) return;
 
     let deferredPrompt = null;
 
     // Always hide by default
-    installBtn.classList.add('install-btn-hidden');
+    installBtn.classList.add("install-btn-hidden");
 
     // Detect if already installed
     if (
-      window.matchMedia('(display-mode: standalone)').matches ||
+      window.matchMedia("(display-mode: standalone)").matches ||
       window.navigator.standalone === true
     ) {
-      installBtn.classList.add('install-btn-hidden');
+      installBtn.classList.add("install-btn-hidden");
       return;
     }
 
-    window.addEventListener('beforeinstallprompt', (e) => {
+    window.addEventListener("beforeinstallprompt", (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      installBtn.classList.remove('install-btn-hidden');
+      installBtn.classList.remove("install-btn-hidden");
     });
 
-    installBtn.addEventListener('click', async (e) => {
+    installBtn.addEventListener("click", async (e) => {
       e.preventDefault();
       if (!deferredPrompt) return;
 
       deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
 
-      if (outcome === 'accepted') {
-        installBtn.classList.add('install-btn-hidden');
+      if (outcome === "accepted") {
+        installBtn.classList.add("install-btn-hidden");
       }
       deferredPrompt = null;
     });
 
-    window.addEventListener('appinstalled', () => {
-      installBtn.classList.add('install-btn-hidden');
+    window.addEventListener("appinstalled", () => {
+      installBtn.classList.add("install-btn-hidden");
     });
   })();
 </script>

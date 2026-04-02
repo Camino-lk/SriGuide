@@ -38,3 +38,10 @@ SriGuide Website Custom Styles
 .install-btn-hidden {
   display: none !important;
 }
+
+/* Custom font style classes */
+.cursive-text{
+  font-family: "yanone-kaffeesatz";
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}

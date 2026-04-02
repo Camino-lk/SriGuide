@@ -7,14 +7,19 @@
 ![GitHub issues](https://img.shields.io/github/issues/Camino-lk/SriGuide?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Camino-lk/SriGuide?style=for-the-badge)
 
-![GitHub stars](https://img.shields.io/github/stars/Camino-lk/SriGuide?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/Camino-lk/SriGuide?style=for-the-badge)
-
 <img width="1259" height="619" alt="SriGuide - Github Banner" src="https://github.com/user-attachments/assets/64815221-3e7e-4b0e-bdd9-8bb05701b01c" />
 
 **Explore Sri Lanka with Confidence:** SriGuide is a free, open-source web app offering practical, up-to-date tips for travelers in Sri Lanka – built with accuracy and ease in mind.
 
 Powered by [Astro](https://astro.build) and [Starlight](https://starlight.astro.build), SriGuide delivers a fast, multilingual, and mobile-friendly experience.
+
+## What is SriGuide?
+
+Most Sri Lanka travel content online exists to rank on Google or sell you something. Travel agency blogs, affiliate review sites, and even fake "official" portals (particularly around ETA visa applications) make it harder than it should be to find straightforward, honest advice.
+
+This is an attempt at something different: a free, independent, non-commercial guide covering everything a traveler actually needs from visas and packing to emergency contacts and hidden gems.
+
+[🚀 Access SriGuide](https://sri-guide.vercel.app)
 
 ## Features
 
@@ -23,6 +28,26 @@ Powered by [Astro](https://astro.build) and [Starlight](https://starlight.astro.
 - Progressive Web App (PWA) support – works offline and feels like a native app
 - Built for multilingual growth (i18n ready)
 - Fully open-source and community-driven
+
+## What's covered?
+
+- **Quick Essentials**: ETA process, packing lists and everything you need to get started
+- **Getting Around**: Taxis, trains, tuk-tuks, useful apps - Cheap and easy ways to move in Sri Lanka
+- **Where to Stay**: Budget guesthouses, beach resorts, homestays - Find the right fit fast
+- **Food & Eats**: Must-try dishes, safe street food, vegetarian options, and hygiene tips
+- **Things to Do**: Beaches, ancient ruins, safaris, hikes - The top experiences in Sri Lanka
+- **Trip Plans**: Find best places to visit and Sri Lanka itinerary ideas
+- **Culture & Extras**: Temple etiquette, nightlife, festivals - Connect like a local
+- **Safety & Health**: Avoid scams, health advice, emergency numbers - Stay safe and worry-free
+- **Emergency**: Police, ambulance, tourist hotline, lost passport
+- **FAQ**: Common questions answered: visas, best time to visit, safety
+- **Travel Toolkit**: Interactive tools to plan & manage your trip - Checklists, currency converter and more
+- **Apps & Extras**: Essential apps for travelers in Sri Lanka - Transport, accommodation, food and more
+
+## Inside SriGuide
+
+[![Inside-SriGuide](https://github.com/user-attachments/assets/e167def9-c7c7-4f47-936d-6e0c978b002d)](https://sri-guide.vercel.app)
+
 
 ## Contributing
 
