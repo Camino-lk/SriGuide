@@ -1,7 +1,6 @@
 ---
 import DefaultHead from "@astrojs/starlight/components/Head.astro";
 import { pwaInfo } from "virtual:pwa-info";
-import { SimpleAnalytics } from "astro-simpleanalytics-plugin";
 ---
 
 <DefaultHead {...Astro.props}>
@@ -11,11 +10,9 @@ import { SimpleAnalytics } from "astro-simpleanalytics-plugin";
 <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
+<meta property="og:image" content="https://sri-guide.vercel.app/og-image.jpg" />
 <meta name="msapplication-TileColor" content="#FFFFFF" />
 <meta name="theme-color" content="#42b883" />
 
 {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 <script src="/src/pwa.ts"></script>
-
-<!-- SimpleAnalytics -->
-<SimpleAnalytics />

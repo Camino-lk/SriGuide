@@ -3,6 +3,7 @@ import MobileMenuFooter from "@astrojs/starlight/components/MobileMenuFooter.ast
 import DefaultPageFrame from "@astrojs/starlight/components/PageFrame.astro";
 const { template } = Astro.locals.starlightRoute.entry.data;
 
+import { SimpleAnalytics } from "astro-simpleanalytics-plugin";
 import OfflineReadyPrompt from "../pwa/OfflineReadyPrompt.astro";
 ---
 
@@ -67,3 +68,5 @@ import OfflineReadyPrompt from "../pwa/OfflineReadyPrompt.astro";
     });
   })();
 </script>
+
+<SimpleAnalytics />

@@ -5,6 +5,8 @@ description:
   content, sharing feedback, or just spreading the word.
 ---
 
+import { LinkButton } from "@astrojs/starlight/components";
+
 This site is a honest, helpful, and freely accessible guide to Sri Lanka. No ads, no paywalls, no sponsored rankings. Just useful information for people who want to explore this island properly.
 
 It takes a surprising amount of time and effort to keep something like this going - researching, writing, fact-checking, building, and maintaining it all while making sure it actually stays useful for real travelers. That's where you come in.
@@ -46,9 +48,14 @@ The most valuable thing anyone can offer is first-hand knowledge. If you've trav
 
 - Spot something outdated or wrong? Flag it.
 - Know a hidden gem, a better route, or a local tip worth sharing? Send it in.
-- Confident writer? Pages like Food & Eats and Travel Plans need the most love right now.
+- Confident writer? Pages like `Food & Eats` and `Trip Plans` need the most love right now.
 
-[Send content or a tip →](mailto:humble-calm-knoll@duck.com?subject=SriGuide%20Content%20Contribution)
+<LinkButton
+  href="mailto:humble-calm-knoll@duck.com?subject=SriGuide%20Content%20Contribution"
+  icon="right-arrow"
+>
+  Send content or a tip
+</LinkButton>
 
 ---
 
@@ -58,11 +65,13 @@ The site is open source and built with [Astro Starlight](https://starlight.astro
 
 Got an idea for a feature? Open an issue and let's talk about it.
 
-[View the repository on GitHub →](https://github.com/Camino-lk/SriGuide)
+<LinkButton href="https://github.com/Camino-lk/SriGuide" icon="right-arrow">
+  GitHub
+</LinkButton>
 
 ---
 
-### 🎇Help with Translations
+### 🎇 Help with Translations
 
 SriGuide has built in i18n localization capabilities, which means we can add your native language here pretty much easily!
 Please avoid machine translations (ex: Google Translate/DeepL).
@@ -79,7 +88,9 @@ Honest feedback shapes this more than anything else. Is the site confusing to na
 
 All of it is useful — good and bad.
 
-[Fill out the feedback form →](#)
+<LinkButton href="https://tally.so/r/7Ro6O2" icon="right-arrow">
+  Open Feedback Form
+</LinkButton>
 
 Or just [send a quick email →](mailto:humble-calm-knoll@duck.com?subject=SriGuide%20Feedback) if that's easier.
 
@@ -104,8 +115,6 @@ There's no subscription, no tier, no expectation. Purely if you want to.
 ### 📣 Tell Someone About It
 
 This one costs nothing and might be the most powerful one on this list. If you found this useful - mention it. Share the link with a friend planning a Sri Lanka trip. Post it in a travel group, add it to a forum thread, recommend it in a subreddit...
-
-Word of mouth from real travelers is how a project like this grows. No algorithm needed.
 
 ---
 
