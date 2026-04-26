@@ -1,0 +1,41 @@
+---
+interface Props {
+  icon: string;
+  title: string;
+  emergency?: boolean;
+  spanFull?: boolean;
+}
+
+const { icon, title, emergency = false, spanFull = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    "tk-card",
+    { "card-emergency": emergency, "span-full": spanFull },
+  ]}
+>
+  <slot />
+</div>
+
+<style>
+  .tk-card {
+    border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .span-full {
+    grid-column: 1 / -1;
+  }
+
+  .card-emergency {
+    border-color: #f87171;
+  }
+
+  .card-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+</style>

@@ -1,0 +1,216 @@
+<div class="toolkit-page">
+  {/* ── Right Now ─────────────────────────────────────────────── */}
+  <section class="toolkit-section">
+    <div class="section-heading"><span>Right Now</span></div>
+
+    <details class="tk-accordion" data-id="safety">
+      <summary class="tk-title">
+        <span class="title-inner"
+          ><span class="t-icon">🛡️</span> Travel Conditions</span
+        >
+      </summary>
+      <slot name="safety" />
+    </details>
+
+    <details class="tk-accordion" data-id="time">
+      <summary class="tk-title">
+        <span class="title-inner"
+          ><span class="t-icon">🕐</span> Sri Lanka Time</span
+        >
+      </summary>
+      <slot name="time" />
+    </details>
+  </section>
+
+  {/* ── Plan Your Trip ────────────────────────────────────────── */}
+  <section class="toolkit-section">
+    <div class="section-heading"><span>Plan Your Trip</span></div>
+    <div class="checklist-grid">
+      <details class="tk-accordion" data-id="packing">
+        <summary class="tk-title">
+          <span class="title-inner"
+            ><span class="t-icon">🧳</span> Packing Checklist</span
+          >
+        </summary>
+        <slot name="packing" />
+      </details>
+
+      <details class="tk-accordion" data-id="landing">
+        <summary class="tk-title">
+          <span class="title-inner"
+            ><span class="t-icon">✈️</span> After Landing</span
+          >
+        </summary>
+        <slot name="landing" />
+      </details>
+
+      <details class="tk-accordion" data-id="medications">
+        <summary class="tk-title">
+          <span class="title-inner"
+            ><span class="t-icon">💊</span> Medications Checklist</span
+          >
+        </summary>
+        <slot name="medications" />
+      </details>
+
+      <details class="tk-accordion" data-id="custom">
+        <summary class="tk-title">
+          <span class="title-inner"
+            ><span class="t-icon">✨</span> Custom Checklist</span
+          >
+        </summary>
+        <slot name="custom" />
+      </details>
+    </div>
+  </section>
+
+  {/* ── On the Ground ─────────────────────────────────────────── */}
+  <section class="toolkit-section">
+    <div class="section-heading"><span>On the Ground</span></div>
+
+    <details class="tk-accordion" data-id="currency">
+      <summary class="tk-title">
+        <span class="title-inner"
+          ><span class="t-icon">💱</span> Currency Converter</span
+        >
+      </summary>
+      <slot name="currency" />
+    </details>
+
+    <details class="tk-accordion" data-id="phrases">
+      <summary class="tk-title">
+        <span class="title-inner"
+          ><span class="t-icon">🗣️</span> Useful Phrases</span
+        >
+      </summary>
+      <slot name="phrases" />
+    </details>
+
+    <details class="tk-accordion tk-emergency" data-id="emergency">
+      <summary class="tk-title">
+        <span class="title-inner"
+          ><span class="t-icon">🚨</span> Emergency Contacts</span
+        >
+      </summary>
+      <slot name="emergency" />
+    </details>
+  </section>
+</div>
+
+<style>
+  /* ── Page wrapper ─────────────────────────────────────────── */
+  .toolkit-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  /* ── Section ──────────────────────────────────────────────── */
+  .toolkit-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* ── Section heading pill ─────────────────────────────────── */
+  .section-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .section-heading span {
+    background: var(--sl-color-accent-low);
+    color: var(--sl-color-accent-high);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .section-heading::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--sl-color-hairline);
+  }
+
+  /* ── Accordion ────────────────────────────────────────────── */
+  details.tk-accordion {
+    padding: 0;
+    padding-inline-start: 0.5em;
+    border-radius: 0.5em;
+    margin-top: 0em;
+  }
+
+  .tk-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 1rem;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    transition: background 0.15s ease;
+  }
+
+  .tk-title::-webkit-details-marker {
+    display: none;
+  }
+
+  .tk-accordion[open] .tk-title {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .tk-title:hover {
+    background: var(--sl-color-bg-sidebar);
+  }
+
+  .title-inner {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sl-color-white);
+  }
+
+  .t-icon {
+    font-size: 1rem;
+    line-height: 1;
+  }
+
+  .tk-emergency .tk-title {
+    border-color: #f87171;
+  }
+
+  /* ── Checklist grid ───────────────────────────────────────── */
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (min-width: 640px) {
+    .checklist-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .checklist-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

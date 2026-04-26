@@ -3,7 +3,7 @@ title: Terms of Use
 description: The terms that apply to using SriGuide - what this site is, what it isn't, and what you should know before relying on it for travel planning.
 ---
 
-_Last updated: 2026.03.30_
+_Last updated: 2026.04.26_
 
 Please read these terms before using SriGuide (the "Site"). By accessing or using the Site, you agree to be bound by them.
 
@@ -83,26 +83,44 @@ The source code for the Site is publicly available on GitHub. It is made availab
 
 ---
 
-## 9. Disclaimer of Warranties
+## 9. Listings & Recommendations
+
+Services, apps, and operators mentioned on this site are included at
+our sole discretion. Inclusion is not guaranteed, purchased, or
+negotiated — all listings are subject to the same vetting criteria
+regardless of how they were brought to our attention.
+
+We reserve the right to add, remove, or update any listing at any
+time without notice. Removal does not imply wrongdoing on the part
+of the operator — services change, and our standards are applied
+on an ongoing basis.
+
+Suggestions for inclusion are welcome but do not obligate us in
+any way. See our [listing criteria](/vetting-criteria) for
+more details.
+
+---
+
+## 10. Disclaimer of Warranties
 
 The Site and its contents are provided **"as is"** without warranties of any kind, express or implied. To the fullest extent permitted by law, the operator of the Site disclaims all warranties including but not limited to accuracy, completeness, fitness for a particular purpose, and non-infringement.
 
 ---
 
-## 10. Limitation of Liability
+## 11. Limitation of Liability
 
 To the fullest extent permitted by applicable law, the operator of the Site shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of — or inability to use — the Site or the information it contains.
 
 ---
 
-## 11. Changes to These Terms
+## 12. Changes to These Terms
 
 These terms may be updated from time to time. The "last updated" date at the top of this page reflects the most recent revision. Continued use of the Site after any change constitutes acceptance of the updated terms.
 
 ---
 
-## 12. Contact
+## 13. Contact
 
-If you have questions about these terms:
+If you have questions about these terms, reach to us through:
 
 📧 [humble-calm-knoll (-at-) duck.com](mailto:humble-calm-knoll@duck.com)

@@ -1,13 +1,134 @@
 ---
 title: Travel Toolkit
+template: splash
 description:
   Handy tools for your Sri Lanka trip — currency converter, packing checklists,
   local phrases, and more, all in one place.
 ---
 
-import UnderConstruction from "../../components/home/UnderConstruction.astro";
+import { LinkButton } from "@astrojs/starlight/components";
 
-<UnderConstruction
-  title="We're working on this.."
-  message="Sorry, page contents are currently unavailable. We're doing our best to update this soon..."
+import SafetyStatus from "../../components/Guides/SafetyStatus.astro";
+import CurrencyConverter from "../../components/Guides/CurrencyConverter.astro";
+import LankaTime from "../../components/Guides/LankaTime.astro";
+import PhraseCards from "../../components/Guides/PhraseCards.astro";
+import Checklist from "../../components/Guides/Checklist.astro";
+import EmergencyCall from "../../components/Guides/EmergencyCall.astro";
+import EmergencyContact from "../../components/Guides/EmergencyContact.astro";
+import ToolkitPage from "../../components/Guides/ToolkitPage.astro";
+import ToolkitCard from "../../components/Guides/ToolkitCard.astro";
+
+<LinkButton href="/" icon="left-arrow" iconPlacement="start">
+  Go back to Home
+</LinkButton>
+
+<ToolkitPage>
+
+<ToolkitCard slot="safety" icon="🛡️" title="Travel Conditions">
+  <SafetyStatus />
+</ToolkitCard>
+
+<ToolkitCard slot="time" icon="🕐" title="Sri Lanka Time">
+  <LankaTime />
+</ToolkitCard>
+
+<ToolkitCard slot="packing" icon="🧳" title="Packing Checklist">
+  <Checklist
+    id="packing-list"
+    title="Packing Checklist"
+    items={[
+      "Passport (valid for at least 6 months)",
+      "Visa / ETA approval confirmation",
+      "Return or onward flight ticket",
+      "Travel insurance documents",
+      "Hotel or accommodation confirmation",
+      "Credit or debit cards",
+      "Some cash for arrival",
+      "Power adapter",
+      "Lightweight clothing for tropical weather",
+      "Comfortable walking shoes or sandals",
+      "Sunscreen and sunglasses",
+      "Medications, prescriptions",
+      "Phone charger, power bank",
+      "Copies of important documents (digital or printed)",
+      "Mosquito repellent",
+      "Empty reusable water bottle (if needed)",
+      "Small backpack",
+      "Toothbrush, sanitary products",
+    ]}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="landing" icon="✈️" title="After Landing">
+  <Checklist
+    id="after-landing-list"
+    title="After Landing Checklist"
+    items={[
+      "Check local time and adjust devices",
+      "Complete immigration and passport control",
+      "Collect luggage",
+      "Buy a local SIM/eSIM",
+      "Exchange money to Sri Lankan Rupees (LKR)",
+      "Withdraw cash from an ATM (if needed)",
+      "Check weather on destination",
+      "Arrange airport transport",
+      "Confirm  hotel check-in details",
+      "Eat, drink and rest!",
+    ]}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="medications" icon="💊" title="Medications Checklist">
+  <Checklist
+    id="medications-list"
+    title="Medications Checklist"
+    items={[
+      "Pain reliever (Paracetamol/ibuprofen etc.)",
+      "Antihistamine (Allergy medications)",
+      "Anti-diarrheal (for digestive upset)",
+      "Hand sanitizer (OR buy locally)",
+      "Mosquito repellent (OR buy locally)",
+      "Personal prescriptions",
+      "Medical documentation",
+    ]}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="custom" icon="✨" title="Custom Checklist">
+  <Checklist id="custom-list" title="Custom Checklist" items={[]} />
+</ToolkitCard>
+
+<ToolkitCard slot="currency" icon="💱" title="Currency Converter">
+  <CurrencyConverter />
+</ToolkitCard>
+
+<ToolkitCard slot="phrases" icon="🗣️" title="Useful Phrases" spanFull={true}>
+  <PhraseCards />
+</ToolkitCard>
+
+<ToolkitCard
+  slot="emergency"
+  icon="🚨"
+  title="Emergency Contacts"
+  emergency={true}
+>
+  <EmergencyCall />
+
+<EmergencyContact
+  name="Tourism Hotline"
+  phone="1912"
+  note="Tourism Police Division, obtain travel information and emergency help"
+  category="police"
 />
+<EmergencyContact
+  name="Ambulance (Suwa Seriya)"
+  phone="1990"
+  note="Free on-scene care & transport, available 24x7"
+  category="medical"
+/>
+
+Visit our [Emergency Page](/emergency) for more numbers and helpful information.
+
+</ToolkitCard>
+
+</ToolkitPage>
