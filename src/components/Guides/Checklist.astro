@@ -121,7 +121,10 @@ const { title = "Checklist", items = [], id = "checklist" } = Astro.props;
         const text = li.querySelector<HTMLSpanElement>(".item-text");
         const checkbox = li.querySelector<HTMLInputElement>("input");
         if (!text || !checkbox) return;
-        data.push({ text: text.innerText.trim(), done: checkbox.checked });
+        data.push({
+          text: text.textContent?.trim() ?? "",
+          done: checkbox.checked,
+        });
       });
       localStorage.setItem(storageKey, JSON.stringify(data));
       updateProgress();
@@ -318,13 +321,10 @@ const { title = "Checklist", items = [], id = "checklist" } = Astro.props;
 <style is:global>
   /* ── Card shell ─────────────────────────────────────────── */
   .checklist-card {
-    margin: 1.6rem 0;
     padding: 1.2rem 1.3rem 1rem;
-
     border-radius: 14px;
     border: 1px solid var(--sl-color-gray-5);
     background: var(--sl-color-bg-nav);
-
     position: relative;
     overflow: hidden;
   }
@@ -429,14 +429,11 @@ const { title = "Checklist", items = [], id = "checklist" } = Astro.props;
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 18px;
     height: 18px;
-
     color: var(--sl-color-text-secondary);
     opacity: 0.15;
     cursor: grab;
-
     transition: opacity 0.15s;
     touch-action: none;
   }
@@ -462,11 +459,9 @@ const { title = "Checklist", items = [], id = "checklist" } = Astro.props;
     line-height: 1.4;
     outline: none;
     word-break: break-word;
-
     border-radius: 4px;
     padding: 1px 3px;
     margin: -1px -3px;
-
     transition: background 0.15s;
   }
 
@@ -522,16 +517,13 @@ const { title = "Checklist", items = [], id = "checklist" } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-
     border: none;
     background: none;
     padding: 0.3rem 0.45rem;
     border-radius: 6px;
-
     cursor: pointer;
     font-size: 0.8rem;
     color: var(--sl-color-text-secondary);
-
     transition:
       background 0.15s,
       color 0.15s;

@@ -19,7 +19,7 @@ Most Sri Lanka travel content online exists to rank on Google or sell you someth
 
 This is an attempt at something different: a free, independent, non-commercial guide covering everything a traveler actually needs from visas and packing to emergency contacts and hidden gems.
 
-[🚀 Access SriGuide](https://sri-guide.vercel.app)
+[![VISIT SRIGUIDE](https://img.shields.io/badge/Visit%20SriGuide-D6FFD6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGlkPSJzdmcyIiB2aWV3Qm94PSIwIDAgMTI2LjYxNSAxMjYuMjk5Ij48c3R5bGUgaWQ9InN0eWxlMiI+QG1lZGlhIChwcmVmZXJzLWNvbG9yLXNjaGVtZTpkYXJrKXtwYXRoe2ZpbGw6I2ZmZn19PC9zdHlsZT48cGF0aCBpZD0icGF0aDQiIGQ9Ik0uMTkgMTI2LjEwOHYtMjUuMTQ3TDMxLjcxNyA5MC41NyA1OC45NDQuMTkxdjEyNS45MTdabTEyNi4yMzUgMHYtMjUuMTQ3TDk0Ljg4MyA5MC41NyA2Ny42Ny4xOTF2MTI1LjkxN1oiIHN0eWxlPSJkaXNwbGF5OmlubGluZTsgZmlsbDojMDBjNTY1OyBmaWxsLW9wYWNpdHk6MTsgZmlsbC1ydWxlOmV2ZW5vZGQ7IHN0cm9rZTojMDAwOyBzdHJva2Utd2lkdGg6LjM4MTUyODsgc3Ryb2tlLWxpbmVjYXA6cm91bmQ7IHN0cm9rZS1saW5lam9pbjpyb3VuZDsgc3Ryb2tlLWRhc2hhcnJheTpub25lOyBzdHJva2Utb3BhY2l0eToxOyBwYWludC1vcmRlcjpzdHJva2UgZmlsbCBtYXJrZXJzIi8+PC9zdmc+)](https://sri-guide.vercel.app?utm_source=github)
 
 ## Features
 
@@ -47,7 +47,6 @@ This is an attempt at something different: a free, independent, non-commercial g
 ## Inside SriGuide
 
 [![Inside-SriGuide](https://github.com/user-attachments/assets/e167def9-c7c7-4f47-936d-6e0c978b002d)](https://sri-guide.vercel.app)
-
 
 ## Contributing
 

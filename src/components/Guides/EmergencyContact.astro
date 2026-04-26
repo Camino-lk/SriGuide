@@ -283,6 +283,19 @@ const vcfLines = [
     background: var(--ec-accent);
     color: #fff;
   }
+
+  @media (max-width: 640px) {
+    .ec-actions {
+      width: 100%;
+      border-top: 1px solid var(--ec-accent-bg);
+      padding-top: 0.5rem;
+      margin-top: 0rem;
+    }
+    .ec-btn {
+      flex: 1;
+      justify-content: center;
+    }
+  }
 </style>
 
 <script>

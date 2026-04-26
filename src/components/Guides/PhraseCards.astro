@@ -1,0 +1,578 @@
+<div class="phrases-root">
+  <!-- Category tabs -->
+  <div class="ph-tabs" role="tablist">
+    <button class="ph-tab active" data-cat="all">All</button>
+    <button class="ph-tab" data-cat="greetings">Greetings</button>
+    <button class="ph-tab" data-cat="wayfinding">Wayfinding</button>
+    <button class="ph-tab" data-cat="shopping">Shopping</button>
+    <button class="ph-tab" data-cat="dining">Dining</button>
+    <button class="ph-tab" data-cat="emergency">Emergency</button>
+  </div>
+
+  <!-- Card grid -->
+  <div class="ph-grid" id="ph-grid"></div>
+</div>
+
+<!-- Modal -->
+<div class="ph-backdrop" id="ph-backdrop" aria-hidden="true">
+  <div
+    class="ph-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="ph-modal-en"
+  >
+    <button class="ph-close" id="ph-close" aria-label="Close">&times;</button>
+    <span class="ph-modal-cat" id="ph-modal-cat"></span>
+    <p class="ph-modal-en" id="ph-modal-en"></p>
+    <p class="ph-modal-si" id="ph-modal-si"></p>
+    <p class="ph-modal-roman" id="ph-modal-roman"></p>
+    <button
+      class="ph-audio-btn"
+      id="ph-audio-btn"
+      aria-label="Play pronunciation"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M19.07 4.93a10 10 0 010 14.14"></path>
+        <path d="M15.54 8.46a5 5 0 010 7.07"></path>
+      </svg>
+      <span id="ph-audio-label">Play</span>
+    </button>
+  </div>
+</div>
+
+<script>
+  const PHRASES = [
+    // Greetings
+    {
+      cat: "greetings",
+      en: "Hello / Welcome!",
+      si: "ආයුබෝවන්",
+      roman: "āyubōvan",
+      audio: "/audio/Welcome.mp3",
+    },
+    {
+      cat: "greetings",
+      en: "Thank you",
+      si: "ස්තූතියි",
+      roman: "stūtiyi",
+      audio: "/audio/Thank-You.mp3",
+    },
+    {
+      cat: "greetings",
+      en: "Thank you very much",
+      si: "බොහොම ස්තූතියි",
+      roman: "bohoma stūtiyi",
+      audio: "/audio/Thank-you-very-much.mp3",
+    },
+    {
+      cat: "greetings",
+      en: "How are you?",
+      si: "කොහොමද?",
+      roman: "kohomada",
+      audio: "/audio/How-are-you.mp3",
+    },
+
+    // Wayfinding
+    {
+      cat: "wayfinding",
+      en: "This",
+      si: "මේක",
+      roman: "mēka",
+      audio: "/audio/This.mp3",
+    },
+    {
+      cat: "wayfinding",
+      en: "That",
+      si: "අරක",
+      roman: "araka",
+      audio: "/audio/That.mp3",
+    },
+    {
+      cat: "wayfinding",
+      en: "Where?",
+      si: "කොහේද?",
+      roman: "kohēda?",
+      audio: "/audio/Where.mp3",
+    },
+    {
+      cat: "wayfinding",
+      en: "When?",
+      si: "කවදද?",
+      roman: "kavadada?",
+      audio: "/audio/When.mp3",
+    },
+    {
+      cat: "wayfinding",
+      en: "At what time?",
+      si: "කීයටද?",
+      roman: "kīyaṭada?",
+      audio: "/audio/At-what-time.mp3",
+    },
+    {
+      cat: "wayfinding",
+      en: "How much is the fare?",
+      si: "ගාන කීයද?",
+      roman: "gāna kīyada?",
+      audio: "/audio/How-much-is-the-fare.mp3",
+    },
+
+    // Shopping
+    {
+      cat: "shopping",
+      en: "How much?",
+      si: "ගාන කීයද?",
+      roman: "gāna kīyada?",
+      audio: "/audio/How-much-is-the-fare.mp3",
+    },
+    {
+      cat: "shopping",
+      en: "How much is this?",
+      si: "මේක කීයද?",
+      roman: "mēka kīyada?",
+      audio: "/audio/How-much-is-this.mp3",
+    },
+    {
+      cat: "shopping",
+      en: "It's too expensive",
+      si: "ගාන වැඩියි",
+      roman: "gāna væḍiyi",
+      audio: "/audio/It-is-too-much.mp3",
+    },
+    {
+      cat: "shopping",
+      en: "Can you reduce the price?",
+      si: "ගාන අඩු කරන්න පුලුවන්ද?",
+      roman: "gāna aḍu karanna puluvanda?",
+      audio: "/audio/Can-you-reduce-the-price.mp3",
+    },
+    {
+      cat: "shopping",
+      en: "I want this",
+      si: "මේක ඕන",
+      roman: "mēka ōna",
+      audio: "/audio/I-want-this.mp3",
+    },
+    {
+      cat: "shopping",
+      en: "I don't want this",
+      si: "මේක එපා",
+      roman: "mēka epā",
+      audio: "/audio/I-do-not-want-this.mp3",
+    },
+
+    // Dining
+    {
+      cat: "dining",
+      en: "This is tasty",
+      si: "රසයි",
+      roman: "rasayi",
+      audio: "/audio/This-is-tasty.mp3",
+    },
+    {
+      cat: "dining",
+      en: "Is this too spicy?",
+      si: "මේක සැරද?",
+      roman: "mēka særada?",
+      audio: "/audio/Is-this-too-spicy.mp3",
+    },
+    {
+      cat: "dining",
+      en: "Not too spicy please",
+      si: "වැඩිය සැර එපා",
+      roman: "væḍiya særa epā",
+      audio: "/audio/I-would-like-it-not-too-spicy.mp3",
+    },
+    {
+      cat: "dining",
+      en: "Water",
+      si: "වතුර",
+      roman: "vatura",
+      audio: "/audio/Water.mp3",
+    },
+
+    // Emergency
+    {
+      cat: "emergency",
+      en: "Help me!",
+      si: "උදව් කරන්න",
+      roman: "udav karanna",
+      audio: "/audio/Help-me.mp3",
+    },
+    {
+      cat: "emergency",
+      en: "I'm lost",
+      si: "මම අතරමං වෙලා",
+      roman: "mama ataramaṁ velā",
+      audio: "/audio/I-am-lost.mp3",
+    },
+  ];
+
+  const CAT_LABELS = {
+    greetings: "Greetings",
+    wayfinding: "Wayfinding",
+    shopping: "Shopping",
+    dining: "Dining",
+    emergency: "Emergency",
+  };
+
+  let currentAudio = null;
+
+  const grid = document.getElementById("ph-grid");
+  const backdrop = document.getElementById("ph-backdrop");
+  const closeBtn = document.getElementById("ph-close");
+  const modalCat = document.getElementById("ph-modal-cat");
+  const modalEn = document.getElementById("ph-modal-en");
+  const modalSi = document.getElementById("ph-modal-si");
+  const modalRoman = document.getElementById("ph-modal-roman");
+  const audioBtn = document.getElementById("ph-audio-btn");
+  const audioLabel = document.getElementById("ph-audio-label");
+
+  // ── Render grid ───────────────────────────────────────────────
+  function renderGrid(cat) {
+    const filtered =
+      cat === "all" ? PHRASES : PHRASES.filter((p) => p.cat === cat);
+    grid.innerHTML = filtered
+      .map(
+        (p) => `
+      <button class="ph-card ${p.cat === "emergency" ? "ph-card--emergency" : ""}"
+              data-index="${PHRASES.indexOf(p)}"
+              type="button">
+        <span class="ph-card-en">${p.en}</span>
+        <span class="ph-card-si">${p.si}</span>
+      </button>
+    `,
+      )
+      .join("");
+
+    grid.querySelectorAll(".ph-card").forEach((card) => {
+      card.addEventListener("click", () =>
+        openModal(parseInt(card.dataset.index)),
+      );
+    });
+  }
+
+  // ── Modal ─────────────────────────────────────────────────────
+  function openModal(index) {
+    const p = PHRASES[index];
+    stopAudio();
+
+    modalCat.textContent = CAT_LABELS[p.cat];
+    modalCat.dataset.cat = p.cat;
+    modalEn.textContent = p.en;
+    modalSi.textContent = p.si;
+    modalRoman.textContent = p.roman;
+    audioBtn.dataset.src = p.audio;
+    audioLabel.textContent = "Play";
+    audioBtn.classList.remove("playing");
+
+    backdrop.setAttribute("aria-hidden", "false");
+    backdrop.classList.add("open");
+    document.body.style.overflow = "hidden";
+    history.pushState({ phraseModal: true }, "");
+    closeBtn.focus();
+  }
+
+  function closeModal() {
+    stopAudio();
+    backdrop.setAttribute("aria-hidden", "true");
+    backdrop.classList.remove("open");
+    document.body.style.overflow = "";
+  }
+
+  function stopAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+      currentAudio = null;
+    }
+    audioLabel.textContent = "Play";
+    audioBtn.classList.remove("playing");
+  }
+
+  // ── Audio ─────────────────────────────────────────────────────
+  audioBtn.addEventListener("click", () => {
+    if (currentAudio && !currentAudio.paused) {
+      stopAudio();
+      return;
+    }
+    const src = audioBtn.dataset.src;
+    if (!src) return;
+    currentAudio = new Audio(src);
+    currentAudio.play();
+    audioLabel.textContent = "Stop";
+    audioBtn.classList.add("playing");
+    currentAudio.addEventListener("ended", () => {
+      audioLabel.textContent = "Play";
+      audioBtn.classList.remove("playing");
+      currentAudio = null;
+    });
+  });
+
+  // ── Close triggers ────────────────────────────────────────────
+  closeBtn.addEventListener("click", () => {
+    closeModal();
+    if (history.state?.phraseModal) history.back();
+  });
+
+  backdrop.addEventListener("click", (e) => {
+    if (e.target === backdrop) {
+      closeModal();
+      if (history.state?.phraseModal) history.back();
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && backdrop.classList.contains("open")) {
+      closeModal();
+      if (history.state?.phraseModal) history.back();
+    }
+  });
+
+  window.addEventListener("popstate", () => {
+    if (backdrop.classList.contains("open")) closeModal();
+  });
+
+  // ── Tabs ──────────────────────────────────────────────────────
+  document.querySelectorAll(".ph-tab").forEach((tab) => {
+    tab.addEventListener("click", () => {
+      document
+        .querySelectorAll(".ph-tab")
+        .forEach((t) => t.classList.remove("active"));
+      tab.classList.add("active");
+      renderGrid(tab.dataset.cat);
+    });
+  });
+
+  renderGrid("all");
+</script>
+
+<style is:global>
+  /* ── Tabs ─────────────────────────────────────────────────────── */
+  .ph-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+  }
+
+  .ph-tab {
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid var(--sl-color-hairline);
+    background: transparent;
+    color: var(--sl-color-text);
+    font-size: 0.78rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s,
+      border-color 0.15s;
+    margin-top: 0rem;
+  }
+
+  .ph-tab:hover {
+    border-color: var(--sl-color-text-accent);
+    color: var(--sl-color-text-accent);
+  }
+
+  .ph-tab.active {
+    background: var(--sl-color-accent-low);
+    border-color: var(--sl-color-text-accent);
+    color: var(--sl-color-text-accent);
+    font-weight: 600;
+  }
+
+  /* ── Grid ─────────────────────────────────────────────────────── */
+  .ph-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+    margin-top: 0rem;
+    margin: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .ph-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .ph-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* ── Card ─────────────────────────────────────────────────────── */
+  .ph-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+    padding: 0.65rem 0.8rem;
+    background: var(--sl-color-bg-nav);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    text-align: left;
+    transition:
+      border-color 0.15s,
+      background 0.15s;
+    margin-top: 0rem;
+  }
+
+  .ph-card:hover {
+    border-color: var(--sl-color-text-accent);
+    background: var(--sl-color-accent-low);
+  }
+
+  .ph-card--emergency {
+    border-color: color-mix(in srgb, #f87171 35%, var(--sl-color-hairline));
+  }
+
+  .ph-card--emergency:hover {
+    border-color: #f87171;
+    background: color-mix(in srgb, #f87171 8%, var(--sl-color-bg-nav));
+  }
+
+  .ph-card-en {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--sl-color-white);
+    line-height: 1.3;
+  }
+
+  .ph-card-si {
+    font-size: 0.8rem;
+    color: var(--sl-color-text-accent);
+    opacity: 0.8;
+    line-height: 1.3;
+  }
+
+  /* ── Backdrop ─────────────────────────────────────────────────── */
+  .ph-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+
+  .ph-backdrop.open {
+    display: flex;
+  }
+
+  /* ── Modal ────────────────────────────────────────────────────── */
+  .ph-modal {
+    position: relative;
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 1rem;
+    padding: 2.5rem 2rem 2rem;
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+  }
+
+  .ph-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.85rem;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--sl-color-text);
+    cursor: pointer;
+    padding: 0.25rem 0.4rem;
+    border-radius: 0.375rem;
+    opacity: 0.6;
+    transition: opacity 0.15s;
+  }
+
+  .ph-close:hover {
+    opacity: 1;
+  }
+
+  .ph-modal-cat {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sl-color-text-accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .ph-modal-cat[data-cat="emergency"] {
+    color: #f87171;
+  }
+
+  .ph-modal-en {
+    font-size: 0.95rem;
+    color: var(--sl-color-text);
+    margin: 0;
+    opacity: 0.75;
+  }
+
+  .ph-modal-si {
+    font-size: 2.25rem;
+    font-weight: 600;
+    color: var(--sl-color-white);
+    line-height: 1.3;
+    margin: 0.5rem 0 0;
+  }
+
+  .ph-modal-roman {
+    font-size: 0.95rem;
+    font-style: italic;
+    color: var(--sl-color-text-accent);
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  /* ── Audio button ─────────────────────────────────────────────── */
+  .ph-audio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    border: 1.5px solid var(--sl-color-text-accent);
+    background: transparent;
+    color: var(--sl-color-text-accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background 0.15s,
+      color 0.15s;
+  }
+
+  .ph-audio-btn:hover,
+  .ph-audio-btn.playing {
+    background: var(--sl-color-accent-low);
+  }
+</style>
