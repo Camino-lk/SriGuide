@@ -1,37 +1,24 @@
+---
+const { cards } = Astro.props;
+---
+
 <section class="trust">
-  <h2 class="cursive-text">Why Trust This Guide?</h2>
-
   <div class="trust-grid">
-    <div class="trust-card">
-      <h3 class="cursive-text">Written by Locals</h3>
-      <p>
-        Written and maintained by <strong>locals</strong> who understand how things
-        actually work in Sri Lanka.
-      </p>
-    </div>
-
-    <div class="trust-card">
-      <h3 class="cursive-text">Independent</h3>
-      <p>
-        Nothing here is sponsored. Just straight facts & useful advice. <strong
-          >No ads, no invasive tracking</strong
-        >.
-      </p>
-    </div>
-
-    <div class="trust-card">
-      <h3 class="cursive-text">Works Offline</h3>
-      <p>
-        Install as PWA - <strong>access anytime, even without internet</strong>.
-        Perfect for navigating on the go!
-      </p>
-    </div>
+    {
+      cards.map((card: { title: string; body: string }) => (
+        <div class="trust-card">
+          <h3 class="cursive-text">{card.title}</h3>
+          <p set:html={card.body} />
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <style>
   .trust {
-    margin: 4rem 0;
+    margin: 1rem 0;
+    margin-bottom: 2rem;
   }
 
   .trust h2 {

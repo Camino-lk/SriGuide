@@ -5,6 +5,7 @@ const { template } = Astro.locals.starlightRoute.entry.data;
 
 import { SimpleAnalytics } from "astro-simpleanalytics-plugin";
 import OfflineReadyPrompt from "../pwa/OfflineReadyPrompt.astro";
+import DonationPopup from "../misc/DonationPopup.astro";
 ---
 
 <!-- Override PageFrame component to include MobileMenuFooter on splash template -->
@@ -23,6 +24,7 @@ import OfflineReadyPrompt from "../pwa/OfflineReadyPrompt.astro";
   }
 </DefaultPageFrame>
 <OfflineReadyPrompt />
+<DonationPopup />
 
 <!-- PWA Install Button -->
 <script>

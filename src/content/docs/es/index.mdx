@@ -95,8 +95,28 @@ import UnderConstruction from "../../../components/home/UnderConstruction.astro"
 
 <SafetyStatus />
 
+<h2 class="cursive-text">Lo que dicen los viajeros…</h2>
 <TestimonialSection />
 
-<TrustSection />
+<h2 class="cursive-text">¿Por qué confiar en esta guía?</h2>
+<TrustSection
+  cards={[
+    {
+      title: "Escrito por locales",
+      body: "Escrito por <strong>locales</strong> que conocen cómo funcionan las cosas en Sri Lanka.",
+    },
+    {
+      title: "Independiente",
+      body: "Nada aquí está patrocinado. Solo datos reales y consejos útiles. <strong>Sin anuncios, sin rastreo intrusivo</strong>.",
+    },
+    {
+      title: "Funciona sin conexión",
+      body: "Instálalo como PWA: <strong>accede en cualquier momento, incluso sin internet</strong>. ¡Perfecto para moverte y navegar!",
+    },
+  ]}
+/>
 
-<UnderConstruction />
+<UnderConstruction
+  title="¡Ayúdanos a construir SriGuide!"
+  message="Trabajamos en muchos temas. Haz clic aquí para ayudarnos con traducciones, opiniones o contactarnos."
+/>

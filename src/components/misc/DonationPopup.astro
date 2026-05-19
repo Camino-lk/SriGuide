@@ -1,0 +1,352 @@
+<div class="don-backdrop" id="don-backdrop" inert>
+  <div
+    class="don-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="don-title"
+  >
+    <button class="don-close" id="don-close" aria-label="Close">&times;</button>
+
+    <div class="don-icon" aria-hidden="true">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="26"
+        height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+        <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+        <line x1="6" y1="1" x2="6" y2="4"></line>
+        <line x1="10" y1="1" x2="10" y2="4"></line>
+        <line x1="14" y1="1" x2="14" y2="4"></line>
+      </svg>
+    </div>
+
+    <h2 class="don-title" id="don-title">Enjoying SriGuide?</h2>
+
+    <p class="don-body">
+      It's free, open-source, and kept alive by volunteers. If it helped you in
+      any way, consider supporting us!
+    </p>
+
+    <div class="don-actions">
+      <a
+        class="don-btn don-btn--primary"
+        href="https://www.buymeacoffee.com/dilshanh"
+        target="_blank"
+        rel="noopener noreferrer"
+        id="don-primary"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="17"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+          <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+          <line x1="6" y1="1" x2="6" y2="4"></line>
+          <line x1="10" y1="1" x2="10" y2="4"></line>
+          <line x1="14" y1="1" x2="14" y2="4"></line>
+        </svg>
+        Donate with BuyMeACoffee
+      </a>
+
+      <a class="don-btn don-btn--secondary" href="/help-us" id="don-secondary">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="17"
+          height="17"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+          ></path>
+        </svg>
+        Other ways to help
+      </a>
+    </div>
+
+    <button class="don-dismiss" id="don-dismiss">
+      No thanks, don't ask again
+    </button>
+
+    <style>
+      .don-backdrop {
+        display: none;
+        position: fixed;
+        inset: 0;
+        z-index: 9999;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+      .don-backdrop.is-open {
+        display: flex;
+      }
+      /* Respect reduced motion */
+      @media (prefers-reduced-motion: no-preference) {
+        .don-modal {
+          animation: don-in 0.2s ease;
+        }
+        @keyframes don-in {
+          from {
+            opacity: 0;
+            transform: translateY(12px) scale(0.97);
+          }
+          to {
+            opacity: 1;
+            transform: none;
+          }
+        }
+      }
+
+      .don-modal {
+        position: relative;
+        background: var(--sl-color-bg);
+        border: 1px solid var(--sl-color-gray-3);
+        border-radius: 1rem;
+        padding: 2.5rem 2rem 1.75rem;
+        max-width: 460px;
+        width: 100%;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+      }
+
+      .don-close {
+        position: absolute;
+        top: 0.75rem;
+        right: 0.85rem;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        line-height: 1;
+        color: var(--sl-color-text);
+        cursor: pointer;
+        padding: 0.25rem 0.4rem;
+        border-radius: 0.375rem;
+        opacity: 0.55;
+        transition: opacity 0.15s;
+      }
+      .don-close:hover {
+        opacity: 1;
+      }
+
+      .don-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: var(--sl-color-bg-sidebar);
+        border: 1px solid var(--sl-color-hairline);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--sl-color-text-accent);
+        margin-bottom: 0.25rem;
+      }
+
+      .don-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: var(--sl-color-white);
+        margin: 0;
+        line-height: 1.3;
+      }
+
+      .don-body {
+        font-size: 0.9rem;
+        color: var(--sl-color-gray-3);
+        line-height: 1.65;
+        margin: 0.25rem 0 0.5rem;
+        max-width: 340px;
+      }
+
+      .don-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 0.25rem;
+      }
+
+      .don-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.25rem;
+        border-radius: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition:
+          filter 0.15s,
+          opacity 0.15s;
+        cursor: pointer;
+      }
+      .don-btn:hover {
+        filter: brightness(0.9);
+      }
+      .don-btn:active {
+        opacity: 0.85;
+      }
+
+      .don-btn--primary {
+        background: #ffdd00;
+        color: #1a1a00;
+        border: none;
+      }
+
+      .don-btn--secondary {
+        background: none;
+        color: var(--sl-color-text);
+        border: 1px solid var(--sl-color-gray-6);
+      }
+      .don-btn--secondary:hover {
+        filter: none;
+        background: var(--sl-color-bg-sidebar);
+      }
+
+      .don-dismiss {
+        background: none;
+        border: none;
+        color: var(--sl-color-gray-4);
+        font-size: 0.78rem;
+        cursor: pointer;
+        padding: 0.25rem 0.5rem;
+        margin-top: 0.4rem;
+        border-radius: 0.25rem;
+        transition: color 0.15s;
+      }
+      .don-dismiss:hover {
+        color: var(--sl-color-text);
+      }
+    </style>
+
+    <script>
+      const STORAGE_KEY = "SriGuide_donation_seen";
+      const VISIT_KEY = "SriGuide_visit_count";
+      const MIN_VISITS = 3;
+      const DELAY_MS = 20_000;
+
+      function markSeen() {
+        localStorage.setItem(STORAGE_KEY, "1");
+      }
+
+      function closeModal() {
+        const backdrop = document.getElementById("don-backdrop");
+        if (!backdrop) return;
+        backdrop.classList.remove("is-open");
+        document.body.style.overflow = "";
+        Array.from(document.body.children).forEach((el) => {
+          el.removeAttribute("inert");
+        });
+        backdrop.setAttribute("inert", "");
+      }
+
+      function openModal() {
+        const backdrop = document.getElementById("don-backdrop");
+        if (!backdrop) return;
+        document.body.style.overflow = "hidden";
+        Array.from(document.body.children).forEach((el) => {
+          el.setAttribute("inert", "");
+        });
+        backdrop.removeAttribute("inert");
+        backdrop.classList.add("is-open");
+        // Focus the modal for keyboard users
+        (backdrop.querySelector(".don-modal") as HTMLElement)?.focus();
+      }
+
+      function init() {
+        // Already seen
+        if (localStorage.getItem(STORAGE_KEY)) return;
+
+        // Increment visit counter
+        const visits = parseInt(localStorage.getItem(VISIT_KEY) || "0", 10) + 1;
+        localStorage.setItem(VISIT_KEY, String(visits));
+
+        // Not enough visits yet
+        if (visits < MIN_VISITS) return;
+
+        // Schedule popup after time on page
+        const timer = setTimeout(openModal, DELAY_MS);
+
+        // Close triggers
+        const backdrop = document.getElementById("don-backdrop");
+        const closeBtn = document.getElementById("don-close");
+        const dismiss = document.getElementById("don-dismiss");
+        const primary = document.getElementById("don-primary");
+
+        function handleDismiss() {
+          markSeen();
+          closeModal();
+          clearTimeout(timer);
+        }
+
+        closeBtn?.addEventListener("click", handleDismiss);
+        dismiss?.addEventListener("click", handleDismiss);
+
+        primary?.addEventListener("click", markSeen);
+        document
+          .getElementById("don-secondary")
+          ?.addEventListener("click", () => {
+            markSeen();
+            closeModal();
+          });
+
+        // Click outside the modal card
+        backdrop?.addEventListener("click", (e) => {
+          if (e.target === backdrop) handleDismiss();
+        });
+
+        // ESC key
+        document.addEventListener("keydown", (e) => {
+          if (e.key === "Escape" && backdrop?.classList.contains("is-open")) {
+            handleDismiss();
+          }
+        });
+
+        // Browser back button / history navigation
+        window.addEventListener("popstate", () => {
+          if (backdrop?.classList.contains("is-open")) {
+            handleDismiss();
+          }
+        });
+
+        // Push a history entry
+        backdrop?.addEventListener("don-opened", () => {
+          history.pushState({ donationModal: true }, "");
+        });
+      }
+
+      // Astro view transitions
+      document.addEventListener("astro:page-load", init);
+      // Fallback for first load
+      init();
+    </script>
+  </div>
+</div>
