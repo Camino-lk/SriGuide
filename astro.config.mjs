@@ -50,42 +50,42 @@ export default defineConfig({
       sidebar: [
         {
           label: "Quick Essentials",
-          translations: { es: "Esenciales Rápidas" },
+          translations: { es: "Esenciales rápidas" },
           link: "quick-essentials",
         },
         {
           label: "Getting Around",
-          translations: { es: "Cómo Moverse" },
+          translations: { es: "Cómo moverse" },
           link: "getting-around",
         },
         {
           label: "Where to Stay",
-          translations: { es: "Dónde Alojarse" },
+          translations: { es: "Dónde alojarse" },
           link: "where-to-stay",
         },
         {
           label: "Food & Eats",
-          translations: { es: "Comida y Bebidas" },
+          translations: { es: "Comida y bebidas" },
           link: "food-and-eats",
         },
         {
           label: "Things to Do",
-          translations: { es: "Cosas para Hacer" },
+          translations: { es: "Cosas para hacer" },
           link: "things-to-do",
         },
         {
           label: "Trip Plans",
-          translations: { es: "Planes de Viaje" },
+          translations: { es: "Planes de viaje" },
           link: "trip-plans",
         },
         {
           label: "Culture & Etiquette",
-          translations: { es: "Cultura y Etiqueta" },
+          translations: { es: "Cultura y etiqueta" },
           link: "culture-and-etiquette",
         },
         {
           label: "Safety & Health",
-          translations: { es: "Seguridad y Salud" },
+          translations: { es: "Seguridad y salud" },
           link: "safety-and-health",
         },
         {
@@ -95,17 +95,17 @@ export default defineConfig({
         },
         {
           label: "FAQ",
-          translations: { es: "Preguntas Frecuentes" },
+          translations: { es: "Preguntas frecuentes" },
           link: "faq",
         },
         {
           label: "Travel Toolkit",
-          translations: { es: "Herramientas de Viaje" },
+          translations: { es: "Herramientas de viaje" },
           link: "travel-toolkit",
         },
         {
           label: "Apps & Extras",
-          translations: { es: "Aplicaciones y Extras" },
+          translations: { es: "Aplicaciones y extras" },
           link: "apps",
         },
       ],

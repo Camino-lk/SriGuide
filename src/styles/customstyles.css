@@ -45,3 +45,21 @@ SriGuide Website Custom Styles
   letter-spacing: 0.02em;
   font-weight: 400;
 }
+
+/* ------- Global selection colors ------- */
+::selection {
+  background: #afeec5;
+  color: #000000;
+}
+
+/* Firefox (older syntax) */
+::-moz-selection {
+  background: #afeec5;
+  color: #000000;
+}
+
+/* WebKit (Chrome, Safari, Edge) */
+::-webkit-selection {
+  background: #afeec5;
+  color: #000000;
+}
