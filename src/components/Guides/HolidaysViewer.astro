@@ -1,0 +1,429 @@
+---
+// ── Holidays Data << Must be updated each year ────────────────
+import rawHolidays from "../../assets/holiday-data/holidays.json";
+// ──────────────────────────────────────────────────────────────
+interface Holiday {
+  uid: string;
+  summary: string;
+  categories: string[];
+  start: string; // "YYYY-MM-DD"
+  end: string;
+}
+
+const currentYear = new Date().getFullYear();
+
+// current year only
+const holidays: Holiday[] = (rawHolidays as Holiday[]).filter((h) =>
+  h.start.startsWith(String(currentYear)),
+);
+
+// as JSON
+const dataJson = JSON.stringify(holidays);
+---
+
+<div class="hv" id="hv">
+  <div class="hv-header">
+    <div class="hv-heading">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+        <line x1="16" y1="2" x2="16" y2="6"></line>
+        <line x1="8" y1="2" x2="8" y2="6"></line>
+        <line x1="3" y1="10" x2="21" y2="10"></line>
+      </svg>
+      <span>Public Holidays <span class="hv-year" id="hv-year"></span></span>
+    </div>
+    <span class="hv-today" id="hv-today"></span>
+  </div>
+
+  <div class="hv-months-wrap">
+    <div
+      class="hv-months"
+      id="hv-months"
+      role="tablist"
+      aria-label="Select month"
+    >
+    </div>
+  </div>
+
+  <div class="hv-list" id="hv-list" role="tabpanel" aria-live="polite"></div>
+  <div class="hv-src">
+    Source:
+    <a
+      href="https://github.com/Dilshan-H/srilanka-holidays"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      Dilshan-H/srilanka-holidays
+    </a>
+    verified Sri Lankan government data
+  </div>
+</div>
+
+<style is:global>
+  .hv {
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 0.875rem;
+    overflow: hidden;
+    font-size: 0.875rem;
+    container-type: inline-size;
+  }
+
+  /* ── Header ── */
+  .hv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem 0.75rem;
+    border-bottom: 1px solid var(--sl-color-hairline);
+    flex-wrap: wrap;
+  }
+  .hv-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-weight: 600;
+    color: var(--sl-color-white);
+    font-size: 0.9rem;
+  }
+  .hv-heading svg {
+    color: var(--sl-color-text-accent);
+    flex-shrink: 0;
+  }
+  .hv-year {
+    color: var(--sl-color-text-accent);
+  }
+  .hv-today {
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3);
+  }
+
+  /* ── Month pills ── */
+  .hv-months-wrap {
+    padding: 0.625rem 1rem;
+    border-bottom: 1px solid var(--sl-color-hairline);
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-top: 0rem;
+  }
+  .hv-months-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hv-months {
+    display: flex;
+    gap: 0.3rem;
+    width: max-content;
+  }
+
+  .hv-month-btn {
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 2rem;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.78rem;
+    color: var(--sl-color-gray-3);
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background 0.15s,
+      color 0.15s,
+      border-color 0.15s;
+    position: relative;
+    margin-top: 0rem;
+  }
+  .hv-month-btn:hover {
+    color: var(--sl-color-text);
+    background: var(--sl-color-bg-sidebar);
+  }
+  .hv-month-btn.is-active {
+    background: var(--sl-color-text-accent);
+    color: var(--sl-color-bg);
+    border-color: var(--sl-color-text-accent);
+    font-weight: 600;
+  }
+  .hv-month-btn.has-today::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .hv-month-btn.is-empty {
+    opacity: 0.35;
+  }
+
+  /* ── Holiday list ── */
+  .hv-list {
+    padding: 0.5rem 0 0.625rem;
+    min-height: 4rem;
+    margin-top: 0rem;
+  }
+
+  .hv-item {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    gap: 0.25rem 0.75rem;
+    align-items: start;
+    padding: 0.5rem 1rem;
+    transition: background 0.1s;
+    margin-top: 0rem;
+  }
+  .hv-item:hover {
+    background: var(--sl-color-bg-sidebar);
+  }
+  .hv-item.is-today {
+    background: color-mix(in srgb, var(--sl-color-text-accent) 8%, transparent);
+  }
+
+  .hv-date {
+    text-align: center;
+    line-height: 1.25;
+    flex-shrink: 0;
+  }
+  .hv-date-day {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--sl-color-white);
+    display: block;
+    line-height: 1;
+  }
+  .hv-date-dow {
+    font-size: 0.68rem;
+    color: var(--sl-color-gray-3);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .hv-item.is-today .hv-date-day {
+    color: var(--sl-color-text-accent);
+  }
+
+  .hv-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    padding-top: 0.05rem;
+    margin-top: 0rem;
+  }
+  .hv-name {
+    color: var(--sl-color-text);
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  .hv-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+  .hv-tag {
+    font-size: 0.68rem;
+    padding: 0.1rem 0.45rem;
+    border-radius: 2rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+  .hv-tag--public {
+    background: color-mix(
+      in srgb,
+      var(--sl-color-text-accent) 15%,
+      transparent
+    );
+    color: var(--sl-color-text-accent);
+  }
+  .hv-tag--mercantile {
+    background: color-mix(in srgb, #a78bfa 15%, transparent);
+    color: #a78bfa;
+  }
+  .hv-tag--bank {
+    background: color-mix(in srgb, var(--sl-color-gray-3) 15%, transparent);
+    color: var(--sl-color-gray-3);
+  }
+  .hv-tag--poya {
+    background: color-mix(in srgb, #f59e0b 15%, transparent);
+    color: #f59e0b;
+  }
+
+  .hv-divider {
+    height: 1px;
+    background: var(--sl-color-hairline);
+    margin: 0.25rem 1rem;
+  }
+
+  .hv-empty {
+    padding: 1.5rem 1rem;
+    text-align: center;
+    color: var(--sl-color-gray-3);
+    font-size: 0.82rem;
+  }
+
+  /* ── Data Source ── */
+  .hv-src {
+    padding: 0.4rem 1rem;
+    border-top: 1px solid var(--sl-color-hairline);
+    font-size: 0.8rem;
+    color: var(--sl-color-gray-3);
+  }
+  .hv-src a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+</style>
+
+<script define:vars={{ dataJson, currentYear }}>
+  const holidays = JSON.parse(dataJson);
+
+  const MONTHS = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  const today = new Date();
+  const todayStr = today.toISOString().slice(0, 10);
+
+  // Index holidays by month (0-based)
+  const byMonth = Array.from({ length: 12 }, () => []);
+  for (const h of holidays) {
+    const m = parseInt(h.start.slice(5, 7), 10) - 1;
+    byMonth[m].push(h);
+  }
+
+  // Set header text
+  document.getElementById("hv-year").textContent = String(currentYear);
+  document.getElementById("hv-today").textContent = today.toLocaleDateString(
+    "en-US",
+    { weekday: "long", year: "numeric", month: "long", day: "numeric" },
+  );
+
+  // Build month pills
+  const monthsEl = document.getElementById("hv-months");
+  const todayMonth = today.getMonth();
+  // Default: current month if it has upcoming/today holidays, else next month with holidays
+  let defaultMonth = todayMonth;
+  if (
+    byMonth[todayMonth].length === 0 ||
+    byMonth[todayMonth].every((h) => h.start < todayStr)
+  ) {
+    const next = byMonth.slice(todayMonth + 1).findIndex((m) => m.length > 0);
+    if (next !== -1) defaultMonth = todayMonth + 1 + next;
+  }
+
+  let activeMonth = defaultMonth;
+
+  MONTHS.forEach((name, i) => {
+    const btn = document.createElement("button");
+    btn.className =
+      "hv-month-btn" +
+      (i === activeMonth ? " is-active" : "") +
+      (byMonth[i].length === 0 ? " is-empty" : "") +
+      (i === todayMonth ? " has-today" : "");
+    btn.textContent = name.slice(0, 3);
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", i === activeMonth ? "true" : "false");
+    btn.setAttribute("aria-label", name);
+    btn.addEventListener("click", () => selectMonth(i));
+    monthsEl.appendChild(btn);
+  });
+
+  function tagClass(cat) {
+    const key = cat.toLowerCase();
+    if (key === "public") return "hv-tag--public";
+    if (key === "poya") return "hv-tag--poya";
+    if (key === "bank") return "hv-tag--bank";
+    if (key === "mercantile") return "hv-tag--mercantile";
+    return "hv-tag--bank";
+  }
+
+  function renderList(monthIndex) {
+    const listEl = document.getElementById("hv-list");
+    const items = byMonth[monthIndex];
+
+    if (items.length === 0) {
+      listEl.innerHTML =
+        '<p class="hv-empty">No public holidays this month.</p>';
+      return;
+    }
+
+    listEl.innerHTML = "";
+    items.forEach((h, idx) => {
+      const d = new Date(h.start + "T00:00:00");
+      const isToday = h.start === todayStr;
+
+      const item = document.createElement("div");
+      item.className = "hv-item" + (isToday ? " is-today" : "");
+
+      const tags = h.categories
+        .map((c) => `<span class="hv-tag ${tagClass(c)}">${c}</span>`)
+        .join("");
+
+      item.innerHTML = `
+        <div class="hv-date">
+          <span class="hv-date-day">${String(d.getDate()).padStart(2, "0")}</span>
+          <span class="hv-date-dow">${DAYS[d.getDay()]}</span>
+        </div>
+        <div class="hv-info">
+          <span class="hv-name">${h.summary}${isToday ? " &nbsp;·&nbsp; <strong>Today</strong>" : ""}</span>
+          <div class="hv-tags">${tags}</div>
+        </div>
+      `;
+      listEl.appendChild(item);
+
+      if (idx < items.length - 1) {
+        const div = document.createElement("div");
+        div.className = "hv-divider";
+        listEl.appendChild(div);
+      }
+    });
+  }
+
+  function selectMonth(i) {
+    activeMonth = i;
+    // Update pill states
+    monthsEl.querySelectorAll(".hv-month-btn").forEach((btn, idx) => {
+      btn.classList.toggle("is-active", idx === i);
+      btn.setAttribute("aria-selected", idx === i ? "true" : "false");
+    });
+    // Scroll selected pill into view
+    const activePill = monthsEl.children[i];
+    activePill?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+    renderList(i);
+  }
+
+  // Initial render + scroll active pill into view
+  renderList(activeMonth);
+  monthsEl.children[activeMonth]?.scrollIntoView({
+    block: "nearest",
+    inline: "center",
+  });
+</script>

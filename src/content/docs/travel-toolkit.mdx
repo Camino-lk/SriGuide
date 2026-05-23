@@ -17,6 +17,7 @@ import EmergencyCall from "../../components/Guides/EmergencyCall.astro";
 import EmergencyContact from "../../components/Guides/EmergencyContact.astro";
 import ToolkitPage from "../../components/Guides/ToolkitPage.astro";
 import ToolkitCard from "../../components/Guides/ToolkitCard.astro";
+import HolidaysViewer from "../../components/Guides/HolidaysViewer.astro";
 
 <LinkButton href="/" icon="left-arrow" iconPlacement="start">
   Go back to Home
@@ -30,6 +31,10 @@ import ToolkitCard from "../../components/Guides/ToolkitCard.astro";
 
 <ToolkitCard slot="time" icon="🕐" title="Sri Lanka Time">
   <LankaTime />
+</ToolkitCard>
+
+<ToolkitCard slot="holidays" icon="📅" title="Public Holidays">
+  <HolidaysViewer />
 </ToolkitCard>
 
 <ToolkitCard slot="packing" icon="🧳" title="Packing Checklist">
