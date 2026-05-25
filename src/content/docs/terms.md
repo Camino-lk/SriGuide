@@ -123,4 +123,4 @@ These terms may be updated from time to time. The "last updated" date at the top
 
 If you have questions about these terms, reach to us through:
 
-📧 [humble-calm-knoll (-at-) duck.com](mailto:humble-calm-knoll@duck.com)
+📧 [contact@sri-guide.com](mailto:contact@sri-guide.com)

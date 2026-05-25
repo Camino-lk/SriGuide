@@ -63,7 +63,7 @@ Before submitting, you will be asked to agree to one or both of the following:
 The first consent is required to submit. The second is optional and only applies if you choose to tick it.
 By submitting a photo, you confirm that you own the rights to it.
 All submissions are reviewed before publishing. We reserve the right to edit, remove, or decline testimonials that contain personally identifiable information (PII) or violate our guidelines. Please avoid sharing sensitive personal data (e.g., full home address, financial details, government IDs) in your testimonial.
-You can request removal of your published testimonial at any time by contacting [humble-calm-knoll (-at-) duck.com](mailto:humble-calm-knoll@duck.com).
+You can request removal of your published testimonial at any time by contacting [contact@sri-guide.com](mailto:contact@sri-guide.com).
 
 ### 3.3 Your Rights as a Form Respondent
 
@@ -73,7 +73,7 @@ Under GDPR, you have the right to:
 - Request correction or deletion of your data
 - Withdraw consent at any time
 
-To exercise any of these rights, contact [humble-calm-knoll (-at-) duck.com](mailto:humble-calm-knoll@duck.com).
+To exercise any of these rights, contact [contact@sri-guide.com](mailto:contact@sri-guide.com).
 
 ---
 
@@ -140,4 +140,4 @@ This policy may be updated from time to time. The "last updated" date at the top
 
 For any privacy-related questions or requests, contact:
 
-📧 [humble-calm-knoll (-at-) duck.com](mailto:humble-calm-knoll@duck.com)
+📧 [contact@sri-guide.com](mailto:contact@sri-guide.com)
