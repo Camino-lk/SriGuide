@@ -59,4 +59,4 @@ Using AI to help build something doesn't make it less honest. Not disclosing it 
 
 If you have questions about any specific content or how a particular page was produced, feel free to ask.
 
-📧 [humble-calm-knoll (-at-) duck.com](mailto:humble-calm-knoll@duck.com)
+📧 [contact@sri-guide.com](mailto:contact@sri-guide.com)

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://sri-guide.vercel.app/sitemap-index.xml
+Sitemap: https://sri-guide.com/sitemap-index.xml

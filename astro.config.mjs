@@ -6,7 +6,7 @@ import starlight from "@astrojs/starlight";
 // https://astro.build/config
 export default defineConfig({
   trailingSlash: "never",
-  site: "https://sri-guide.vercel.app",
+  site: "https://sri-guide.com",
   integrations: [
     starlight({
       title: "SriGuide",

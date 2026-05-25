@@ -35,16 +35,18 @@ There are many ways to help beyond writing code:
 - Reporting inaccurate or misleading information
 - Improving documentation
 
-**For a full picture of what we're actively looking for and where help is most needed, visit the [Contributing page on the site](https://sri-guide.vercel.app/help-us).** That page is kept up to date with current priorities and open tasks — start there before opening anything here.
+**For a full picture of what we're actively looking for and where help is most needed, visit the [Contributing page on the site](https://sri-guide.com/help-us).** That page is kept up to date with current priorities and open tasks — start there before opening anything here.
 
 ---
 
 ## Before You Start
 
 ### Small changes — go ahead
+
 Typos, broken links, minor wording fixes, small factual corrections, content updates to existing pages — open a PR directly. No prior discussion needed.
 
 ### Large or structural changes — talk first
+
 **Please reach out before putting significant time into a large change.** This includes:
 
 - New sections, major content restructuring, or new guide pages
@@ -62,6 +64,7 @@ We may already be working on something similar, or the direction may not be righ
 We have issue and pull request templates set up to make reporting and reviewing easier. Please use the appropriate template when opening an issue or PR — they prompt you for the information that's actually needed.
 
 **Bug reports** should include:
+
 - A clear description of the problem
 - Where you found it (URL or file path)
 - What you expected vs. what happened
@@ -77,20 +80,23 @@ For questions or open-ended discussions, open an issue and label it appropriatel
 
 We do **not** push directly to `main` on code changes. All changes flow through PRs.
 
-| Change type | Branch to use | PR target |
-|---|---|---|
-| Content updates, page edits, minor fixes, new guide components | `dev` | `main` |
-| New themes, PWA features, analytics, major new functionality | `feature/<name>` | `main` |
+| Change type                                                    | Branch to use    | PR target |
+| -------------------------------------------------------------- | ---------------- | --------- |
+| Content updates, page edits, minor fixes, new guide components | `dev`            | `main`    |
+| New themes, PWA features, analytics, major new functionality   | `feature/<name>` | `main`    |
 
 **Current active branches:** `dev`, `feature/analytics`, `feature/pwa-3`
 
 ### What goes in `dev`
+
 Day-to-day contributions: adding or editing guide content, updating existing pages, fixing typos, adding new components inside `src/components/`, minor config changes.
 
 ### What gets its own feature branch
+
 Larger, self-contained work with its own scope — new PWA functionality, analytics integration, a new theme, a significant new site section. If you're unsure which category your change falls into, open an issue and ask.
 
 ### Working on an existing feature branch
+
 If you want to contribute to work already in progress on a feature branch (e.g. `feature/pwa-3`), branch off that feature branch, not `dev`, and PR back into it.
 
 ---
@@ -112,6 +118,7 @@ PRs are reviewed when maintainer bandwidth allows — patience is appreciated.
 ## Development Setup
 
 ### Prerequisites
+
 - [Node.js](https://nodejs.org/)
 - A code editor — we use and recommend **VS Code** with the following extensions:
   - [Astro](https://marketplace.visualstudio.com/items?itemName=astro-build.astro-vscode) — syntax highlighting and IntelliSense for `.astro` files
@@ -194,6 +201,7 @@ If you're unsure which folder fits, mention it in your PR and we'll sort it out.
 Content lives in `src/content/docs/` as `.mdx` files. English is the root locale — there is no separate `en/` folder. Content is written in MDX and can include Astro components.
 
 **When editing or adding content:**
+
 - Write for a traveler who is new to Sri Lanka — assume no local knowledge
 - Be factual, specific, and practical. Avoid vague advice ("be careful") in favour of actionable guidance
 - Verify that information is current — outdated tips can actively mislead people
@@ -229,11 +237,11 @@ Copy the `.mdx` files you want to translate from the root `docs/` folder into yo
 
 Because locale folders are one level deeper than the English root, all internal paths in copied files need an extra `../` prefix.
 
-| Path type | English (root) | Translated locale (e.g. `es/`) |
-|---|---|---|
-| Component import | `../../components/Guides/AppCards.astro` | `../../../components/Guides/AppCards.astro` |
-| Image reference | `../../assets/images/guides/page/img.avif` | `../../../assets/images/guides/page/img.avif` |
-| Internal links | `/travel-toolkit` | `/es/travel-toolkit` |
+| Path type        | English (root)                             | Translated locale (e.g. `es/`)                |
+| ---------------- | ------------------------------------------ | --------------------------------------------- |
+| Component import | `../../components/Guides/AppCards.astro`   | `../../../components/Guides/AppCards.astro`   |
+| Image reference  | `../../assets/images/guides/page/img.avif` | `../../../assets/images/guides/page/img.avif` |
+| Internal links   | `/travel-toolkit`                          | `/es/travel-toolkit`                          |
 
 The existing `es/` locale has these corrections applied throughout — refer to any file there if you run into path errors.
 
@@ -242,6 +250,7 @@ The existing `es/` locale has these corrections applied throughout — refer to 
 You need to register the new locale in two places:
 
 Add to the `locales` object:
+
 ```js
 locales: {
   root: {
@@ -260,6 +269,7 @@ locales: {
 ```
 
 Add translations for each sidebar label:
+
 ```js
 sidebar: [
   {
