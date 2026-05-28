@@ -25,7 +25,7 @@ This is an attempt at something different: a free, independent, non-commercial g
 
 - Clean, intuitive navigation organized by key travel categories (Transport, Accommodation, Food, Attractions, Safety etc.)
 - Accurate, practical information focused on real traveler needs
-- Progressive Web App (PWA) support – works offline and feels like a native app
+- Progressive Web App (PWA) support – access critical info anytime, even without internet
 - Built for multilingual growth (i18n ready)
 - Fully open-source and community-driven
 

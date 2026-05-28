@@ -261,7 +261,7 @@ locales: {
     label: "Español",
     lang: "es",
   },
-  fr: {              // ← your new locale
+  fr: {  // ← your new locale
     label: "Français",
     lang: "fr",
   },
@@ -281,6 +281,20 @@ sidebar: [
     link: "quick-essentials",
   },
   // ... repeat for all sidebar items
+],
+```
+
+Add PWA critical pages (**make sure you have translated the index & emergency pages**):
+
+```js
+globPatterns: [
+  // ...
+  // locale [es]
+  "es/index.html",
+  "es/emergency/index.html",
+  // locale [fr] ← your new locale
+  "fr/index.html",
+  "fr/emergency/index.html",
 ],
 ```
 
