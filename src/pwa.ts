@@ -5,7 +5,7 @@ window.addEventListener("DOMContentLoaded", () => {
     immediate: true,
     onOfflineReady() {
       window.dispatchEvent(new Event("pwa-offline-ready"));
-      console.log("Sit back and relax - SriGuide is ready to work offline 😊");
+      console.log("Core pages cached. More saves as you browse 🗺️");
     },
     onRegisteredSW(swUrl) {
       console.log("SW registered:", swUrl);
@@ -36,7 +36,7 @@ window.addEventListener("pwa-offline-ready", () => {
 
   const showToast = () => {
     hideToast(); // clear any previous
-    pwaToastMessage.textContent = "✨ SriGuide is ready for offline use";
+    pwaToastMessage.textContent = "✨ Essential pages available offline!";
     pwaToast.classList.add("show");
 
     autoHideTimer = window.setTimeout(hideToast, 3500);
