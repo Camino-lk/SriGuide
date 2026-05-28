@@ -26,7 +26,7 @@ export default defineConfig({
       },
       customCss: [
         "./src/styles/customstyles.css",
-        "./src/styles/font-face.css"
+        "./src/styles/font-face.css",
       ],
 
       // ---- End Customizations ----
@@ -122,15 +122,72 @@ export default defineConfig({
     }),
     // ---- PWA Integration ----
     AstroPWA({
+      registerType: "autoUpdate",
       workbox: {
-        navigateFallback: "/",
-        globIgnores: ['404.html'],
+        cleanupOutdatedCaches: true,
+        clientsClaim: true,
+        navigateFallbackDenylist: [/.*/],
+        globIgnores: ["404.html", "**/screenshots/**"],
+        // --- TIER 1: App shell
         globPatterns: [
-          "**/*.{js,css,html,svg,ico,png,jpg,jpeg,gif,webp,avif,mp3,woff,woff2}",
-          "pagefind/**/*.{pf_fragment,pf_index,pf_meta,json,pagefind,js,wasm}",
+          "**/*.{js,css,woff,woff2}",
+          "**/*.{ico,svg}",
+          // Home page - Images
+          "_astro/hero-image*.webp",
+          "img/testimonials/*.{webp,avif,jpg,png}",
+          // Critical guide pages
+          "index.html",
+          "quick-essentials/index.html",
+          "safety-and-health/index.html",
+          "travel-toolkit/index.html",
+          "faq/index.html",
+          "emergency/index.html",
+          // locale [es]
+          "es/index.html",
+          "es/emergency/index.html",
+        ],
+        runtimeCaching: [
+          // --- TIER 2: Other HTML pages
+          {
+            urlPattern: ({ request }) => request.destination === "document",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "pages-cache",
+              networkTimeoutSeconds: 5,
+              expiration: {
+                maxEntries: 60,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+              },
+            },
+          },
+
+          // --- TIER 3: Images & Media
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|gif|webp|avif)$/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "images-cache",
+              expiration: {
+                maxEntries: 80,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+              },
+            },
+          },
+
+          // --- TIER 4: Pagefind index
+          {
+            urlPattern: /\/pagefind\//,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "search-cache",
+              expiration: {
+                maxEntries: 120,
+                maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+              },
+            },
+          },
         ],
       },
-      registerType: "autoUpdate",
       manifest: {
         name: "SriGuide",
         short_name: "SriGuide",
