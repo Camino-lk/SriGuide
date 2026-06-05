@@ -30,3 +30,6 @@ tmp/
 
 # project files
 project_data/
+
+# SEO data
+seo/
