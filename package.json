@@ -13,7 +13,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/fix-pagefind.js",
+    "postbuild": "node scripts/fix-pagefind.js && node scripts/generate-indexnow.js",
     "preview": "astro preview",
     "astro": "astro"
   },
