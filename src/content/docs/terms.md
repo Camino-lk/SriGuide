@@ -3,7 +3,7 @@ title: Terms of Use
 description: The terms that apply to using SriGuide - what this site is, what it isn't, and what you should know before relying on it for travel planning.
 ---
 
-_Last updated: 2026.04.26_
+_Last updated: 2026.06.12_
 
 Please read these terms before using SriGuide (the "Site"). By accessing or using the Site, you agree to be bound by them.
 
@@ -55,10 +55,13 @@ The Site contains links to external websites — including app stores, governmen
 The Site integrates the following third-party services. Their respective terms and privacy policies apply when you interact with them:
 
 - **ExchangeRate-API**: used for the currency converter tool
+- **OpenStreetMap**: used for the maps in Trip Plans pages
 - **Tally.so**: used for feedback, contact, and testimonial forms
 - **Simple Analytics**: used for privacy-respecting, anonymized traffic analytics
 - **Buy Me a Coffee**: used for voluntary financial support
 - **GitHub**: hosts the open-source repository for this project
+
+Please refer the [Privacy](/privacy) page for more information.
 
 ---
 

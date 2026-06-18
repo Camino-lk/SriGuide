@@ -1,0 +1,55 @@
+---
+title: South Coast & Hill Country - 8 Day Sri Lanka Itinerary
+description: Eight days combining Sri Lanka's best beaches, colonial Galle, wildlife at Yala, and the cool tea-covered hills around Ella.
+template: splash
+---
+
+import PlanDetail from "../../../components/Guides/PlanDetail.astro";
+import plan from "../../../data/trip-plans/south-and-hills-8d";
+
+<PlanDetail
+  plan={plan}
+  ui={{
+    days: "days",
+    pace: "Pace",
+    paceValues: { relaxed: "Relaxed", moderate: "Balanced", packed: "Full-on" },
+    groupTypes: {
+      solo: "Solo",
+      couple: "Couple",
+      family: "Family",
+      group: "Group",
+    },
+    highlightsHeading: "Trip highlights",
+    itineraryHeading: "Day by day",
+    dayLabel: "Day",
+    daysLabel: "Days",
+    mapHeading: "Route map",
+    mapPopupDay: "Day",
+    categories: {
+      landmark: "Landmark",
+      religious: "Religious site",
+      nature: "Nature",
+      wildlife: "Wildlife",
+      beach: "Beach",
+      viewpoint: "Viewpoint",
+      city: "Town / City",
+      market: "Market",
+      activity: "Activity",
+    },
+    categoryIcons: {
+      landmark: "🏛️",
+      religious: "🕌",
+      nature: "🌿",
+      wildlife: "🐘",
+      beach: "🏖️",
+      viewpoint: "🔭",
+      city: "🏙️",
+      market: "🛒",
+      activity: "🏄",
+    },
+    addToTripLabel: "Add to My Trip",
+    addedToTripLabel: "Saved to My Trip",
+    backLabel: "All trip plans",
+    backHref: "/trip-plans",
+  }}
+/>

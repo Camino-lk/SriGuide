@@ -18,6 +18,8 @@ import EmergencyContact from "../../components/Guides/EmergencyContact.astro";
 import ToolkitPage from "../../components/Guides/ToolkitPage.astro";
 import ToolkitCard from "../../components/Guides/ToolkitCard.astro";
 import HolidaysViewer from "../../components/Guides/HolidaysViewer.astro";
+import MyTripPlans from "../../components/Guides/MyTripPlans.astro";
+import MyTripDashboard from "../../components/Guides/MyTripDashboard.astro";
 
 <LinkButton href="/" icon="left-arrow" iconPlacement="start">
   Go back to Home
@@ -35,6 +37,22 @@ import HolidaysViewer from "../../components/Guides/HolidaysViewer.astro";
 
 <ToolkitCard slot="holidays" icon="📅" title="Public Holidays">
   <HolidaysViewer />
+</ToolkitCard>
+
+<ToolkitCard slot="my-trip-plans">
+  <MyTripPlans
+    ui={{
+      emptyHeading: "No saved plans yet",
+      emptyText:
+        "Browse trip plans and save the ones that interest you — they'll show up here.",
+      emptyLink: "Browse trip plans",
+      emptyLinkHref: "/trip-plans",
+      days: "days",
+      removeLabel: "Remove",
+      viewLabel: "View Plan",
+      planBasePath: "/trip-plans",
+    }}
+  />
 </ToolkitCard>
 
 <ToolkitCard slot="packing" icon="🧳" title="Packing Checklist">
@@ -107,8 +125,12 @@ import HolidaysViewer from "../../components/Guides/HolidaysViewer.astro";
   <CurrencyConverter />
 </ToolkitCard>
 
-<ToolkitCard slot="phrases" icon="🗣️" title="Useful Phrases" spanFull={true}>
+<ToolkitCard slot="phrases" icon="🔊" title="Useful Phrases">
   <PhraseCards />
+</ToolkitCard>
+
+<ToolkitCard slot="trip-dashboard" icon="🧭" title="My Trip Dashboard">
+  <MyTripDashboard />
 </ToolkitCard>
 
 <ToolkitCard

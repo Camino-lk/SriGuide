@@ -35,6 +35,15 @@
   <section class="toolkit-section">
     <div class="section-heading"><span>Plan Your Trip</span></div>
     <div class="checklist-grid">
+      <details class="tk-accordion" data-id="my-trip-plans">
+        <summary class="tk-title">
+          <span class="title-inner">
+            <span class="t-icon">🗺️</span> My Trip Plans
+          </span>
+        </summary>
+        <slot name="my-trip-plans" />
+      </details>
+
       <details class="tk-accordion" data-id="packing">
         <summary class="tk-title">
           <span class="title-inner"
@@ -89,10 +98,19 @@
     <details class="tk-accordion" data-id="phrases">
       <summary class="tk-title">
         <span class="title-inner"
-          ><span class="t-icon">🗣️</span> Useful Phrases</span
+          ><span class="t-icon">🔊</span> Useful Phrases</span
         >
       </summary>
       <slot name="phrases" />
+    </details>
+
+    <details class="tk-accordion" data-id="trip-dashboard">
+      <summary class="tk-title">
+        <span class="title-inner"
+          ><span class="t-icon">🧭</span> My Trip Dashboard</span
+        >
+      </summary>
+      <slot name="trip-dashboard" />
     </details>
 
     <details class="tk-accordion tk-emergency" data-id="emergency">

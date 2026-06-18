@@ -1,0 +1,969 @@
+---
+// Usage in MDX
+//
+//   (e.g. src/content/docs/trip-plans/cultural-triangle-5d.mdx):
+//
+//   import PlanDetail from "../../../components/Guides/PlanDetail.astro";
+//   import plan from "../../../data/trip-plans/cultural-triangle-5d";
+//   <PlanDetail plan={plan} ui={...} />
+
+import type { TripPlan } from "../../data/trip-plans/types";
+import "leaflet/dist/leaflet.css";
+
+export interface PlanUIStrings {
+  // Meta row
+  days: string;
+  pace: string;
+  paceValues: { relaxed: string; moderate: string; packed: string };
+  groupTypes: { solo: string; couple: string; family: string; group: string };
+  // Sections
+  highlightsHeading: string;
+  itineraryHeading: string;
+  dayLabel: string; // "Day" → "Day 1"
+  daysLabel: string; // "Days" → "Days 2–3"
+  // Map
+  mapHeading: string;
+  mapPopupDay: string;
+  // Stop categories in map popup
+  categories: {
+    landmark: string;
+    religious: string;
+    nature: string;
+    wildlife: string;
+    beach: string;
+    viewpoint: string;
+    city: string;
+    market: string;
+    activity: string;
+  };
+  categoryIcons: {
+    landmark: string;
+    religious: string;
+    nature: string;
+    wildlife: string;
+    beach: string;
+    viewpoint: string;
+    city: string;
+    market: string;
+    activity: string;
+  };
+  // Actions
+  addToTripLabel: string;
+  addedToTripLabel: string;
+  backLabel: string;
+  backHref: string;
+}
+
+interface Props {
+  plan: TripPlan;
+  ui: PlanUIStrings;
+}
+
+const { plan, ui } = Astro.props;
+
+// Group stops by day for the itinerary list
+type StopWithIndex = (typeof plan.stops)[number] & { _idx: number };
+const byDay = new Map<number, StopWithIndex[]>();
+
+plan.stops.forEach((stop, i) => {
+  const days = Array.isArray(stop.day)
+    ? Array.from(
+        { length: stop.day[1] - stop.day[0] + 1 },
+        (_, k) => stop.day[0] + k,
+      )
+    : [stop.day];
+  // Only add to the first day of multi-day stays to avoid duplication
+  const firstDay = Array.isArray(stop.day) ? stop.day[0] : stop.day;
+  if (!byDay.has(firstDay)) byDay.set(firstDay, []);
+  byDay.get(firstDay)!.push({ ...stop, _idx: i });
+});
+
+const sortedDays = [...byDay.keys()].sort((a, b) => a - b);
+
+// Serialize for client
+const planJson = JSON.stringify(plan);
+const uiJson = JSON.stringify(ui);
+---
+
+<div
+  class="pd-root not-content"
+  id="plan-detail"
+  data-plan={planJson}
+  data-ui={uiJson}
+>
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <div class="pd-header">
+    <a href={ui.backHref} class="pd-back">← {ui.backLabel}</a>
+
+    <div class="pd-meta-row">
+      <span class="pd-meta-pill pd-meta-accent">{plan.days} {ui.days}</span>
+      <span class="pd-meta-pill">{ui.paceValues[plan.pace]}</span>
+      {
+        plan.groupTypes.map((g) => (
+          <span class="pd-meta-pill">{ui.groupTypes[g]}</span>
+        ))
+      }
+      {
+        plan.regions
+          .slice(0, 3)
+          .map((r) => <span class="pd-meta-pill pd-meta-region">{r}</span>)
+      }
+    </div>
+
+    <p class="pd-desc">{plan.description}</p>
+
+    <!-- Stub: Add to My Trip -->
+    <button
+      class="pd-btn pd-btn-primary pd-add-trip"
+      type="button"
+      data-plan-id={plan.id}
+      data-action="add-to-trip"
+      aria-label={`${ui.addToTripLabel}: ${plan.title}`}
+    >
+      <span class="pd-btn-icon">+</span>
+      <span class="pd-btn-label">{ui.addToTripLabel}</span>
+    </button>
+  </div>
+
+  <!-- ── Split layout ────────────────────────────────────────────────────── -->
+  <div class="pd-split">
+    <!-- Map -->
+    <div class="pd-map-col pd-map-sticky">
+      <div class="pd-map-wrapper">
+        <p class="pd-section-label">{ui.mapHeading}</p>
+        <div id="pd-map" class="pd-map" aria-label={ui.mapHeading}></div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pd-content-col">
+      <!-- Highlights -->
+      {
+        plan.highlights && plan.highlights.length > 0 && (
+          <section class="pd-section">
+            <p class="pd-section-label">{ui.highlightsHeading}</p>
+            <ul class="pd-highlights">
+              {plan.highlights.map((h) => (
+                <li class="pd-highlight-item">
+                  <span class="pd-highlight-dot" aria-hidden="true" />
+                  {h}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <!-- Itinerary by day -->
+      <section class="pd-section">
+        <p class="pd-section-label">{ui.itineraryHeading}</p>
+        <div class="pd-itinerary">
+          {
+            sortedDays.map((day) => {
+              const stops = byDay.get(day)!;
+              return (
+                <div class="pd-day-block">
+                  <div class="pd-day-label">
+                    <span class="pd-day-badge">
+                      {ui.dayLabel} {day}
+                    </span>
+                  </div>
+                  <div class="pd-day-stops">
+                    {stops.map((stop) => {
+                      const icon = ui.categoryIcons[stop.category] ?? "📍";
+                      const dayText = Array.isArray(stop.day)
+                        ? `${ui.daysLabel} ${stop.day[0]}-${stop.day[1]}`
+                        : `${ui.dayLabel} ${stop.day}`;
+                      return (
+                        <div
+                          class="pd-stop"
+                          data-stop-idx={stop._idx}
+                          role="button"
+                          tabindex="0"
+                          aria-label={stop.name}
+                        >
+                          <span class="pd-stop-icon" aria-hidden="true">
+                            {icon}
+                          </span>
+                          <div class="pd-stop-body">
+                            <div class="pd-stop-header">
+                              <span class="pd-stop-name">{stop.name}</span>
+                              {stop.isBase && (
+                                <span class="pd-stop-base-badge">base</span>
+                              )}
+                              {Array.isArray(stop.day) && (
+                                <span class="pd-stop-days">{dayText}</span>
+                              )}
+                            </div>
+                            {stop.note && (
+                              <p class="pd-stop-note">{stop.note}</p>
+                            )}
+                            {stop.duration && (
+                              <span class="pd-stop-duration">
+                                {stop.duration}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              );
+            })
+          }
+        </div>
+      </section>
+
+      <!-- Credit -->
+      {
+        plan.credit && (
+          <p class="pd-credit">
+            Inspired by{" "}
+            <a href={plan.credit.url} target="_blank" rel="noopener noreferrer">
+              {plan.credit.name}
+            </a>
+          </p>
+        )
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  /* ── PD Root Styles ────────────────────────────────────────────────────── */
+  .pd-root {
+    --pd-accent: var(--sl-color-text-accent);
+    --pd-accent-soft: #edfff1fc;
+    --pd-accent-dark: #c25600;
+    --pd-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    --pd-radius: 12px;
+    --pd-radius-sm: 8px;
+    --pd-transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+    --pd-map-height-sm: 300px;
+    --pd-map-height-lg: 600px;
+
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 0.8rem 1.5rem;
+  }
+
+  :root[data-theme="dark"] .pd-root,
+  [data-theme="dark"] .pd-root {
+    --pd-accent-soft: #2e2e2d;
+    --pd-accent-dark: var(--sl-color-orange);
+    --pd-shadow: 0 2px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  /* ── Header ──────────────────────────────────────────────────────────── */
+  .pd-header {
+    padding: 0 0 2rem;
+  }
+
+  .pd-back {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--pd-accent-dark);
+    text-decoration: none;
+    margin-bottom: 1rem;
+    transition: color var(--pd-transition);
+  }
+  .pd-back:hover {
+    color: var(--sl-color-text-accent);
+  }
+
+  .pd-meta-row {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+    margin-bottom: 0.75rem;
+    white-space: nowrap;
+    overflow-x: auto;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: thin;
+    padding-bottom: 0.5rem;
+  }
+
+  .pd-meta-pill {
+    display: inline-block;
+    padding: 0.2rem 0.65rem;
+    border-radius: 99px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    background: var(--sl-color-hairline);
+    color: var(--sl-color-text-accent);
+  }
+
+  .pd-meta-accent {
+    background: var(--pd-accent-soft);
+    color: var(--sl-color-text-accent);
+  }
+
+  .pd-meta-region {
+    background: transparent;
+    border: 1px solid var(--sl-color-hairline);
+  }
+
+  .pd-desc {
+    font-size: 1rem;
+    color: var(--sl-color-text);
+    line-height: 1.6;
+    max-width: 620px;
+    margin: 0 0 1.25rem;
+  }
+
+  /* ── Add to Trip button (stub) ───────────────────────────────────────── */
+  .pd-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--pd-radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition:
+      background var(--pd-transition),
+      color var(--pd-transition),
+      border-color var(--pd-transition),
+      transform var(--pd-transition);
+  }
+  .pd-btn:active {
+    transform: scale(0.97);
+  }
+
+  .pd-btn-primary {
+    background: var(--sl-color-text-accent);
+    color: var(--sl-color-black);
+    border-color: var(--sl-color-text-accent);
+  }
+  .pd-btn-primary:hover {
+    filter: brightness(1.1);
+    scale: 1.02;
+  }
+
+  .pd-add-trip.is-added {
+    background: transparent;
+    color: var(--sl-color-text-accent);
+    border-color: var(--sl-color-text-accent);
+  }
+
+  /* ── Split layout ─────────────────────────────────────────────────────── */
+  .pd-split {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .pd-map-col {
+    background: var(--sl-color-bg);
+  }
+
+  @media (min-width: 860px) {
+    .pd-split {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+      gap: 2.5rem;
+    }
+    /* Map on right, content on left */
+    .pd-map-col {
+      order: 2;
+    }
+    .pd-content-col {
+      order: 1;
+    }
+  }
+
+  /* ── Map ──────────────────────────────────────────────────────────────── */
+  .pd-map-sticky {
+    position: sticky;
+    top: calc(var(--sl-nav-height, 64px));
+    padding-top: 1.5rem;
+  }
+
+  .pd-map-ctrl {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--sl-color-bg);
+    border: 1px solid var(--sl-color-hairline);
+    border-radius: 4px;
+    color: var(--sl-color-text);
+    cursor: pointer !important;
+    padding: 0;
+    transition:
+      background var(--pd-transition),
+      color var(--pd-transition);
+    margin-top: -1px;
+  }
+
+  /* Remove sticky behavior for smaller screens */
+  @media (max-height: 650px) and (max-width: 859px) {
+    .pd-map-sticky {
+      position: static;
+      top: auto;
+      padding-top: 0;
+    }
+  }
+
+  .pd-map {
+    height: var(--pd-map-height-sm);
+    border-radius: var(--pd-radius);
+    overflow: hidden;
+    border: 1.5px solid var(--sl-color-hairline);
+    box-shadow: var(--pd-shadow);
+    background: var(--sl-color-hairline);
+    margin-bottom: 0.5rem;
+
+    /* Temporary fix for low resolution tiles */
+    .leaflet-container img.leaflet-tile {
+      mix-blend-mode: plus-lighter !important;
+    }
+  }
+
+  /* Set map height for larger screens */
+  @media (min-width: 860px) {
+    .pd-map {
+      height: var(--pd-map-height-lg);
+    }
+  }
+
+  .pd-popup-image-wrapper {
+    margin-bottom: 0.5rem;
+    img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+  }
+  .pd-popup-inner {
+    padding: 0.75rem 1rem;
+  }
+  .pd-popup-meta {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--sl-color-accent);
+    margin-bottom: 0.2rem;
+  }
+  .pd-popup-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #2e2e2d;
+  }
+
+  /* ── Section label ────────────────────────────────────────────────────── */
+  .pd-section {
+    margin-bottom: 2rem;
+  }
+
+  .pd-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--pd-accent-dark);
+    margin: 0 0 0.85rem;
+  }
+
+  /* ── Highlights ───────────────────────────────────────────────────────── */
+  .pd-highlights {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .pd-highlight-item {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+  }
+
+  .pd-highlight-dot {
+    flex-shrink: 0;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--sl-color-text-accent);
+    margin-top: 0.45rem;
+  }
+
+  /* ── Itinerary ────────────────────────────────────────────────────────── */
+  .pd-itinerary {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .pd-day-block {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 0 0.75rem;
+  }
+
+  .pd-day-label {
+    padding-top: 0.15rem;
+  }
+
+  .pd-day-badge {
+    display: inline-block;
+    background: var(--pd-accent-soft);
+    color: var(--sl-color-text-accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.25rem 0.5rem;
+    border-radius: var(--pd-radius-sm);
+    white-space: nowrap;
+    writing-mode: horizontal-tb;
+  }
+
+  .pd-day-stops {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-left: 2px solid var(--sl-color-hairline);
+    padding-left: 1rem;
+  }
+
+  /* Timeline dot on the border */
+  .pd-day-stops::before {
+    content: "";
+    position: absolute;
+    left: -5px;
+    top: 0.55rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--sl-color-text-accent);
+    border: 2px solid var(--sl-color-bg);
+  }
+
+  /* ── Stop card ────────────────────────────────────────────────────────── */
+  .pd-stop {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    padding: 0.75rem 0.85rem;
+    border-radius: var(--pd-radius-sm);
+    border: 1.5px solid transparent;
+    cursor: pointer;
+    transition:
+      border-color var(--pd-transition),
+      background var(--pd-transition),
+      box-shadow var(--pd-transition);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .pd-stop:hover,
+  .pd-stop:focus-visible {
+    border-color: var(--sl-color-text-accent);
+    background: var(--sl-color-hairline);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(200, 98, 26, 0.1);
+  }
+
+  .pd-stop.is-active {
+    border-color: var(--sl-color-text-accent);
+    background: var(--pd-accent-soft);
+  }
+
+  .pd-stop-icon {
+    /* Temporarily hidden */
+    display: none;
+    font-size: 1.1rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .pd-stop-body {
+    min-width: 0;
+  }
+
+  .pd-stop-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.35rem 0.5rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .pd-stop-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--sl-color-text-accent);
+  }
+
+  .pd-stop-base-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.4rem;
+    border-radius: 99px;
+    background: var(--sl-color-gray-5);
+    color: var(--sl-color-text);
+  }
+
+  .pd-stop-days {
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--sl-color-text-accent);
+  }
+
+  .pd-stop-note {
+    font-size: 0.8rem;
+    color: var(--sl-color-text);
+    line-height: 1.5;
+    margin: 0 0 0.25rem;
+  }
+
+  .pd-stop-duration {
+    display: inline-block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--pd-accent-dark);
+  }
+
+  /* ── Credit ───────────────────────────────────────────────────────────── */
+  .pd-credit {
+    font-size: 0.78rem;
+    color: var(--sl-color-text-accent);
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-hairline);
+  }
+  .pd-credit a {
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+  }
+  .pd-credit a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<script>
+  // ── Leaflet map init ─────────────────────────────────────────────────────
+  import L from "leaflet";
+
+  const root = document.getElementById("plan-detail");
+  const plan = JSON.parse(root.dataset.plan);
+  const ui = JSON.parse(root.dataset.ui);
+
+  // ── Marker colour by category ────────────────────────────────────────────
+  const CATEGORY_COLORS = {
+    landmark: "#c8621a",
+    religious: "#7c5cbf",
+    nature: "#3a9a5c",
+    wildlife: "#3a9a5c",
+    beach: "#2196a6",
+    viewpoint: "#e09020",
+    city: "#666",
+    market: "#d44",
+    activity: "#2196a6",
+  };
+
+  function makeIcon(category, number) {
+    const color = CATEGORY_COLORS[category] ?? "#888";
+    const catIcon = ui.categoryIcons[category] ?? "📍";
+    const svg = `
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40">
+        <path d="M16 0C7.16 0 0 7.16 0 16c0 12 16 24 16 24s16-12 16-24C32 7.16 24.84 0 16 0z"
+              fill="${color}" opacity="0.92"/>
+        <circle cx="16" cy="16" r="11" fill="white" opacity="0.95"/>
+        <text x="16" y="20" text-anchor="middle" font-size="13" font-family="system-ui">${catIcon}</text>
+      </svg>`.trim();
+    return L.divIcon({
+      className: "",
+      html: `<div style="position:relative">
+        ${svg}
+        <div style="
+          position:absolute;top:-3px;right:-5px;
+          background:${color};color:#fff;
+          border-radius:99px;min-width:16px;height:16px;
+          display:flex;align-items:center;justify-content:center;
+          font-size:9px;font-weight:700;padding:0 3px;
+          border:1.5px solid #fff;font-family:system-ui;line-height:1;
+        ">${number}</div>
+      </div>`,
+      iconSize: [32, 40],
+      iconAnchor: [16, 40],
+      popupAnchor: [0, -38],
+    });
+  }
+
+  // ── Fullscreen control ────────────────────────────────────────────────────
+
+  const enterIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline>
+  <line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line>
+</svg>`;
+
+  const exitIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+  viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+  stroke-linecap="round" stroke-linejoin="round">
+  <polyline points="4 14 10 14 10 20"></polyline><polyline points="20 10 14 10 14 4"></polyline>
+  <line x1="10" y1="14" x2="3" y2="21"></line><line x1="21" y1="3" x2="14" y2="10"></line>
+</svg>`;
+
+  const FullscreenControl = L.Control.extend({
+    options: { position: "topleft" },
+    onAdd(map) {
+      const btn = L.DomUtil.create("button", "pd-map-ctrl");
+      btn.type = "button";
+      btn.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+      viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="15 3 21 3 21 9"></polyline>
+      <polyline points="9 21 3 21 3 15"></polyline>
+      <line x1="21" y1="3" x2="14" y2="10"></line>
+      <line x1="3" y1="21" x2="10" y2="14"></line>
+    </svg>`;
+      btn.setAttribute("aria-label", "Toggle fullscreen");
+      btn.title = "Toggle fullscreen";
+
+      L.DomEvent.on(btn, "click", L.DomEvent.stopPropagation);
+      L.DomEvent.on(btn, "click", () => {
+        const el = map.getContainer();
+        if (!document.fullscreenElement) {
+          el.requestFullscreen?.();
+          btn.innerHTML = exitIcon;
+        } else {
+          document.exitFullscreen?.();
+          btn.innerHTML = enterIcon;
+        }
+      });
+
+      document.addEventListener("fullscreenchange", () => {
+        if (!document.fullscreenElement) btn.innerHTML = enterIcon;
+      });
+
+      return btn;
+    },
+  });
+
+  // ── Draw map ─────────────────────────────────────────────────────────────
+  const stops = plan.stops;
+  const center = [
+    stops.reduce((s, p) => s + p.lat, 0) / stops.length,
+    stops.reduce((s, p) => s + p.lon, 0) / stops.length,
+  ];
+
+  const map = L.map("pd-map", {
+    center,
+    zoom: 7,
+    scrollWheelZoom: true,
+    zoomControl: true,
+  });
+
+  // Add fullscreen control
+  new FullscreenControl().addTo(map);
+
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution:
+      '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> | <strong>Sri-Guide.com</strong>',
+    maxZoom: 18,
+  }).addTo(map);
+
+  // ── Markers & popups ──────────────────────────────────────────────────────
+  const markers = stops.map((stop, i) => {
+    const dayText = Array.isArray(stop.day)
+      ? `${ui.daysLabel ?? "Days"} ${stop.day[0]}-${stop.day[1]}`
+      : `${ui.mapPopupDay} ${stop.day}`;
+
+    const catLabel = ui.categories[stop.category] ?? stop.category;
+    const catIcon = ui.categoryIcons[stop.category] ?? "📍";
+
+    const marker = L.marker([stop.lat, stop.lon], {
+      icon: makeIcon(stop.category, i + 1),
+      title: stop.name,
+    }).addTo(map);
+
+    marker.bindPopup(
+      `
+      <div class="pd-popup-inner">
+        ${
+          stop.image
+            ? `
+          <div class="pd-popup-image-wrapper">
+            <img src="${stop.image}" alt="${stop.name}" style="">
+          </div>
+        `
+            : ""
+        }
+        <div class="pd-popup-meta">${catIcon} ${catLabel} · ${dayText}</div>
+        <div class="pd-popup-name">${stop.name}</div>
+      </div>
+    `,
+      {
+        className: "pd-popup",
+        autoPan: false,
+      },
+    );
+
+    return marker;
+  });
+
+  // Draw a polyline connecting stops in order
+  const latlngs = stops.map((s) => [s.lat, s.lon]);
+
+  // Shadow line
+  L.polyline(latlngs, {
+    color: "#fff",
+    weight: 6,
+    opacity: 0.5,
+    lineCap: "round",
+  }).addTo(map);
+
+  // Base line
+  L.polyline(latlngs, {
+    color: "#2563eb",
+    weight: 2.5,
+    opacity: 0.5,
+    lineCap: "round",
+    lineJoin: "round",
+  }).addTo(map);
+
+  // Arrowhead at midpoint of each segment
+  for (let i = 0; i < latlngs.length - 1; i++) {
+    const [lat1, lng1] = latlngs[i];
+    const [lat2, lng2] = latlngs[i + 1];
+
+    // Midpoint
+    const midLat = (lat1 + lat2) / 2;
+    const midLng = (lng1 + lng2) / 2;
+
+    // Bearing in degrees
+    const dy = lat2 - lat1;
+    const dx = (lng2 - lng1) * Math.cos((lat1 * Math.PI) / 180);
+    const bearing = (Math.atan2(dx, dy) * 180) / Math.PI;
+
+    const arrowIcon = L.divIcon({
+      className: "",
+      html: `<svg xmlns="http://www.w3.org/2000/svg"
+      width="12" height="12" viewBox="0 0 12 12"
+      style="transform: rotate(${bearing}deg); display:block;">
+      <path d="M6 1 L10 10 L6 7 L2 10 Z"
+        fill="#2563eb" fill-opacity="0.9" stroke="none"/>
+    </svg>`,
+      iconSize: [12, 12],
+      iconAnchor: [6, 6],
+    });
+
+    L.marker([midLat, midLng], { icon: arrowIcon, interactive: false }).addTo(
+      map,
+    );
+  }
+
+  // Fit map to all markers
+  const bounds = L.latLngBounds(latlngs);
+  map.fitBounds(bounds, { padding: [32, 32] });
+
+  // ── Stop card & map interaction ───────────────────────────────────────────
+  const stopEls = document.querySelectorAll(".pd-stop");
+
+  function panToWithOffset(latlng, zoom, offsetY = -120) {
+    const z = zoom ?? map.getZoom();
+    const px = map.project(latlng, z);
+    px.y += offsetY;
+    map.setView(map.unproject(px, z), z, { animate: true });
+  }
+
+  map.once("moveend", () => {
+    stopEls.forEach((el) => {
+      const handler = () => {
+        const idx = parseInt(el.dataset.stopIdx, 10);
+        const stop = stops[idx];
+        stopEls.forEach((e) => e.classList.remove("is-active"));
+        el.classList.add("is-active");
+        const targetZoom = Math.max(map.getZoom(), 12);
+        panToWithOffset(L.latLng(stop.lat, stop.lon), targetZoom, -120);
+        markers[idx].openPopup();
+      };
+      el.addEventListener("click", handler);
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") handler();
+      });
+    });
+  });
+
+  // Clicking a marker highlights the corresponding card
+  markers.forEach((marker, idx) => {
+    marker.on("click", () => {
+      stopEls.forEach((e) => e.classList.remove("is-active"));
+      const el = document.querySelector(`.pd-stop[data-stop-idx="${idx}"]`);
+      if (el) {
+        el.classList.add("is-active");
+        el.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+    });
+  });
+
+  // ── Add to My Trip (stub) ────────────────────────────────────────────────
+  // TODO: Toolkit page can be enhanced to read from localStorage to support custom plans
+  // Now handles only btn change + currently saved trip plan on toolkit page
+  const addBtn = document.querySelector("[data-action='add-to-trip']");
+  if (addBtn) {
+    const planId = addBtn.dataset.planId;
+    const STORAGE_KEY = "SG_my_trip";
+
+    function getSavedIds() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    // Reflect existing state on load
+    if (getSavedIds().includes(planId)) {
+      addBtn.classList.add("is-added");
+      addBtn.querySelector(".pd-btn-label").textContent = ui.addedToTripLabel;
+      addBtn.querySelector(".pd-btn-icon").textContent = "✓";
+    }
+
+    addBtn.addEventListener("click", () => {
+      const ids = getSavedIds();
+      const already = ids.includes(planId);
+      if (already) {
+        const next = ids.filter((id) => id !== planId);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+        addBtn.classList.remove("is-added");
+        addBtn.querySelector(".pd-btn-label").textContent = ui.addToTripLabel;
+        addBtn.querySelector(".pd-btn-icon").textContent = "+";
+      } else {
+        ids.push(planId);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+        addBtn.classList.add("is-added");
+        addBtn.querySelector(".pd-btn-label").textContent = ui.addedToTripLabel;
+        addBtn.querySelector(".pd-btn-icon").textContent = "✓";
+      }
+      // Dispatch event for updates
+      window.dispatchEvent(
+        new CustomEvent("myTripUpdated", {
+          detail: { planId, added: !already },
+        }),
+      );
+    });
+  }
+</script>

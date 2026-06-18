@@ -1,0 +1,930 @@
+---
+// Usage in MDX:
+//   import TripPlanner from "../../components/Guides/TripPlanner.astro";
+//   <TripPlanner ui={...} />
+
+export interface UIStrings {
+  heading: string;
+  subheading: string;
+  stepLabel: string; // e.g. "Step" → "Step 2 of 4"
+  ofLabel: string; // e.g. "of"
+  backLabel: string;
+  nextLabel: string;
+  findLabel: string; // final step CTA
+  startOverLabel: string;
+  resultsHeading: string;
+  resultsDays: string; // e.g. "days" → "5 days"
+  resultsPace: string; // prefix label e.g. "Pace:"
+  resultsViewLabel: string;
+  noResultsHeading: string;
+  noResultsText: string;
+  pace: { relaxed: string; moderate: string; packed: string };
+  groupType: {
+    solo: string;
+    couple: string;
+    family: string;
+    group: string;
+  };
+  themes: {
+    history: string;
+    culture: string;
+    nature: string;
+    wildlife: string;
+    beach: string;
+    religious: string;
+    photography: string;
+  };
+  questions: {
+    days: { label: string; hint: string };
+    groupType: { label: string; hint: string };
+    pace: { label: string; hint: string };
+    themes: { label: string; hint: string };
+  };
+}
+
+interface Props {
+  ui: UIStrings;
+  basePath?: string;
+}
+
+const { ui, basePath = "/trip-plans" } = Astro.props;
+
+// Serialize to JSON for the client script
+const uiJson = JSON.stringify(ui);
+const basePathJson = JSON.stringify(basePath);
+---
+
+<div
+  class="tp-root not-content"
+  id="trip-planner"
+  data-ui={uiJson}
+  data-base-path={basePathJson}
+>
+  <!-- Step indicator -->
+  <div class="tp-progress" aria-hidden="true">
+    <div class="tp-progress-track">
+      <div class="tp-progress-fill" id="tp-progress-fill"></div>
+    </div>
+    <span class="tp-step-label" id="tp-step-label"></span>
+  </div>
+
+  <!-- Question area -->
+  <div class="tp-body" id="tp-body">
+    <div class="tp-question" id="tp-question">
+      <p class="tp-q-hint" id="tp-q-hint"></p>
+      <h2 class="tp-q-label" id="tp-q-label"></h2>
+      <div class="tp-options" id="tp-options" role="group"></div>
+    </div>
+  </div>
+
+  <!-- Nav buttons -->
+  <div class="tp-nav" id="tp-nav">
+    <button class="tp-btn tp-btn-ghost" id="tp-back" type="button"></button>
+    <button class="tp-btn tp-btn-primary" id="tp-next" type="button"></button>
+  </div>
+
+  <!-- Results area -->
+  <div class="tp-results" id="tp-results" hidden>
+    <h2 class="tp-results-heading" id="tp-results-heading"></h2>
+    <div class="tp-results-grid" id="tp-results-grid"></div>
+    <button
+      class="tp-btn tp-btn-ghost tp-start-over"
+      id="tp-start-over"
+      type="button"></button>
+  </div>
+</div>
+
+<style is:global>
+  /* ── Trip Planner Root ──────────────────────────────────────────────────────── */
+  .tp-root {
+    --tp-accent: #d16822;
+    --tp-accent-soft: #edfff1fc;
+    --tp-accent-dark: #c25600;
+    --tp-border: var(--sl-color-gray-5);
+    --tp-radius: 12px;
+    --tp-radius-sm: 8px;
+    --tp-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    --tp-shadow-hover: 0 6px 24px rgba(200, 98, 26, 0.15);
+    --tp-transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    font-family: var(--sl-font, system-ui, sans-serif);
+    max-width: 720px;
+    margin: 2.5rem auto;
+    padding: 0 1rem;
+  }
+
+  /* Dark mode overrides */
+  :root[data-theme="dark"] .tp-root,
+  [data-theme="dark"] .tp-root {
+    --tp-accent-soft: #2e2e2d;
+    --tp-accent-dark: var(--sl-color-orange);
+    --tp-border: rgba(255, 255, 255, 0.1);
+    --tp-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    --tp-shadow-hover: 0 6px 24px rgba(224, 125, 58, 0.2);
+  }
+
+  /* ── Progress ────────────────────────────────────────────────────────────── */
+  .tp-progress {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .tp-progress-track {
+    flex: 1;
+    height: 3px;
+    background: var(--tp-border);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+
+  .tp-progress-fill {
+    height: 100%;
+    background: var(--tp-accent);
+    border-radius: 99px;
+    width: 25%;
+    transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tp-step-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--sl-color-text-accent);
+    white-space: nowrap;
+  }
+
+  /* ── Question block ──────────────────────────────────────────────────────── */
+  .tp-body {
+    min-height: 320px;
+  }
+
+  .tp-question {
+    animation: tp-fade-in 300ms ease both;
+  }
+
+  @keyframes tp-fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .tp-q-hint {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--tp-accent);
+    margin: 0 0 0.4rem;
+  }
+
+  .tp-q-label {
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    color: var(--sl-color-text);
+    margin: 0 0 1.5rem;
+    line-height: 1.25;
+  }
+
+  /* ── Option cards ────────────────────────────────────────────────────────── */
+  .tp-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .tp-option {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 1rem 1rem 0.9rem;
+    background: var(--sl-color-bg);
+    border: 1.5px solid var(--tp-border);
+    border-radius: var(--tp-radius);
+    cursor: pointer;
+    text-align: left;
+    transition:
+      border-color var(--tp-transition),
+      box-shadow var(--tp-transition),
+      background var(--tp-transition),
+      transform var(--tp-transition);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .tp-option:hover {
+    border-color: var(--tp-accent);
+    box-shadow: var(--tp-shadow-hover);
+    transform: translateY(-1px);
+  }
+
+  .tp-option:active {
+    transform: translateY(0);
+  }
+
+  .tp-option.is-selected {
+    border-color: var(--tp-accent);
+    background: var(--tp-accent-soft);
+    box-shadow: var(--tp-shadow-hover);
+  }
+
+  .tp-option-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+
+  .tp-option-name {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sl-color-text);
+    line-height: 1.2;
+  }
+
+  .tp-option-desc {
+    font-size: 0.75rem;
+    color: var(--sl-color-text-accent);
+    line-height: 1.35;
+  }
+
+  /* Selected tick */
+  .tp-option::after {
+    content: "✓";
+    position: absolute;
+    top: 0.6rem;
+    right: 0.7rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--tp-accent);
+    opacity: 0;
+    transition: opacity var(--tp-transition);
+  }
+
+  .tp-option.is-selected::after {
+    opacity: 1;
+  }
+
+  /* ── Days slider on Q1 ──────────────────────────────────── */
+  .tp-days-widget {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .tp-days-display {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+  }
+
+  .tp-days-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--tp-accent-dark);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    min-width: 3ch;
+  }
+
+  .tp-days-word {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--sl-color-text-accent);
+  }
+
+  .tp-slider {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 99px;
+    background: linear-gradient(
+      to right,
+      var(--tp-accent) 0%,
+      var(--tp-accent) var(--tp-slider-pct, 19%),
+      var(--tp-border) var(--tp-slider-pct, 19%),
+      var(--tp-border) 100%
+    );
+    outline: none;
+    cursor: pointer;
+  }
+
+  .tp-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--tp-accent);
+    cursor: pointer;
+    border: 3px solid var(--sl-color-bg);
+    box-shadow:
+      0 0 0 2px var(--tp-accent),
+      var(--tp-shadow);
+    transition: transform var(--tp-transition);
+  }
+
+  .tp-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+  }
+
+  .tp-slider::-moz-range-thumb {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--tp-accent);
+    cursor: pointer;
+    border: 3px solid var(--sl-color-bg);
+    box-shadow:
+      0 0 0 2px var(--tp-accent),
+      var(--tp-shadow);
+  }
+
+  .tp-slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--sl-color-text-accent);
+    padding: 0 2px;
+  }
+
+  /* ── Nav buttons ─────────────────────────────────────────────────────────── */
+  .tp-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 0.75rem;
+  }
+
+  .tp-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.65rem 1.4rem;
+    border-radius: var(--tp-radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+      background var(--tp-transition),
+      color var(--tp-transition),
+      border-color var(--tp-transition),
+      transform var(--tp-transition),
+      box-shadow var(--tp-transition);
+    border: 1.5px solid transparent;
+  }
+
+  .tp-btn:active {
+    transform: scale(0.97);
+  }
+
+  .tp-btn-primary {
+    background: var(--tp-accent);
+    color: #fff;
+    border-color: var(--tp-accent);
+    margin-left: auto;
+  }
+
+  .tp-btn-primary:hover {
+    background: transparent;
+    color: var(--tp-accent);
+    border-color: var(--tp-accent-dark);
+    box-shadow: var(--tp-shadow-hover);
+  }
+
+  .tp-btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .tp-btn-ghost {
+    background: transparent;
+    color: var(--sl-color-text-accent);
+    border-color: var(--tp-border);
+  }
+
+  .tp-btn-ghost:hover {
+    color: var(--sl-color-text);
+    border-color: var(--sl-color-text-accent);
+  }
+
+  .tp-btn-ghost:empty,
+  .tp-btn-ghost[data-hidden] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  /* ── Results ─────────────────────────────────────────────────────────────── */
+  .tp-results {
+    animation: tp-fade-in 350ms ease both;
+  }
+
+  .tp-results-heading {
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    font-weight: 700;
+    color: var(--sl-color-text);
+    margin: 2rem 0 1.5rem;
+  }
+
+  .tp-results-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .tp-plan-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 1.25rem 1.25rem 1.5rem;
+    background: var(--sl-color-bg);
+    border: 1.5px solid var(--tp-border);
+    border-radius: var(--tp-radius);
+    text-decoration: none;
+    color: inherit;
+    transition:
+      border-color var(--tp-transition),
+      box-shadow var(--tp-transition),
+      transform var(--tp-transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Accent left bar */
+  .tp-plan-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--tp-accent);
+    opacity: 0.5;
+    transition: opacity var(--tp-transition);
+  }
+
+  .tp-plan-card:hover {
+    border-color: var(--tp-accent);
+    box-shadow: var(--tp-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .tp-plan-card:hover::before {
+    opacity: 1;
+  }
+
+  .tp-plan-card:first-child {
+    border-color: var(--tp-accent);
+  }
+
+  .tp-plan-card:first-child::before {
+    opacity: 1;
+  }
+
+  .tp-plan-info {
+    min-width: 0;
+  }
+
+  .tp-plan-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.75rem;
+    margin-bottom: 0.4rem;
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--sl-color-text-accent);
+  }
+
+  .tp-plan-meta-accent {
+    color: var(--tp-accent);
+  }
+
+  .tp-plan-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--sl-color-text);
+    margin: 0 0 0.3rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tp-plan-desc {
+    font-size: 0.82rem;
+    color: var(--sl-color-text);
+    line-height: 1.45;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .tp-plan-arrow {
+    font-size: 1.1rem;
+    color: var(--tp-accent);
+    flex-shrink: 0;
+    transition: transform var(--tp-transition);
+  }
+
+  .tp-plan-card:hover .tp-plan-arrow {
+    transform: translateX(3px);
+  }
+
+  .tp-start-over {
+    margin-top: 1.5rem;
+  }
+
+  /* ── No results ──────────────────────────────────────────────────────────── */
+  .tp-no-results {
+    text-align: center;
+    padding: 2.5rem 1rem;
+    color: var(--sl-color-text-accent);
+  }
+
+  .tp-no-results-icon {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tp-no-results h3 {
+    color: var(--sl-color-text);
+    margin: 0 0 0.5rem;
+  }
+
+  .tp-no-results p {
+    font-size: 0.875rem;
+    margin: 0;
+  }
+</style>
+
+<script define:vars={{ uiJson, basePathJson }}>
+  // The scoring logic - in sync with src/data/trip-plans/index.ts
+  const ui = JSON.parse(uiJson);
+  const basePath = JSON.parse(basePathJson);
+
+  // ── Scoring ───────────────────────────────────────────
+  function paceIndex(pace) {
+    return { relaxed: 0, moderate: 1, packed: 2 }[pace] ?? 1;
+  }
+
+  function scorePlan(plan, input) {
+    let score = 0;
+    if (plan.days > input.days) return 0;
+    const diff = input.days - plan.days;
+    if (diff === 0) score += 40;
+    else if (diff <= 1) score += 32;
+    else if (diff <= 2) score += 24;
+    else if (diff <= 4) score += 14;
+    else score += 6;
+    if (plan.groupTypes.includes(input.groupType)) score += 20;
+    if (plan.pace === input.pace) score += 20;
+    else if (Math.abs(paceIndex(plan.pace) - paceIndex(input.pace)) === 1)
+      score += 10;
+    const overlap = input.themes.filter((t) => plan.themes.includes(t)).length;
+    score += Math.min(20, overlap * 8);
+    return score;
+  }
+
+  function recommendPlans(input, count = 3) {
+    const plans = window.__TRIP_PLANS__ ?? [];
+    return plans
+      .map((plan) => ({ plan, score: scorePlan(plan, input) }))
+      .filter(({ score }) => score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, count);
+  }
+
+  // ── Step definitions ─────────────────────────────────────────────────────
+  const STEPS = [
+    {
+      id: "days",
+      type: "slider",
+      hint: () => ui.questions.days.hint,
+      label: () => ui.questions.days.label,
+      min: 2,
+      max: 21,
+      default: 7,
+    },
+    {
+      id: "groupType",
+      type: "single",
+      hint: () => ui.questions.groupType.hint,
+      label: () => ui.questions.groupType.label,
+      options: [
+        {
+          value: "solo",
+          icon: "🧳",
+          name: () => ui.groupType.solo,
+          desc: null,
+        },
+        {
+          value: "couple",
+          icon: "👫",
+          name: () => ui.groupType.couple,
+          desc: null,
+        },
+        {
+          value: "family",
+          icon: "👨‍👩‍👧",
+          name: () => ui.groupType.family,
+          desc: null,
+        },
+        {
+          value: "group",
+          icon: "🧑‍🤝‍🧑",
+          name: () => ui.groupType.group,
+          desc: null,
+        },
+      ],
+    },
+    {
+      id: "pace",
+      type: "single",
+      hint: () => ui.questions.pace.hint,
+      label: () => ui.questions.pace.label,
+      options: [
+        {
+          value: "relaxed",
+          icon: "🌴",
+          name: () => ui.pace.relaxed,
+          desc: null,
+        },
+        {
+          value: "moderate",
+          icon: "⚖️",
+          name: () => ui.pace.moderate,
+          desc: null,
+        },
+        { value: "packed", icon: "⚡", name: () => ui.pace.packed, desc: null },
+      ],
+    },
+    {
+      id: "themes",
+      type: "multi",
+      hint: () => ui.questions.themes.hint,
+      label: () => ui.questions.themes.label,
+      options: [
+        { value: "history", icon: "🏛️", name: () => ui.themes.history },
+        { value: "culture", icon: "🎭", name: () => ui.themes.culture },
+        { value: "nature", icon: "🌿", name: () => ui.themes.nature },
+        { value: "wildlife", icon: "🐘", name: () => ui.themes.wildlife },
+        { value: "beach", icon: "🏖️", name: () => ui.themes.beach },
+        { value: "religious", icon: "🕌", name: () => ui.themes.religious },
+        { value: "photography", icon: "📷", name: () => ui.themes.photography },
+      ],
+    },
+  ];
+
+  // ── State ────────────────────────────────────────────────────────────────
+  let currentStep = 0;
+  const answers = { days: 7, groupType: null, pace: null, themes: [] };
+
+  // ── DOM refs ─────────────────────────────────────────────────────────────
+  const root = document.getElementById("trip-planner");
+  const progressFill = document.getElementById("tp-progress-fill");
+  const stepLabel = document.getElementById("tp-step-label");
+  const qHint = document.getElementById("tp-q-hint");
+  const qLabel = document.getElementById("tp-q-label");
+  const optionsEl = document.getElementById("tp-options");
+  const backBtn = document.getElementById("tp-back");
+  const nextBtn = document.getElementById("tp-next");
+  const bodyEl = document.getElementById("tp-body");
+  const navEl = document.getElementById("tp-nav");
+  const resultsEl = document.getElementById("tp-results");
+  const resultsHeading = document.getElementById("tp-results-heading");
+  const resultsGrid = document.getElementById("tp-results-grid");
+  const startOverBtn = document.getElementById("tp-start-over");
+
+  // ── Render step ──────────────────────────────────────────────────────────
+  function renderStep(idx) {
+    const step = STEPS[idx];
+    const total = STEPS.length;
+
+    // Progress
+    progressFill.style.width = `${((idx + 1) / total) * 100}%`;
+    stepLabel.textContent = `${ui.stepLabel} ${idx + 1} ${ui.ofLabel} ${total}`;
+
+    // Labels — re-trigger animation
+    const qEl = document.getElementById("tp-question");
+    qEl.style.animation = "none";
+    qEl.offsetHeight; // reflow
+    qEl.style.animation = "";
+
+    qHint.textContent = step.hint();
+    qLabel.textContent = step.label();
+
+    // Options
+    optionsEl.innerHTML = "";
+
+    if (step.type === "slider") {
+      renderSlider(step);
+    } else {
+      step.options.forEach((opt) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "tp-option";
+        btn.dataset.value = opt.value;
+
+        const isSelected =
+          step.type === "multi"
+            ? answers.themes.includes(opt.value)
+            : answers[step.id] === opt.value;
+
+        if (isSelected) btn.classList.add("is-selected");
+
+        btn.innerHTML = `
+          <span class="tp-option-icon">${opt.icon}</span>
+          <span class="tp-option-name">${opt.name()}</span>
+        `;
+
+        btn.addEventListener("click", () => selectOption(step, opt.value, btn));
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    // Nav
+    backBtn.textContent = idx === 0 ? "" : `← ${ui.backLabel}`;
+    backBtn.toggleAttribute("data-hidden", idx === 0);
+
+    const isLast = idx === total - 1;
+    nextBtn.textContent = isLast ? `${ui.findLabel} →` : `${ui.nextLabel} →`;
+    updateNextState(step);
+  }
+
+  function renderSlider(step) {
+    const val = answers.days;
+    const pct = ((val - step.min) / (step.max - step.min)) * 100;
+
+    optionsEl.innerHTML = `
+      <div class="tp-days-widget">
+        <div class="tp-days-display">
+          <span class="tp-days-number" id="tp-days-num">${val}</span>
+          <span class="tp-days-word">${ui.resultsDays}</span>
+        </div>
+        <input
+          type="range"
+          class="tp-slider"
+          id="tp-days-slider"
+          min="${step.min}"
+          max="${step.max}"
+          value="${val}"
+          style="--tp-slider-pct: ${pct}%"
+          aria-label="${step.label()}"
+        />
+        <div class="tp-slider-labels">
+          <span>${step.min}</span>
+          <span>${Math.round((step.min + step.max) / 2)}</span>
+          <span>${step.max}+</span>
+        </div>
+      </div>
+    `;
+
+    const slider = document.getElementById("tp-days-slider");
+    const numEl = document.getElementById("tp-days-num");
+
+    slider.addEventListener("input", () => {
+      const v = parseInt(slider.value, 10);
+      answers.days = v;
+      numEl.textContent = v;
+      const p = ((v - step.min) / (step.max - step.min)) * 100;
+      slider.style.setProperty("--tp-slider-pct", `${p}%`);
+    });
+  }
+
+  function selectOption(step, value, btnEl) {
+    if (step.type === "multi") {
+      const idx = answers.themes.indexOf(value);
+      if (idx === -1) answers.themes.push(value);
+      else answers.themes.splice(idx, 1);
+      btnEl.classList.toggle("is-selected");
+    } else {
+      answers[step.id] = value;
+      optionsEl
+        .querySelectorAll(".tp-option")
+        .forEach((b) =>
+          b.classList.toggle("is-selected", b.dataset.value === value),
+        );
+    }
+    updateNextState(step);
+  }
+
+  function updateNextState(step) {
+    if (step.type === "slider") {
+      nextBtn.disabled = false;
+      return;
+    }
+    const hasAnswer =
+      step.type === "multi"
+        ? answers.themes.length > 0
+        : answers[step.id] !== null;
+    nextBtn.disabled = !hasAnswer;
+  }
+
+  // ── Navigation ───────────────────────────────────────────────────────────
+  nextBtn.addEventListener("click", () => {
+    if (currentStep < STEPS.length - 1) {
+      currentStep++;
+      renderStep(currentStep);
+    } else {
+      showResults();
+    }
+  });
+
+  backBtn.addEventListener("click", () => {
+    if (!resultsEl.hidden) {
+      // Restore question view
+      resultsEl.hidden = true;
+      bodyEl.hidden = false;
+      navEl.hidden = false;
+      renderStep(currentStep);
+    } else if (currentStep > 0) {
+      currentStep--;
+      renderStep(currentStep);
+    }
+  });
+
+  startOverBtn.addEventListener("click", () => {
+    currentStep = 0;
+    answers.days = 7;
+    answers.groupType = null;
+    answers.pace = null;
+    answers.themes = [];
+
+    resultsEl.hidden = true;
+    bodyEl.hidden = false;
+    navEl.hidden = false;
+    renderStep(0);
+    window.scrollTo({ top: root.offsetTop - 100, behavior: "smooth" });
+  });
+
+  // ── Results ──────────────────────────────────────────────────────────────
+  function showResults() {
+    bodyEl.hidden = true;
+    navEl.hidden = true;
+    resultsEl.hidden = false;
+    nextBtn.disabled = true;
+
+    const results = recommendPlans(answers);
+    resultsHeading.textContent = ui.resultsHeading;
+    startOverBtn.textContent = `↩ ${ui.startOverLabel}`;
+    resultsGrid.innerHTML = "";
+
+    if (results.length === 0) {
+      resultsGrid.innerHTML = `
+        <div class="tp-no-results">
+          <div class="tp-no-results-icon">🗺️</div>
+          <h3>${ui.noResultsHeading}</h3>
+          <p>${ui.noResultsText}</p>
+        </div>
+      `;
+      return;
+    }
+
+    results.forEach(({ plan }, i) => {
+      const card = document.createElement("a");
+      card.href = `${basePath}/${plan.id}`;
+      card.className = "tp-plan-card";
+      card.innerHTML = `
+        <div class="tp-plan-info">
+          <div class="tp-plan-meta">
+            <span class="tp-plan-meta-accent">${plan.days} ${ui.resultsDays}</span>
+            <span>·</span>
+            <span>${ui.pace[plan.pace]}</span>
+            <span>·</span>
+            <span>${plan.regions.slice(0, 2).join(", ")}</span>
+          </div>
+          <h3 class="tp-plan-title">${plan.title}</h3>
+          <p class="tp-plan-desc">${plan.description}</p>
+        </div>
+        <span class="tp-plan-arrow" aria-hidden="true">→</span>
+      `;
+      resultsGrid.appendChild(card);
+    });
+  }
+
+  // ── Init ─────────────────────────────────────────────────────────────────
+  // Wait for plans to be loaded by the module script
+  function init() {
+    if (window.__TRIP_PLANS__) {
+      renderStep(0);
+    } else {
+      // Retry briefly
+      setTimeout(init, 50);
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", init);
+</script>

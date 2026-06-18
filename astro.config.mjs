@@ -108,6 +108,11 @@ export default defineConfig({
           translations: { es: "Aplicaciones y extras" },
           link: "apps",
         },
+        {
+          label: "My Trip",
+          translations: { es: "Mi viaje" },
+          link: "my-trip",
+        },
       ],
       locales: {
         root: {

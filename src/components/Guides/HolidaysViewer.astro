@@ -422,8 +422,12 @@ const dataJson = JSON.stringify(holidays);
 
   // Initial render + scroll active pill into view
   renderList(activeMonth);
+  const pageY = window.scrollY;
   monthsEl.children[activeMonth]?.scrollIntoView({
-    block: "nearest",
+    block: "center",
     inline: "center",
+    container: "nearest",
   });
+  // Restore scroll position of the page
+  window.scrollTo(0, pageY);
 </script>

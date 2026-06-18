@@ -1,0 +1,452 @@
+---
+// A single place card with image, name, and description and actions
+// Used inside PlaceCategory.astro
+
+interface Props {
+  name: string;
+  image?: string;
+  desc: string;
+  tag?: string;
+  region?: string;
+  category?: string;
+  googleMapsUrl?: string;
+}
+
+const {
+  name,
+  image,
+  desc,
+  tag,
+  region = "",
+  category = "",
+  googleMapsUrl = "",
+} = Astro.props;
+
+// Stable slug id for localStorage key
+const id = name
+  .toLowerCase()
+  .replace(/[^a-z0-9]+/g, "-")
+  .replace(/(^-|-$)/g, "");
+---
+
+<article
+  class="pc-card"
+  data-place-id={id}
+  data-place-name={name}
+  data-place-image={image ?? ""}
+  data-place-region={region}
+  data-place-category={category}
+  data-place-maps={googleMapsUrl}
+>
+  <div class="pc-image-wrap">
+    {
+      image ? (
+        <img
+          src={image}
+          alt={name}
+          class="pc-image"
+          loading="lazy"
+          decoding="async"
+        />
+      ) : (
+        <div class="pc-image-placeholder" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="28"
+            height="28"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+        </div>
+      )
+    }
+    {tag && <span class="pc-tag">{tag}</span>}
+  </div>
+
+  <div class="pc-body">
+    <h3 class="pc-name">{name}</h3>
+    <p class="pc-desc">{desc}</p>
+  </div>
+
+  <div class="pc-actions">
+    <!-- Google Maps -->
+    {
+      googleMapsUrl ? (
+        <a
+          class="pc-action-btn pc-maps-btn"
+          href={googleMapsUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${name} in Google Maps`}
+          title="Open in Google Maps"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Maps
+        </a>
+      ) : (
+        <span
+          class="pc-action-btn pc-maps-btn pc-maps-disabled"
+          aria-hidden="true"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="15"
+            height="15"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+            <circle cx="12" cy="10" r="3" />
+          </svg>
+          Maps
+        </span>
+      )
+    }
+
+    <!-- Save / Heart -->
+    <button
+      class="pc-action-btn pc-save-btn"
+      type="button"
+      aria-label={`Save ${name} to My Trip`}
+      title="Save to My Trip"
+      data-saved="false"
+    >
+      <!-- Empty heart (default) -->
+      <svg
+        class="pc-heart-empty"
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+        ></path>
+      </svg>
+      <!-- Filled heart (saved) -->
+      <svg
+        class="pc-heart-filled"
+        xmlns="http://www.w3.org/2000/svg"
+        width="15"
+        height="15"
+        viewBox="0 0 24 24"
+        fill="currentColor"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path
+          d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+        ></path>
+      </svg>
+      <span class="pc-save-label">Save</span>
+    </button>
+  </div>
+</article>
+
+<style>
+  .pc-card {
+    background: var(--sl-color-bg);
+    border: 1.5px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition:
+      transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+    height: 100%;
+  }
+
+  .pc-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--sl-color-text-accent);
+    box-shadow:
+      0 8px 24px color-mix(in srgb, var(--sl-color-text) 8%, transparent),
+      0 2px 6px color-mix(in srgb, var(--sl-color-text) 5%, transparent);
+  }
+
+  /* ── Image ───────────────────────────────────────────────────────────── */
+  .pc-image-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: var(--sl-color-bg-nav);
+    flex-shrink: 0;
+  }
+
+  .pc-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .pc-card:hover .pc-image {
+    transform: scale(1.06);
+  }
+
+  .pc-image-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sl-color-gray-4);
+  }
+
+  .pc-tag {
+    position: absolute;
+    bottom: 0.6rem;
+    left: 0.65rem;
+    background: color-mix(in srgb, var(--sl-color-bg) 88%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    color: var(--sl-color-text);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    border-radius: 99px;
+    border: 1px solid var(--sl-color-hairline);
+  }
+
+  /* ── Body ────────────────────────────────────────────────────────────── */
+  .pc-body {
+    padding: 0.9rem 1rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    flex: 1;
+  }
+
+  .pc-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--sl-color-text-accent);
+    margin: 0;
+    line-height: 1.25;
+  }
+
+  .pc-desc {
+    font-size: 0.8rem;
+    color: var(--sl-color-text);
+    line-height: 1.55;
+    margin: 0;
+  }
+
+  /* ── Action buttons ──────────────────────────────────────────────────── */
+  .pc-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-top: 1px solid var(--sl-color-hairline);
+    margin-top: auto;
+  }
+
+  .pc-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 0.6rem 0.5rem;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    color: var(--sl-color-text-accent);
+    text-decoration: none;
+    transition:
+      background 180ms ease,
+      color 180ms ease;
+    border-radius: 0;
+  }
+
+  /* Divider between the two buttons */
+  .pc-action-btn:first-child {
+    border-right: 1px solid var(--sl-color-hairline);
+    border-bottom-left-radius: 12px;
+  }
+  .pc-action-btn:last-child {
+    border-bottom-right-radius: 12px;
+  }
+
+  .pc-maps-btn:hover:not(.pc-maps-disabled) {
+    background: color-mix(in srgb, var(--sl-color-text-accent) 8%, transparent);
+    color: var(--sl-color-text);
+  }
+
+  .pc-maps-disabled {
+    opacity: 0.35;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  /* Heart states */
+  .pc-heart-filled {
+    display: none;
+  }
+
+  .pc-save-btn[data-saved="true"] .pc-heart-empty {
+    display: none;
+  }
+  .pc-save-btn[data-saved="true"] .pc-heart-filled {
+    display: block;
+  }
+  .pc-save-btn[data-saved="true"] .pc-save-label {
+    content: "Saved";
+  }
+  .pc-save-btn[data-saved="true"] {
+    color: #e5364b;
+  }
+
+  .pc-save-btn:hover {
+    background: color-mix(in srgb, #e5364b 8%, transparent);
+    color: #e5364b;
+  }
+
+  /* Pop animation on save */
+  @keyframes pc-heart-pop {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.4);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
+  .pc-save-btn.is-popping svg {
+    animation: pc-heart-pop 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pc-card,
+    .pc-image {
+      transition: none;
+    }
+    .pc-save-btn.is-popping svg {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const STORAGE_KEY = "SG_my_places";
+
+  function getPlaces(): any[] {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function setPlaces(places: any[]) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(places));
+  }
+
+  document.querySelectorAll<HTMLElement>(".pc-card").forEach((card) => {
+    const id = card.dataset.placeId!;
+    const saveBtn = card.querySelector<HTMLButtonElement>(".pc-save-btn")!;
+    const label = saveBtn.querySelector<HTMLSpanElement>(".pc-save-label")!;
+
+    // Reflect saved state on load
+    function syncState() {
+      const saved = getPlaces().some((p) => p.id === id);
+      saveBtn.dataset.saved = String(saved);
+      label.textContent = saved ? "Saved" : "Save";
+      saveBtn.setAttribute(
+        "aria-label",
+        saved
+          ? `Remove ${card.dataset.placeName} from My Trip`
+          : `Save ${card.dataset.placeName} to My Trip`,
+      );
+    }
+
+    syncState();
+
+    saveBtn.addEventListener("click", () => {
+      const places = getPlaces();
+      const idx = places.findIndex((p) => p.id === id);
+
+      if (idx === -1) {
+        // Add
+        places.push({
+          id,
+          name: card.dataset.placeName,
+          image: card.dataset.placeImage ?? null,
+          region: card.dataset.placeRegion ?? "",
+          category: card.dataset.placeCategory ?? "",
+          googleMapsUrl: card.dataset.placeMaps ?? "",
+          visitedAt: null,
+          savedAt: new Date().toISOString(),
+        });
+        setPlaces(places);
+        // Pop animation
+        saveBtn.classList.add("is-popping");
+        saveBtn.addEventListener(
+          "animationend",
+          () => saveBtn.classList.remove("is-popping"),
+          { once: true },
+        );
+      } else {
+        // Remove
+        places.splice(idx, 1);
+        setPlaces(places);
+      }
+
+      syncState();
+      window.dispatchEvent(
+        new CustomEvent("myPlacesUpdated", { detail: { id } }),
+      );
+    });
+
+    // Sync if updated from another component (e.g. dashboard remove)
+    window.addEventListener("myPlacesUpdated", syncState);
+    window.addEventListener("storage", (e) => {
+      if (e.key === STORAGE_KEY) syncState();
+    });
+  });
+</script>
