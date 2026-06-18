@@ -19,6 +19,7 @@ import ToolkitPage from "../../components/Guides/ToolkitPage.astro";
 import ToolkitCard from "../../components/Guides/ToolkitCard.astro";
 import HolidaysViewer from "../../components/Guides/HolidaysViewer.astro";
 import MyTripPlans from "../../components/Guides/MyTripPlans.astro";
+import MyTripDashboard from "../../components/Guides/MyTripDashboard.astro";
 
 <LinkButton href="/" icon="left-arrow" iconPlacement="start">
   Go back to Home
@@ -124,8 +125,12 @@ import MyTripPlans from "../../components/Guides/MyTripPlans.astro";
   <CurrencyConverter />
 </ToolkitCard>
 
-<ToolkitCard slot="phrases" icon="🗣️" title="Useful Phrases" spanFull={true}>
+<ToolkitCard slot="phrases" icon="🔊" title="Useful Phrases">
   <PhraseCards />
+</ToolkitCard>
+
+<ToolkitCard slot="trip-dashboard" icon="🧭" title="My Trip Dashboard">
+  <MyTripDashboard />
 </ToolkitCard>
 
 <ToolkitCard
