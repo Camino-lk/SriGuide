@@ -3,7 +3,7 @@ title: Privacy Policy
 description: How SriGuide handles your data - what is collected, what isn't, and which third-party services are in use.
 ---
 
-_Last updated: 2026.04.01_
+_Last updated: 2026.06.18_
 
 This privacy policy explains what data is collected when you use SriGuide (the "Site"), how it is used, and which third-party services are involved. The Site is operated as an open-source project, initiated under 'Camino', an online startup foundation focused on tourism sector in Sri Lanka and is not a commercial entity.
 
@@ -77,15 +77,25 @@ To exercise any of these rights, contact [contact@sri-guide.com](mailto:contact@
 
 ---
 
-## 4. Currency Converter: ExchangeRate-API
+## 4. Third-Party Services
+
+The Site uses certain third-party services to provide functionality and improve the user experience.
+
+### 4.1 Currency Converter: ExchangeRate-API
 
 The currency converter tool on the Site makes client-side API calls to [ExchangeRate-API](https://www.exchangerate-api.com/) to fetch current exchange rates. These requests are originated directly from your browser and therefore include standard request metadata (for example, your IP address) visible to ExchangeRate-API; the tool does not send form inputs or other personal data from the page. ExchangeRate-API may log request metadata according to its policies. Please refer ExchangeRate-API's [Terms & Privacy Policy](https://www.exchangerate-api.com/terms) for more information.
 
----
+### 4.2 Maps and Mapping Tiles
+
+The Site uses Leaflet, an open-source mapping library, together with map tiles provided by OpenStreetMap and/or its tile infrastructure.
+
+When map features are displayed, your browser may request map tiles from OpenStreetMap servers. These requests may include technical information such as your IP address, browser information, and request metadata necessary to deliver map content.
+
+For more information about OpenStreetMap and its data practices, please refer to the OpenStreetMap Foundation's [privacy information](https://osmfoundation.org/wiki/Privacy_Policy).
 
 ## 5. Audio: Google TTS Recordings
 
-Some pages include audio pronunciations of Sinhala phrases. These audio files are pre-recorded MP3s stored directly on the Site. No API calls are made to Google or any external service during playback. No data is transmitted to Google when you interact with those audio recordings.
+Some pages on the Site include audio pronunciations of Sinhala phrases. These audio files are pre-recorded MP3s, utilizing Google TTS service and stored directly on the Site. No API calls are made to Google or any external service during playback. No data is transmitted to Google when you interact with those audio recordings.
 
 ---
 
