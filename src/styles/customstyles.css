@@ -63,3 +63,8 @@ SriGuide Website Custom Styles
   background: #afeec5;
   color: #000000;
 }
+
+/* Hidden elements override */
+[hidden] {
+  display: none !important;
+}

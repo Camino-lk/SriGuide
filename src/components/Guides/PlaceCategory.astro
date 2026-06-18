@@ -1,0 +1,117 @@
+---
+// Section wrapper for a Places to Visit category -> Things-to-Do page
+// Renders a labelled section with an icon, heading, optional intro,
+// and a responsive card grid
+//
+// Usage in MDX:
+//   import PlaceCategory from "../../components/Guides/PlaceCategory.astro";
+//   import PlaceCard from "../../components/Guides/PlaceCard.astro";
+//
+//   <PlaceCategory
+//     id="beaches"
+//     icon="🏖️"
+//     title="Beaches"
+//     intro="..."
+//   >
+//     <PlaceCard name="Mirissa" image="/img/stops/mirissa.avif" desc="..." />
+//     ...
+//   </PlaceCategory>
+
+interface Props {
+  /** Anchor id for the section */
+  id: string;
+  icon: string;
+  title: string;
+  /** Optional one-liner shown below the heading */
+  intro?: string;
+}
+
+const { id, icon, title, intro } = Astro.props;
+---
+
+<section class="tc-section not-content" id={id}>
+  <div class="tc-heading">
+    <span class="tc-icon" aria-hidden="true">{icon}</span>
+    <div class="tc-heading-text">
+      <h2 class="tc-title">{title}</h2>
+    </div>
+  </div>
+  {intro && <p class="tc-intro">{intro}</p>}
+
+  <div class="tc-grid">
+    <slot />
+  </div>
+</section>
+
+<style>
+  /* ── Section ─────────────────────────────────────────────────────────── */
+  .tc-section {
+    margin: 2rem 0;
+    scroll-margin-top: 5rem;
+  }
+
+  .tc-section + .tc-section {
+    border-top: 1px solid var(--sl-color-hairline);
+    padding-top: 1rem;
+    margin-top: 0;
+  }
+
+  /* ── Heading row ─────────────────────────────────────────────────────── */
+  .tc-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+  }
+
+  .tc-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+
+  .tc-heading-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .tc-title {
+    font-size: clamp(1.15rem, 2.5vw, 1.4rem);
+    font-weight: 700;
+    color: var(--sl-color-text-accent);
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  .tc-intro {
+    font-size: 0.9rem;
+    text-align: justify;
+    color: var(--sl-color-text);
+    margin-bottom: 1.2rem;
+    line-height: 1.55;
+  }
+
+  /* ── Card grid ───────────────────────────────────────────────────────── */
+  .tc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    align-items: start;
+  }
+
+  @media (max-width: 500px) {
+    .tc-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tc-grid :global(.pc-card:first-child)::before,
+    .tc-grid :global(.pc-card:first-child)::after {
+      transition: none;
+    }
+  }
+</style>

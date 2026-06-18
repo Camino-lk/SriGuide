@@ -1,13 +1,230 @@
 ---
 title: Things to Do
+tableOfContents: false
 description:
-  Solo travel, safaris, surf, ancient temples, whale watching — Sri Lanka's best experiences
-  by category. Find what's worth your time, wherever you are on the island.
+  Solo travel, safaris, surf, ancient temples, whale watching - Sri Lanka's
+  best experiences by category. Find what's worth your time, wherever you are
+  on the island.
 ---
 
-import UnderConstruction from "../../components/home/UnderConstruction.astro";
+import PlaceCategory from "../../components/Guides/PlaceCategory.astro";
+import PlaceCard from "../../components/Guides/PlaceCard.astro";
 
-<UnderConstruction
-  title="We're working on this.."
-  message="Sorry, page contents are currently unavailable. We're doing our best to update this soon..."
-/>
+Browse categorized destinations and attractions across Sri Lanka to help plan your next adventure.
+
+While exploring, click the `❤ Save` icon on any place you'd like to visit.
+Your saved places will be available on the [My Trip](/my-trip) page, where you can organize and manage your itinerary.
+And don't worry, **nothing leaves your device** - everything is safely stored in your local storage.
+
+<PlaceCategory
+  id="ancient-sites"
+  icon="🏛️"
+  title="Ancient Sites & Ruins"
+  intro="Sri Lanka is home to some of South Asia's most significant archaeological treasures. If you enjoy discovering what history has to tell, here are some of the places you should visit. Please note that areas like Anuradhapura and Polonnaruwa contain many historical sites that would require many more entries, so we have included only the area names instead."
+>
+  <PlaceCard
+    name="Sigiriya Rock Fortress"
+    image="/img/stops/sigiriya.avif"
+    tag="UNESCO"
+    region="Dambulla"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Sigiriya+Lion+Rock&query_place_id=ChIJMefAImSh_DoRHMwUFvB6j-k"
+    desc="A 5th-century palace on a 200m granite rock. The water gardens, frescoes, and nice views from the summit. One of the most visited site in the country."
+  />
+  <PlaceCard
+    name="Polonnaruwa"
+    image="/img/stops/polonnaruwa.avif"
+    tag="UNESCO"
+    region="Polonnaruwa"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Polonnaruwa+Ancient+City&query_place_id=ChIJyaTlBW5F-zoRqdDUqf4czXI"
+    desc="A medieval royal city. The Gal Vihara's giant stone Buddha statues, palace ruins, and stupas. One of the country's most comprehensive ancient sites."
+  />
+  <PlaceCard
+    name="Anuradhapura"
+    image="/img/stops/anuradhapura.avif"
+    tag="UNESCO"
+    region="Anuradhapura"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Ranmasu+Uyana+(Royal+Park)&query_place_id=ChIJ0Rk4lbj1_DoRnR44ebljdAU"
+    desc="Sri Lanka's oldest ancient city. The sacred Sri Maha Bodhi tree, the massive Ruvanwelisaya Stupa, and ancient irrigation tanks scattered over the region."
+  />
+  <PlaceCard
+    name="Yapahuwa Rock Fortress"
+    image="/img/stops/yapahuwa.avif"
+    region="Kurunegala"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Yapahuwa+Rock+Fortress&query_place_id=ChIJedZjT6XP_DoRCdHqesVuzvE"
+    desc="The carved stone stairway, palace ruins, and temple remains. An important medieval stronghold showcasing Sri Lanka's military architecture."
+  />
+</PlaceCategory>
+
+<PlaceCategory
+  id="temples"
+  icon="🕌"
+  title="Temples & Sacred Sites"
+  intro="Sri Lanka's Buddhist heritage spans centuries throughout the island. Ancient temples, cave complexes, statues and intricate rock carvings. From pilgrimage destinations to meditation centers, these spiritual landmarks reflect centuries of devotion and artistic mastery. Explore this section to discover key places that you might want to visit."
+>
+  <PlaceCard
+    name="Temple of the Tooth, Kandy"
+    image="/img/stops/temple-of-tooth.avif"
+    tag="UNESCO"
+    region="Kandy"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Sri+Dalada+Maligawa&query_place_id=ChIJ9ftJsS1m4zoRh-gVwQrXZYE"
+    desc="Sri Lanka's most sacred Buddhist site, housing a relic of the Buddha's tooth."
+  />
+  <PlaceCard
+    name="Dambulla Cave Temple"
+    image="/img/stops/dambulla.avif"
+    region="Dambulla"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Dambulla+Cave+Temple&query_place_id=ChIJaTa9xVil_DoRTHZrk8Cl2tE"
+    desc="Largest cave temple complex in Sri Lanka. Historical murals, impressive collection of Buddha statues."
+  />
+  <PlaceCard
+    name="Adam's Peak (Sri Pada)"
+    image="/img/stops/adams-peak.avif"
+    tag="Dec - May"
+    region="Ratnapura"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Sri+Pada+%2F+Adam's+Peak&query_place_id=ChIJWUsjiXWX4zoR3DdbHUetI4c"
+    desc="One of Sri Lanka's most important pilgrimage sites, 2,243 m (7,359 ft) sacred mountain. Panoramic views of surrounding landscape."
+  />
+  <PlaceCard
+    name="Kataragama"
+    image="/img/stops/kataragama.avif"
+    region="Kataragama"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Ruhunu+Maha+Kataragama+Dewalaya&query_place_id=ChIJp-3ZQwcm5DoRqSefjwCnJi0"
+    desc="A sacred pilgrimage site in south-eastern region. Ancient temple complex with Hindu shrines. Many local visitors year-round."
+  />
+</PlaceCategory>
+
+<PlaceCategory
+  id="wildlife"
+  icon="🐘"
+  title="Wildlife & Safaris"
+  intro="Sri Lanka's national parks and wildlife reserves offer encounters with Asian elephants, leopards, and various endemic species across diverse habitats. Safari seasons may vary by park, with the dry season offering the best viewing opportunities."
+>
+  <PlaceCard
+    name="Yala National Park"
+    image="/img/stops/yala-national-park.avif"
+    tag="Leopards"
+    region="Hambantota"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Yala+National+Park&query_place_id=ChIJWZP7L6bT5ToRFDNaC9cjtjs"
+    desc="Sri Lanka's most visited wildlife sanctuary. Home to Asian elephants, leopards and other endemic species."
+  />
+  <PlaceCard
+    name="Minneriya & Kaudulla"
+    image="/img/stops/minneriya-kaudulla.avif"
+    tag="Elephants"
+    region="Minneriya"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Minneriya+National+Park&query_place_id=ChIJXeALoglg-zoR9QVr8PJG0KQ"
+    desc="Two national parks in the north-central region, centered around historic reservoir tanks. Asian elephants, deers, birds and other wildlife."
+  />
+  <PlaceCard
+    name="Whale Watching"
+    image="/img/stops/whale-watching.avif"
+    tag="Nov – Apr"
+    region="Mirissa"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Mirissa+Beach&query_place_id=ChIJ_9U2xtQ_4ToRspMatLlWFLg"
+    desc="Within Sri Lanka's southern and eastern coasts. Encounters between November and April."
+  />
+  <PlaceCard
+    name="Kumana National Park"
+    image="/img/stops/kumana-national-park.avif"
+    tag="Bird watching"
+    region="Hambantota"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Kumana+National+Park&query_place_id=ChIJo1ZxX7XI5ToRGiCAu8xbYM4"
+    desc="A Ramsar Wetland. Located right next to Yala, wide range of bird species."
+  />
+  <PlaceCard
+    name="Turtle Watching"
+    image="/img/stops/turtle-watching.avif"
+    region="Mirissa"
+    desc="Mirissa, Rekawa beach areas are popular for turtles. Nightly guided walks - no flash photography, and be responsible."
+  />
+</PlaceCategory>
+
+<PlaceCategory
+  id="beaches"
+  icon="🏖️"
+  title="Beaches"
+  intro="Sri Lanka's tropical coastline stretches all over the island. With golden-sand shores and turquoise waters, the south and west coasts offer consistent swimming and sunbathing opportunities between November - April. The east coast is best between May to September. Popular for water sports including surfing, snorkelling and diving - plus, Relaxing!"
+>
+  <PlaceCard
+    name="Mirissa"
+    image="/img/stops/mirissa-beach.avif"
+    region="Mirissa"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Mirissa+Beach&query_place_id=ChIJ_9U2xtQ_4ToRspMatLlWFLg"
+    desc="A curved bay with a good swimming beach. May get a bit crowded within peak season."
+  />
+  <PlaceCard
+    name="Arugam Bay"
+    image="/img/stops/arugam-bay.avif"
+    tag="Surf"
+    region="Ampara"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Arugam+Bay+Beach&query_place_id=ChIJv69ve9Ki5ToRNNv1nbXW78Y"
+    desc="East coast's one of the best beach area. Good surfing conditions."
+  />
+  <PlaceCard
+    name="Tangalle"
+    image="/img/stops/tangalle-beach.avif"
+    region="Tangalle"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Tangalle+Beach&query_place_id=ChIJ3UFkPNBK4ToRntXaocG3jMI"
+    desc="Longer, less crowded beaches than Mirissa with a more local feel."
+  />
+  <PlaceCard
+    name="Nilaveli"
+    tag="North East"
+    image="/img/stops/nilaveli-beach.avif"
+    region="Trincomalee"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Nilaveli+Beach&query_place_id=ChIJcRLtnrC_-zoRMcSC77MQum4"
+    desc="Longer East coast beach near Trincomalee."
+  />
+  <PlaceCard
+    name="Kalpitiya"
+    image="/img/stops/kalpitiya-beach.avif"
+    region="Puttalam"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Kalpitiya+Beach&query_place_id=ChIJo244nKRz_ToRI20ozcWBXPQ"
+    desc="Less crowded beach areas. Popular for kite surfing."
+  />
+</PlaceCategory>
+
+<PlaceCategory
+  id="nature"
+  icon="🌿"
+  title="Nature & Highlands"
+  intro="The hill country is a different Sri Lanka — cool, green, and covered in tea. The viewpoints, hikes, and train journeys here are some of the best on the island."
+>
+  <PlaceCard
+    name="Nine Arch Bridge, Ella"
+    image="/img/stops/nine-arch-bridge.avif"
+    region="Ella"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Nine+Arch+Bridge&query_place_id=ChIJB1TGPABl5DoR9sgY8pVxffE"
+    desc="A colonial-era bridge, best seen when a train crosses. Check the schedule the night before and arrive ~20 minutes early for a good spot."
+  />
+  <PlaceCard
+    name="Horton Plains & World's End"
+    image="/img/stops/horton-plains-worlds-end.avif"
+    tag="Early morning"
+    region="Nuwara Eliya"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Horton+Plains+National+Park&query_place_id=ChIJ73hL2y6I4zoRSXJ3U5GovM4"
+    desc="A plateau national park with a dramatic cliff drop at World's End. Best to visit at early morning."
+  />
+  <PlaceCard
+    name="Kandy–Ella Train"
+    image="/img/stops/ella.avif"
+    tag="Scenic rail"
+    region="Kandy"
+    desc="One of the great train journeys in Asia. Six hours through tea estates, mist, tunnels, and waterfall-dotted hillsides."
+  />
+  <PlaceCard
+    name="Lipton's Seat"
+    image="/img/stops/liptons-seat.avif"
+    region="Haputale"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Lipton's+Seat&query_place_id=ChIJr5MIAzRu5DoRa0f3r08Rhjg"
+    desc="A hilltop viewpoint over Sir Thomas Lipton's tea estates near Haputale. Reached by tuk-tuk then a short walk."
+  />
+  <PlaceCard
+    name="Sinharaja Forest Reserve"
+    image="/img/stops/sinharaja-forest-reserve.avif"
+    tag="UNESCO"
+    region="Ratnapura"
+    googleMapsUrl="https://www.google.com/maps/search/?api=1&query=Sinharaja+Forest+Reserve&query_place_id=ChIJX9QJ0Wvn4zoRG3BJBgHxDow"
+    desc="A world heritage site - Filled with native flora & fauna. Nature trails, bird watching experiences."
+  />
+</PlaceCategory>
