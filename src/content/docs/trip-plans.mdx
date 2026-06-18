@@ -1,13 +1,115 @@
 ---
 title: Trip Plans
-description:
-  Ready-made Sri Lanka itineraries from 5 days to 3 weeks. Whether you're
-  chasing beaches, culture, or wildlife — find a plan that fits your trip.
+tableOfContents: false
+description: Not sure where to start? Answer four quick questions and we'll suggest the best Sri Lanka itinerary for your trip.
 ---
 
-import UnderConstruction from "../../components/home/UnderConstruction.astro";
+import TripPlanner from "../../components/Guides/TripPlanner.astro";
+import TripPlanLoader from "../../components/Guides/TripPlanLoader.astro";
 
-<UnderConstruction
-  title="We're working on this.."
-  message="Sorry, page contents are currently unavailable. We're doing our best to update this soon..."
+Find pre-made travel plans in Sri Lanka based on your duration of stay and your interests.
+Simply tell us how many days you have, who you're traveling with,
+and the type of experience you're looking for - whether it's beaches, wildlife,
+culture, adventure, or relaxation.
+
+At the moment we have only `02 trip plans` and we are working on adding more.
+Read the trip plans FAQ below.
+
+<TripPlanLoader />
+
+<TripPlanner
+  basePath="/trip-plans"
+  ui={{
+    heading: "Find your perfect Sri Lanka trip",
+    subheading: "Answer four quick questions.",
+    stepLabel: "Step",
+    ofLabel: "of",
+    backLabel: "Back",
+    nextLabel: "Next",
+    findLabel: "Find plans",
+    startOverLabel: "Start over",
+    resultsHeading: "Here are your best matches",
+    resultsDays: "days",
+    resultsPace: "Pace",
+    resultsViewLabel: "View plan",
+    noResultsHeading: "Sorry, no exact matches",
+    noResultsText:
+      "Try adjusting your day count or interests — we'll find something close.",
+    pace: {
+      relaxed: "Relaxed",
+      moderate: "Balanced",
+      packed: "Full-on",
+    },
+    groupType: {
+      solo: "Solo",
+      couple: "Couple",
+      family: "Family",
+      group: "Group",
+    },
+    themes: {
+      history: "History",
+      culture: "Culture",
+      nature: "Nature",
+      wildlife: "Wildlife",
+      beach: "Beaches",
+      religious: "Temples",
+      photography: "Photography",
+    },
+    questions: {
+      days: {
+        label: "How many days do you have?",
+        hint: "Duration",
+      },
+      groupType: {
+        label: "Who are you traveling with?",
+        hint: "Travel party",
+      },
+      pace: {
+        label: "How do you like to travel?",
+        hint: "Your pace",
+      },
+      themes: {
+        label: "What draws you to Sri Lanka?",
+        hint: "Pick your interests",
+      },
+    },
+  }}
 />
+
+<hr />
+
+<details open>
+  <summary>What are these trip plans?</summary>
+  Curated itineraries covering key destinations, their locations on a map, and
+  practical notes for each stop. They are not tied to any tour operator,
+  package, or paid service - just independent suggestions.
+</details>
+
+<details>
+  <summary>How do I use the recommender?</summary>
+  Answer the four questions above and you'll get the plans that best match your
+  trip. The closest match sits at the top; the others follow in order of
+  relevance. You can start over anytime and try different combinations.
+</details>
+
+<details>
+  <summary>What about accommodation?</summary>
+  We don't suggest or promote specific hotels, guesthouses here. Where you stay
+  is entirely your call - the plans focus on what to see and do, not where to
+  sleep. You can take a look at our [Where to Stay](/where-to-stay) page for
+  general info.
+</details>
+
+<details>
+  <summary>Can I change the order of stops?</summary>
+  The plans are suggestions, not fixed schedules. Feel free to reorder stops,
+  skip places that don't interest you, or spend more time somewhere than the
+  plan implies. Treat them as a starting point.
+</details>
+
+<details>
+  <summary>Are these plans up to date?</summary>
+  We review and verify the data manually, but conditions on the ground change.
+  Opening hours, entrance fees, road access, and seasonal closures can shift.
+  Always double-check anything time-sensitive before you go.
+</details>

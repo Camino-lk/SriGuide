@@ -1,0 +1,382 @@
+---
+// Reads saved plan IDs from localStorage key "SG_my_trip"
+// and renders compact cards for each.
+// All plan data is inlined via define:vars, no runtime imports.
+
+import { ALL_PLANS } from "../../data/trip-plans/index";
+
+interface Props {
+  // i18n
+  ui?: {
+    emptyHeading?: string;
+    emptyText?: string;
+    emptyLink?: string;
+    emptyLinkHref?: string;
+    days?: string;
+    removeLabel?: string;
+    viewLabel?: string;
+    planBasePath?: string;
+  };
+}
+
+const { ui = {} } = Astro.props;
+
+const strings = {
+  emptyHeading: ui.emptyHeading ?? "No saved plans yet",
+  emptyText:
+    ui.emptyText ??
+    "Browse trip plans and save the ones that interest you — they'll show up here.",
+  emptyLink: ui.emptyLink ?? "Browse trip plans",
+  emptyLinkHref: ui.emptyLinkHref ?? "/trip-plans",
+  days: ui.days ?? "days",
+  removeLabel: ui.removeLabel ?? "Remove",
+  viewLabel: ui.viewLabel ?? "View plan",
+  planBasePath: ui.planBasePath ?? "/trip-plans",
+};
+
+// Serialize the full plan list for the client — only id, title, description,
+// days, pace, and regions are needed for the card.
+const planIndex = ALL_PLANS.map((p) => ({
+  id: p.id,
+  title: p.title,
+  description: p.description,
+  days: p.days,
+  pace: p.pace,
+  regions: p.regions.slice(0, 2),
+}));
+---
+
+<div
+  class="mtp-root"
+  id="my-trip-plans"
+  data-plans={JSON.stringify(planIndex)}
+  data-ui={JSON.stringify(strings)}
+>
+  <div class="mtp-loading" id="mtp-content">
+    <span class="mtp-spinner" aria-hidden="true"></span>
+  </div>
+</div>
+
+<style is:global>
+  .mtp-root {
+    --mtp-accent: #c8621a;
+    --mtp-accent-soft: #c2f8cf;
+    --mtp-surface: var(--sl-color-bg);
+    --mtp-border: var(--sl-color-gray-5);
+    --mtp-text: var(--sl-color-text, #1a1614);
+    --mtp-text-muted: var(--sl-color-text-accent);
+    --mtp-radius: 10px;
+    --mtp-transition: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    font-family: var(--sl-font, system-ui, sans-serif);
+    padding: 0.25rem 0 0.5rem;
+  }
+
+  :root[data-theme="dark"] .mtp-root,
+  [data-theme="dark"] .mtp-root {
+    --mtp-accent: #e07d3a;
+    --mtp-accent-soft: #110c09;
+  }
+
+  /* ── Loading ──────────────────────────────────────────────────────────── */
+  .mtp-loading {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0.2rem;
+  }
+
+  .mtp-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--mtp-border);
+    border-top-color: var(--mtp-accent);
+    border-radius: 50%;
+    animation: mtp-spin 0.7s linear infinite;
+  }
+
+  @keyframes mtp-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* ── Empty state ──────────────────────────────────────────────────────── */
+  .mtp-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    padding: 0.25rem 0 0.5rem;
+  }
+
+  .mtp-empty-heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--mtp-text);
+    margin: 0;
+  }
+
+  .mtp-empty-text {
+    font-size: 0.8rem;
+    color: var(--mtp-text-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .mtp-empty-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--mtp-accent);
+    text-decoration: none;
+    margin-top: 0.25rem;
+    transition: opacity var(--mtp-transition);
+  }
+
+  .mtp-empty-link:hover {
+    opacity: 0.8;
+  }
+
+  /* ── Plan list ────────────────────────────────────────────────────────── */
+  .mtp-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  /* ── Plan card ────────────────────────────────────────────────────────── */
+  .mtp-card {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.85rem 0.85rem 0.85rem 1rem;
+    background: var(--mtp-surface);
+    border: 1.5px solid var(--mtp-border);
+    border-radius: var(--mtp-radius);
+    position: relative;
+    overflow: hidden;
+    transition:
+      border-color var(--mtp-transition),
+      box-shadow var(--mtp-transition);
+  }
+
+  /* Accent left bar */
+  .mtp-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--mtp-accent);
+    opacity: 0.6;
+  }
+
+  .mtp-card:hover {
+    border-color: var(--mtp-accent);
+    box-shadow: 0 2px 12px rgba(200, 98, 26, 0.1);
+  }
+
+  .mtp-card-body {
+    min-width: 0;
+  }
+
+  .mtp-card-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.6rem;
+    margin-bottom: 0.25rem;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mtp-text-muted);
+  }
+
+  .mtp-card-meta-accent {
+    color: var(--mtp-accent);
+  }
+
+  .mtp-card-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--mtp-text);
+    margin: 0 0 0.35rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mtp-card-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .mtp-view-btn {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--mtp-accent);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity var(--mtp-transition);
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 10px;
+    border: 1.5px solid var(--mtp-border);
+  }
+
+  .mtp-view-btn:hover {
+    background: var(--mtp-accent-soft);
+  }
+
+  .mtp-remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    height: 24px;
+    border-radius: 10px;
+    background: transparent;
+    border: 1.5px solid var(--mtp-border);
+    color: var(--sl-color-text);
+    font-size: 0.75rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 5px 8px;
+    transition:
+      background var(--mtp-transition),
+      border-color var(--mtp-transition),
+      color var(--mtp-transition);
+    flex-shrink: 0;
+  }
+
+  .mtp-remove-btn:hover {
+    background: #fee2e2;
+    border-color: #f87171;
+    color: #dc2626;
+  }
+
+  /* Removal animation */
+  .mtp-card.is-removing {
+    opacity: 0;
+    transform: translateX(8px);
+    transition:
+      opacity 200ms ease,
+      transform 200ms ease;
+  }
+</style>
+
+<script>
+  const root = document.getElementById("my-trip-plans");
+  const content = document.getElementById("mtp-content");
+  const plans = JSON.parse(root.dataset.plans);
+  const ui = JSON.parse(root.dataset.ui);
+
+  const STORAGE_KEY = "SG_my_trip";
+
+  function getSavedIds() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "[]");
+    } catch {
+      return [];
+    }
+  }
+
+  function removeSavedId(id) {
+    const ids = getSavedIds().filter((i) => i !== id);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(ids));
+  }
+
+  const PACE_LABELS = {
+    relaxed: "Relaxed",
+    moderate: "Balanced",
+    packed: "Full-on",
+  };
+
+  function renderCard(plan) {
+    const card = document.createElement("div");
+    card.className = "mtp-card";
+    card.dataset.planId = plan.id;
+    card.innerHTML = `
+      <div class="mtp-card-body">
+        <div class="mtp-card-meta">
+          <span class="mtp-card-meta-accent">${plan.days} ${ui.days}</span>
+          <span>·</span>
+          <span>${PACE_LABELS[plan.pace] ?? plan.pace}</span>
+          <span>·</span>
+          <span>${plan.regions.join(", ")}</span>
+        </div>
+        <h3 class="mtp-card-title">${plan.title}</h3>
+      </div>
+      <div class="mtp-card-actions">
+        <a class="mtp-view-btn" href="${ui.planBasePath}/${plan.id}">${ui.viewLabel}</a>
+        <button
+          class="mtp-remove-btn"
+          type="button"
+          aria-label="${ui.removeLabel}: ${plan.title}"
+          title="${ui.removeLabel}"
+          data-remove-id="${plan.id}"
+        >${ui.removeLabel}</button>
+      </div>
+    `;
+
+    card.querySelector("[data-remove-id]").addEventListener("click", () => {
+      card.classList.add("is-removing");
+      setTimeout(() => {
+        removeSavedId(plan.id);
+        render();
+      }, 200);
+    });
+
+    return card;
+  }
+
+  function renderEmpty() {
+    const el = document.createElement("div");
+    el.className = "mtp-empty";
+    el.innerHTML = `
+      <p class="mtp-empty-heading">${ui.emptyHeading}</p>
+      <p class="mtp-empty-text">${ui.emptyText}</p>
+      <a class="mtp-empty-link" href="${ui.emptyLinkHref}">
+        ${ui.emptyLink} →
+      </a>
+    `;
+    return el;
+  }
+
+  function render() {
+    const savedIds = getSavedIds();
+    const savedPlans = savedIds
+      .map((id) => plans.find((p) => p.id === id))
+      .filter(Boolean);
+
+    content.innerHTML = "";
+
+    if (savedPlans.length === 0) {
+      content.appendChild(renderEmpty());
+      return;
+    }
+
+    const list = document.createElement("div");
+    list.className = "mtp-list";
+    savedPlans.forEach((plan) => list.appendChild(renderCard(plan)));
+    content.appendChild(list);
+  }
+
+  // Initial render
+  render();
+
+  // Live updates when plans are saved
+  window.addEventListener("myTripUpdated", () => render());
+
+  // Sync across tabs
+  window.addEventListener("storage", (e) => {
+    if (e.key === STORAGE_KEY) render();
+  });
+</script>

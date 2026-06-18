@@ -1,0 +1,118 @@
+---
+title: Planes de Viaje
+tableOfContents: false
+description: ¿No sabes por dónde empezar? Responde cuatro preguntas rápidas y te sugeriremos el mejor itinerario para tu viaje a Sri Lanka.
+---
+
+import TripPlanner from "../../../components/Guides/TripPlanner.astro";
+import TripPlanLoader from "../../../components/Guides/TripPlanLoader.astro";
+
+Encuentra planes de viaje ya preparados en Sri Lanka según la duración de tu estancia y tus intereses.
+Solo tienes que decirnos cuántos días tienes, con quién viajas
+y el tipo de experiencia que buscas, ya sean playas, fauna,
+cultura, aventura o descanso.
+
+Por el momento solo tenemos `02 planes de viaje` y estamos trabajando para añadir más.
+Lee las preguntas frecuentes sobre los planes de viaje que aparecen más abajo.
+
+<TripPlanLoader />
+
+<TripPlanner
+  basePath="/es/trip-plans"
+  ui={{
+    heading: "Encuentra tu viaje perfecto a Sri Lanka",
+    subheading: "Responde cuatro preguntas rápidas.",
+    stepLabel: "Paso",
+    ofLabel: "de",
+    backLabel: "Atrás",
+    nextLabel: "Siguiente",
+    findLabel: "Buscar planes",
+    startOverLabel: "Empezar de nuevo",
+    resultsHeading: "Tus mejores opciones",
+    resultsDays: "días",
+    resultsPace: "Ritmo",
+    resultsViewLabel: "Ver plan",
+    noResultsHeading: "¡Ups! No hay coincidencias exactas",
+    noResultsText: "Prueba ajustando los días o tus intereses.",
+    pace: {
+      relaxed: "Tranquilo",
+      moderate: "Equilibrado",
+      packed: "Intenso",
+    },
+    groupType: {
+      solo: "Solo/a",
+      couple: "Pareja",
+      family: "Familia",
+      group: "Grupo",
+    },
+    themes: {
+      history: "Historia",
+      culture: "Cultura",
+      nature: "Naturaleza",
+      wildlife: "Fauna",
+      beach: "Playas",
+      religious: "Templos",
+      photography: "Fotografía",
+    },
+    questions: {
+      days: {
+        label: "¿Cuántos días tienes disponibles?",
+        hint: "Duración",
+      },
+      groupType: {
+        label: "¿Con quién viajas?",
+        hint: "Grupo de viaje",
+      },
+      pace: {
+        label: "¿Cómo prefieres viajar?",
+        hint: "Tu ritmo",
+      },
+      themes: {
+        label: "¿Qué te llama la atención de Sri Lanka?",
+        hint: "Elige tus intereses",
+      },
+    },
+  }}
+/>
+
+<hr />
+
+<details open>
+  <summary>Qué son estos planes de viaje?</summary>
+  Itinerarios seleccionados que incluyen destinos principales, sus ubicaciones
+  en un mapa y notas prácticas para cada parada. No están vinculados a ningún
+  operador turístico, paquete ni servicio de pago; son simplemente consejos
+  independientes.
+</details>
+
+<details>
+  <summary>¿Cómo utilizo el sistema de recomendaciones?</summary>
+  Responde a las cuatro preguntas anteriores y obtendrás los planes que mejor se
+  adapten a tu viaje. El que más se ajuste aparecerá en primer lugar; los demás
+  aparecerán por orden de relevancia. Puedes volver a empezar en cualquier
+  momento y probar diferentes combinaciones.
+</details>
+
+<details>
+  <summary>¿Y qué hay del alojamiento?</summary>
+  Aquí no recomendamos ni promocionamos hoteles ni pensiones concretos. El lugar
+  donde te alojes depende totalmente de ti: los planes se centran en qué ver y
+  qué hacer, no en dónde dormir. Puedes visitar nuestra página [Dónde
+  alojarse](/es/where-to-stay) para obtener información general.
+</details>
+
+<details>
+  <summary>¿Puedo cambiar el orden de las paradas?</summary>
+  Los itinerarios son recomendaciones, no planes fijos. No dudes en cambiar el
+  orden de las paradas, omitir los lugares que no te interesen o pasar más
+  tiempo en algún sitio de lo que indica el itinerario. Tratarlas como punto de
+  partida.
+</details>
+
+<details>
+  <summary>¿Están actualizados estos planes?</summary>
+  Revisamos y verificamos los datos manualmente, pero las condiciones reales
+  pueden cambiar. Los horarios de apertura, las tarifas de entrada, el acceso
+  por carretera y los cierres estacionales pueden variar. Comprueba siempre
+  cualquier información importante antes de salir.
+</details>

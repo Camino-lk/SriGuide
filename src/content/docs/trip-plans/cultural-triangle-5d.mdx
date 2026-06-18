@@ -1,0 +1,55 @@
+---
+title: Cultural Triangle Classic - 5 Day Sri Lanka Itinerary
+description: Sri Lanka's greatest ancient sites in five days - Sigiriya, Polonnaruwa, Dambulla, and Kandy, without the rush.
+template: splash
+---
+
+import PlanDetail from "../../../components/Guides/PlanDetail.astro";
+import plan from "../../../data/trip-plans/cultural-triangle-5d";
+
+<PlanDetail
+  plan={plan}
+  ui={{
+    days: "days",
+    pace: "Pace",
+    paceValues: { relaxed: "Relaxed", moderate: "Balanced", packed: "Full-on" },
+    groupTypes: {
+      solo: "Solo",
+      couple: "Couple",
+      family: "Family",
+      group: "Group",
+    },
+    highlightsHeading: "Trip highlights",
+    itineraryHeading: "Day by day",
+    dayLabel: "Day",
+    daysLabel: "Days",
+    mapHeading: "Route map",
+    mapPopupDay: "Day",
+    categories: {
+      landmark: "Landmark",
+      religious: "Religious site",
+      nature: "Nature",
+      wildlife: "Wildlife",
+      beach: "Beach",
+      viewpoint: "Viewpoint",
+      city: "Town / City",
+      market: "Market",
+      activity: "Activity",
+    },
+    categoryIcons: {
+      landmark: "🏛️",
+      religious: "🕌",
+      nature: "🌿",
+      wildlife: "🐘",
+      beach: "🏖️",
+      viewpoint: "🔭",
+      city: "🏙️",
+      market: "🛒",
+      activity: "🏄",
+    },
+    addToTripLabel: "Add to My Trip",
+    addedToTripLabel: "Saved to My Trip",
+    backLabel: "All trip plans",
+    backHref: "/trip-plans",
+  }}
+/>

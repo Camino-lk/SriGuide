@@ -1,0 +1,9 @@
+---
+// Injects ALL_PLANS into window.__TRIP_PLANS__ so TripPlanner.astro can use them.
+---
+
+<script>
+  import { ALL_PLANS } from "../../data/trip-plans/index";
+  // Make plans available to the recommender script
+  (window as any).__TRIP_PLANS__ = ALL_PLANS;
+</script>
