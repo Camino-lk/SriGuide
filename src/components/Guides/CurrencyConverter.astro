@@ -57,8 +57,8 @@ const { fallbackRate, fallbackDate } = Astro.props;
   const statusChip = document.getElementById("status")!;
 
   let rates: Record<string, number> = {};
-  const FALLBACK_RATE = 334.04; // ----------------------- Fallback USD to LKR rate
-  const FALLBACK_DATE = "2026-06-18"; // -------------- Date of the fallback rate
+  const FALLBACK_RATE = 336.89; // ----------------------- Fallback USD to LKR rate
+  const FALLBACK_DATE = "2026-06-26"; // -------------- Date of the fallback rate
 
   async function loadRates(forceFresh = false) {
     statusChip.innerText = "Checking rates...";
