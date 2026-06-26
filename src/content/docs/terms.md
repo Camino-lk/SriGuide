@@ -3,7 +3,7 @@ title: Terms of Use
 description: The terms that apply to using SriGuide - what this site is, what it isn't, and what you should know before relying on it for travel planning.
 ---
 
-_Last updated: 2026.06.12_
+_Last updated: 2026.06.18_
 
 Please read these terms before using SriGuide (the "Site"). By accessing or using the Site, you agree to be bound by them.
 
