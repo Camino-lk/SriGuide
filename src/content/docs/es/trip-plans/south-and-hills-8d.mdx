@@ -1,0 +1,59 @@
+---
+title: Costa Sur y la región montañosa - itinerario de 8 días por Sri Lanka
+description: Ocho días en los que se combinan las mejores playas de Sri Lanka, la ciudad colonial de Galle, la fauna de Yala y las frescas colinas cubiertas de plantaciones de té en Ella.
+template: splash
+---
+
+import PlanDetail from "../../../../components/Guides/PlanDetail.astro";
+import plan from "../../../../data/trip-plans/south-and-hills-8d";
+
+<PlanDetail
+  plan={plan}
+  ui={{
+    days: "días",
+    pace: "Ritmo",
+    paceValues: {
+      relaxed: "Tranquilo",
+      moderate: "Equilibrado",
+      packed: "Intenso",
+    },
+    groupTypes: {
+      solo: "Solo/a",
+      couple: "Pareja",
+      family: "Familia",
+      group: "Grupo",
+    },
+    highlightsHeading: "Los mejores momentos del viaje",
+    itineraryHeading: "Día a día",
+    dayLabel: "Día",
+    daysLabel: "Días",
+    mapHeading: "Mapa de la ruta",
+    mapPopupDay: "Día",
+    categories: {
+      landmark: "Landmark",
+      religious: "Sitio religioso",
+      nature: "Naturaleza",
+      wildlife: "Fauna",
+      beach: "Playa",
+      viewpoint: "Punto de vista",
+      city: "Pueblo / Ciudad",
+      market: "Mercado",
+      activity: "Actividad",
+    },
+    categoryIcons: {
+      landmark: "🏛️",
+      religious: "🕌",
+      nature: "🌿",
+      wildlife: "🐘",
+      beach: "🏖️",
+      viewpoint: "🔭",
+      city: "🏙️",
+      market: "🛒",
+      activity: "🏄",
+    },
+    addToTripLabel: "Añadir a Mi viaje",
+    addedToTripLabel: "Guardado en Mi viaje",
+    backLabel: "Todos los planes de viaje",
+    backHref: "/es/trip-plans",
+  }}
+/>

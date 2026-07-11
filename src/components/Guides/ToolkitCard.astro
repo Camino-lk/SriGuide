@@ -9,16 +9,20 @@ interface Props {
 const { icon, title, emergency = false, spanFull = false } = Astro.props;
 ---
 
-<div
-  class:list={[
-    "tk-card",
-    { "card-emergency": emergency, "span-full": spanFull },
-  ]}
+<details
+  class:list={["tk-accordion", { "tk-emergency": emergency }]}
+  data-id={title.toLowerCase().replace(/\s+/g, "-")}
+  open={spanFull ? "true" : undefined}
 >
-  <slot />
-</div>
+  <summary class="tk-title">
+    <span class="title-inner"><span class="t-icon">{icon}</span> {title}</span>
+  </summary>
+  <div class="tk-card">
+    <slot />
+  </div>
+</details>
 
-<style>
+<style is:global>
   .tk-card {
     border-radius: 0.75rem;
     display: flex;
@@ -28,14 +32,5 @@ const { icon, title, emergency = false, spanFull = false } = Astro.props;
 
   .span-full {
     grid-column: 1 / -1;
-  }
-
-  .card-emergency {
-    border-color: #f87171;
-  }
-
-  .card-icon {
-    font-size: 1.1rem;
-    line-height: 1;
   }
 </style>
