@@ -7,12 +7,15 @@ type NoticeSeverity = "info" | "success" | "warning" | "danger";
 // ║             MANAGE ACTIVE NOTICE                 ║
 // ╚══════════════════════════════════════════════════╝
 const notice = {
-  active: false, // toggle visibility
-  id: "ME-airspace-closure-2026-03-04", // change id whenever message changes
+  active: true, // toggle visibility
+  id: "Dengue-2026-07-11", // change id whenever message changes (ex:ME-airspace-closure-2026-03-04)
   severity: "warning" as NoticeSeverity, // ["info", "success", "warning", "danger"]
   message:
-    "Middle East airspace closures: Contact the 24/7 tourism hotline for any assistance - sltda.gov.lk",
-  link: { label: "Call 1912", href: "tel:1912" },
+    "High dengue activity in Sri Lanka: take extra precautions against mosquito bites.", // Message to display
+  link: {
+    label: "Stats",
+    href: "https://www.dengue.health.gov.lk/#latest-update",
+  }, // optional link to more info
 };
 // ═══════════════════════════════════════════════════
 
