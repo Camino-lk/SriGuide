@@ -3,82 +3,26 @@
   <section class="toolkit-section">
     <div class="section-heading"><span>Right Now</span></div>
 
-    <details class="tk-accordion" data-id="safety">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">🛡️</span> Travel Conditions</span
-        >
-      </summary>
-      <slot name="safety" />
-    </details>
+    <slot name="safety" />
 
-    <details class="tk-accordion" data-id="time">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">🕐</span> Sri Lanka Time</span
-        >
-      </summary>
-      <slot name="time" />
-    </details>
+    <slot name="time" />
 
-    <details class="tk-accordion" data-id="holidays">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">📅</span> Public Holidays</span
-        >
-      </summary>
-      <slot name="holidays" />
-    </details>
+    <slot name="holidays" />
   </section>
 
   {/* ── Plan Your Trip ────────────────────────────────────────── */}
   <section class="toolkit-section">
     <div class="section-heading"><span>Plan Your Trip</span></div>
     <div class="checklist-grid">
-      <details class="tk-accordion" data-id="my-trip-plans">
-        <summary class="tk-title">
-          <span class="title-inner">
-            <span class="t-icon">🗺️</span> My Trip Plans
-          </span>
-        </summary>
-        <slot name="my-trip-plans" />
-      </details>
+      <slot name="my-trip-plans" />
 
-      <details class="tk-accordion" data-id="packing">
-        <summary class="tk-title">
-          <span class="title-inner"
-            ><span class="t-icon">🧳</span> Packing Checklist</span
-          >
-        </summary>
-        <slot name="packing" />
-      </details>
+      <slot name="packing" />
 
-      <details class="tk-accordion" data-id="landing">
-        <summary class="tk-title">
-          <span class="title-inner"
-            ><span class="t-icon">✈️</span> After Landing</span
-          >
-        </summary>
-        <slot name="landing" />
-      </details>
+      <slot name="landing" />
 
-      <details class="tk-accordion" data-id="medications">
-        <summary class="tk-title">
-          <span class="title-inner"
-            ><span class="t-icon">💊</span> Medications Checklist</span
-          >
-        </summary>
-        <slot name="medications" />
-      </details>
+      <slot name="medications" />
 
-      <details class="tk-accordion" data-id="custom">
-        <summary class="tk-title">
-          <span class="title-inner"
-            ><span class="t-icon">✨</span> Custom Checklist</span
-          >
-        </summary>
-        <slot name="custom" />
-      </details>
+      <slot name="custom" />
     </div>
   </section>
 
@@ -86,50 +30,22 @@
   <section class="toolkit-section">
     <div class="section-heading"><span>On the Ground</span></div>
 
-    <details class="tk-accordion" data-id="currency">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">💱</span> Currency Converter</span
-        >
-      </summary>
-      <slot name="currency" />
-    </details>
+    <slot name="currency" />
 
-    <details class="tk-accordion" data-id="phrases">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">🔊</span> Useful Phrases</span
-        >
-      </summary>
-      <slot name="phrases" />
-    </details>
+    <slot name="phrases" />
 
-    <details class="tk-accordion" data-id="trip-dashboard">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">🧭</span> My Trip Dashboard</span
-        >
-      </summary>
-      <slot name="trip-dashboard" />
-    </details>
+    <slot name="trip-dashboard" />
 
-    <details class="tk-accordion tk-emergency" data-id="emergency">
-      <summary class="tk-title">
-        <span class="title-inner"
-          ><span class="t-icon">🚨</span> Emergency Contacts</span
-        >
-      </summary>
-      <slot name="emergency" />
-    </details>
+    <slot name="emergency" />
   </section>
 </div>
 
-<style>
+<style is:global>
   /* ── Page wrapper ─────────────────────────────────────────── */
   .toolkit-page {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 2rem 1.5rem 4rem;
+    padding: 2rem 0.8rem 2.5rem;
     display: flex;
     flex-direction: column;
     gap: 2.5rem;
