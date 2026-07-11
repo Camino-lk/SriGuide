@@ -1,0 +1,163 @@
+---
+title: Herramientas de viaje
+template: splash
+description: Herramientas útiles para tu viaje a Sri Lanka - conversor de moneda, listas de cosas que llevar, frases útiles en el idioma local y mucho más, todo en un mismo sitio.
+---
+
+import { LinkButton } from "@astrojs/starlight/components";
+
+import SafetyStatus from "../../../components/Guides/SafetyStatus.astro";
+import CurrencyConverter from "../../../components/Guides/CurrencyConverter.astro";
+import LankaTime from "../../../components/Guides/LankaTime.astro";
+import PhraseCards from "../../../components/Guides/PhraseCards.astro";
+import Checklist from "../../../components/Guides/Checklist.astro";
+import EmergencyCall from "../../../components/Guides/EmergencyCall.astro";
+import EmergencyContact from "../../../components/Guides/EmergencyContact.astro";
+import ToolkitPage from "../../../components/Guides/ToolkitPage.astro";
+import ToolkitCard from "../../../components/Guides/ToolkitCard.astro";
+import HolidaysViewer from "../../../components/Guides/HolidaysViewer.astro";
+import MyTripPlans from "../../../components/Guides/MyTripPlans.astro";
+import MyTripDashboard from "../../../components/Guides/MyTripDashboard.astro";
+
+<LinkButton href="/" icon="left-arrow" iconPlacement="start">
+  Volver a la página de inicio
+</LinkButton>
+
+<ToolkitPage>
+
+<ToolkitCard slot="safety" icon="🛡️" title="Condiciones de viaje">
+  <SafetyStatus />
+</ToolkitCard>
+
+<ToolkitCard slot="time" icon="🕐" title="Hora actual en Sri Lanka">
+  <LankaTime />
+</ToolkitCard>
+
+<ToolkitCard slot="holidays" icon="📅" title="Días festivos">
+  <HolidaysViewer />
+</ToolkitCard>
+
+<ToolkitCard slot="my-trip-plans" icon="🗺️" title="Mis planes de viaje">
+  <MyTripPlans
+    ui={{
+      emptyHeading: "Aún no hay planes guardados",
+      emptyText:
+        "Explora los planes de viaje y guarda los que te interesen: aparecerán aquí.",
+      emptyLink: "Explorar planes de viaje",
+      emptyLinkHref: "/es/trip-plans",
+      days: "días",
+      removeLabel: "Eliminar",
+      viewLabel: "Ver plano",
+      planBasePath: "/es/trip-plans",
+    }}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="packing" icon="🧳" title="Lista de equipaje">
+  <Checklist
+    id="packing-list"
+    title="Packing Checklist"
+    items={[
+      "Pasaporte (válido por al menos 6 meses)",
+      "Visado, autorización ETA",
+      "Billete de salida o de continuación del viaje",
+      "Documentos del seguro de viaje",
+      "Confirmación de alojamiento",
+      "Tarjetas de crédito o débito",
+      "Dinero en efectivo",
+      "Adaptadores de corriente",
+      "Ropa ligera para climas tropicales",
+      "Zapatos cómodos para caminar o sandalias",
+      "Crema solar y gafas de sol",
+      "Medicamentos, recetas",
+      "Cargador de móvil, batería externa",
+      "Copias de documentos importantes",
+      "Repelente de mosquitos",
+      "Botella de agua reutilizable (si es necesario)",
+      "Mochila pequeña",
+      "Cepillo de dientes, productos de higiene",
+    ]}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="landing" icon="✈️" title="Después de aterrizar">
+  <Checklist
+    id="after-landing-list"
+    title="After Landing Checklist"
+    items={[
+      "Verificar la hora local y ajustar los dispositivos",
+      "Pasar por el control de inmigración",
+      "Recoger el equipaje",
+      "Comprar una tarjeta SIM/eSIM local",
+      "Cambiar dinero a rupias de Sri Lanka (LKR)",
+      "Sacar dinero de un cajero automático (si es necesario)",
+      "Consultar el tiempo en el destino",
+      "Organizar el transporte desde el aeropuerto",
+      "Confirmar los detalles del registro en el hotel",
+      "¡Comer, beber y descansar!",
+    ]}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="medications" icon="💊" title="Lista de medicamentos">
+  <Checklist
+    id="medications-list"
+    title="Medications Checklist"
+    items={[
+      "Analgésicos (paracetamol, ibuprofeno, etc.)",
+      "Antihistamínicos (medicamentos para las alergias)",
+      "Antidiarreicos (para molestias digestivas)",
+      "Desinfectante de manos (o cómpralo localmente)",
+      "Repelente de mosquitos (o cómpralo localmente)",
+      "Medicamentos recetados personales",
+      "Documentación médica",
+    ]}
+  />
+</ToolkitCard>
+
+<ToolkitCard slot="custom" icon="✨" title="Lista personalizada">
+  <Checklist id="custom-list" title="Custom Checklist" items={[]} />
+</ToolkitCard>
+
+<ToolkitCard slot="currency" icon="💱" title="Conversor de moneda">
+  <CurrencyConverter />
+</ToolkitCard>
+
+<ToolkitCard slot="phrases" icon="🔊" title="Frases útiles">
+  <PhraseCards />
+</ToolkitCard>
+
+<ToolkitCard slot="trip-dashboard" icon="🧭" title="Mi viaje">
+  <MyTripDashboard />
+</ToolkitCard>
+
+<ToolkitCard
+  slot="emergency"
+  icon="🚨"
+  title="Contactos de emergencia"
+  emergency={true}
+>
+<EmergencyCall
+number="119"
+label="Centro de Emergencias"
+text="Toca para llamar al Centro de Emergencias"
+/>
+
+<EmergencyContact
+  name="Tourism Hotline"
+  phone="1912"
+  note="La Línea Turística de Sri Lanka, obtener información y ayuda en caso de emergencia"
+  category="police"
+/>
+<EmergencyContact
+  name="Ambulancia (Suwa Seriya)"
+  phone="1990"
+  note="Atención gratuita en el lugar y traslado, disponible 24x7"
+  category="medical"
+/>
+
+Visita nuestra [página de emergencias](/es/emergency) para obtener más números de teléfono e información útil.
+
+</ToolkitCard>
+
+</ToolkitPage>
