@@ -5,9 +5,294 @@ description:
   What to try, where to eat, and what to watch out for as a visitor.
 ---
 
-import UnderConstruction from "../../components/home/UnderConstruction.astro";
+import { Badge } from "@astrojs/starlight/components";
 
-<UnderConstruction
-  title="We're working on this.."
-  message="Sorry, page contents are currently unavailable. We're doing our best to update this soon..."
-/>
+import DishGrid from "../../components/Guides/DishGrid.astro";
+import DishCard from "../../components/Guides/DishCard.astro";
+
+Sri Lankan food is built around rice and curry, shared plates, and with higher spicy levels in general.
+Expect coconut/coconut milk in nearly everything, meals eaten with your (right) hand, and a lot of dishes you won't have seen on a "South Asian food" list before.
+
+These lists contain only a handpicked selection of dishes, and there are many more food choices available in Sri Lanka.
+
+If you're interested in Sri Lankan dining customs, please refer [Culture & Etiquette](/culture-and-etiquette#food--eating) page for more details.
+
+{/* TODO: add "Regional Specialties" category */}
+
+:::note[Vegetarian Dishes 🌿]
+The `Vegetarian` label refers only to
+the main dish itself, not to any accompanying items. For example, `Pol Roti` may
+be vegetarian, but it could be served with a meat-based curry.
+
+Tagged items may contain **eggs and dairy**, as we only excluded meat and fish when determining vegetarian status.
+:::
+
+## Staples
+
+These are the main dishes that many Sri Lankans eat on a day-to-day basis. Rice and curry is the most common dish in Sri Lankan gastronomy. Apart from that, fried rice, kottu roti, kiribath, and pol roti are several other popular alternatives.
+
+<DishGrid>
+  <DishCard
+    name="Rice & Curry"
+    image="/img/food/rice-and-curry.avif"
+    alt="A Sri Lankan rice and curry plate with several small curries"
+    spice={2}
+    tag="Must try"
+  >
+    Rice with 3-5 small curries (vegetable, lentil, coconut sambol, sometimes
+    fish or meat). Take a little of each curry and mix it with the rice.
+  </DishCard>
+  <DishCard
+    name="Kiribath (milk rice)"
+    image="/img/food/milk-rice-kiribath.avif"
+    alt="A plate of kiribath, milk rice cut into diamond shapes"
+    spice={1}
+    veg
+  >
+    Rice cooked in coconut milk and cut into diamonds, usually served with spicy
+    lunu miris (chilli relish).
+  </DishCard>
+  <DishCard
+    name="Pol Roti (coconut roti)"
+    image="/img/food/pol-roti.avif"
+    alt="Pol roti, a flatbread made with grated coconut"
+    spice={1}
+    veg
+  >
+    A flatbread made with flour and grated coconut, pan-fried and usually served
+    with lunu miris or curry.
+  </DishCard>
+  <DishCard
+    name="Pittu"
+    image="/img/food/pittu.avif"
+    alt="Steamed pittu, cylinders of rice flour layered with coconut"
+    spice={0}
+    veg
+  >
+    Steamed cylinders of rice flour layered with grated coconut, served with
+    curry or salted coconut milk.
+  </DishCard>
+  <DishCard
+    name="Fried Rice"
+    image="/img/food/fried-rice.avif"
+    alt="Sri Lankan style fried rice with egg and vegetables"
+    spice={1}
+  >
+    Rice stir-fried with egg, vegetables, and a choice of meat or seafood.
+  </DishCard>
+  <DishCard
+    name="Kottu Roti"
+    image="/img/food/kottu-roti.avif"
+    alt="A dish of Kottu Roti on a plate"
+    spice={3}
+    tag="Must try"
+  >
+    Chopped roti stir-fried with egg, vegetables and meat, chopped on a hot
+    griddle with two metal blades.
+  </DishCard>
+  <DishCard
+    name="Egg Hoppers"
+    image="/img/food/egg-hoppers.avif"
+    alt="A bowl-shaped hopper with a fried egg in the centre"
+    spice={0}
+    veg
+  >
+    A bowl-shaped coconut-milk pancake with crisp edges and an egg cooked into
+    the centre.
+  </DishCard>
+  <DishCard
+    name="String Hoppers"
+    image="/img/food/string-hoppers.avif"
+    alt="Steamed string hoppers, thin noodle-like rice discs"
+    spice={0}
+    veg
+  >
+    Steamed discs of pressed rice noodles, mild on their own and eaten with
+    curry.
+  </DishCard>
+</DishGrid>
+
+## Street Food
+
+These are quick snacks sold at bakeries, carts and stalls across the island.
+Short eats, vadai, and isso wade are some of the most common ones.
+
+<DishGrid>
+  <DishCard
+    name="Short Eats"
+    image="/img/food/short-eats.avif"
+    alt="An assortment of Sri Lankan short eats snacks on a tray"
+    spice={1}
+  >
+    Fried and baked snacks such as rolls and patties, buns, samosa sold at
+    bakeries.
+  </DishCard>
+  <DishCard
+    name="Ulundhu Vadai / Vadai"
+    image="/img/food/ulundhu-vadai.avif"
+    alt="Ulundhu vadai, a fried lentil doughnut-shaped snack"
+    spice={1}
+    veg
+  >
+    A crisp, doughnut-shaped fritter. Usually served with a curry.
+  </DishCard>
+  <DishCard
+    name="Isso Wade"
+    image="/img/food/isso-wade.avif"
+    alt="Isso wade, a lentil fritter topped with a whole prawn"
+    spice={2}
+  >
+    A lentil fritter topped with prawns, sold from beachside carts and sellers
+    inside trains.
+  </DishCard>
+  <DishCard
+    name="Fish Cutlets"
+    image="/img/food/fish-cutlets.avif"
+    alt="Fried fish cutlets, breaded and golden"
+    spice={1}
+  >
+    Breaded, deep-fried balls of spiced potato and flaked fish.
+  </DishCard>
+  <DishCard
+    name="Achcharu"
+    image="/img/food/achcharu.avif"
+    alt="Achcharu, a spicy pickled fruit mix"
+    spice={3}
+    veg
+  >
+    Pickled fruit tossed in chilli and salt. Spicy, sweet, and tangy flavor.
+  </DishCard>
+</DishGrid>
+
+## Seafood & Coastal Dishes
+
+Sri Lanka is an island, so seafood curries are common, especially along the coast.
+Ambul thiyal, crab curry, and deviled cuttlefish are popular choices.
+
+<DishGrid>
+  <DishCard
+    name="Ambul Thiyal"
+    image="/img/food/ambul-thiyal.avif"
+    alt="Ambul thiyal, a dark sour fish curry"
+    spice={2}
+    tag="Must try"
+  >
+    A dry, sour fish curry made with Goraka instead of tamarind, from the south
+    coast.
+  </DishCard>
+  <DishCard
+    name="Crab Curry"
+    image="/img/food/crab-curry.avif"
+    alt="Crab curry in a rich, spiced red sauce"
+    spice={3}
+  >
+    Whole crab cooked in a fiery, roasted-spice curry sauce.
+  </DishCard>
+  <DishCard
+    name="Deviled Cuttlefish"
+    image="/img/food/deviled-cuttlefish.avif"
+    alt="Deviled cuttlefish stir-fried with peppers and onions"
+    spice={3}
+  >
+    Cuttlefish stir-fried with coconut milk, onion and a sticky chilli glaze.
+  </DishCard>
+</DishGrid>
+
+## Sweets
+
+These are traditional Sri Lankan sweets, often served with tea or during festivals like the Sinhala and Tamil New Year.
+
+<DishGrid>
+  <DishCard
+    name="Watalappan"
+    image="/img/food/watalappan.avif"
+    alt="Watalappan, a coconut and jaggery custard"
+    spice={0}
+    veg
+    tag="Must try"
+  >
+    A steamed coconut-milk and jaggery custard, spiced with cardamom.
+  </DishCard>
+  <DishCard
+    name="Kokis"
+    image="/img/food/kokis.avif"
+    alt="Kokis, crisp fried rice-flour rosettes"
+    spice={0}
+    veg
+  >
+    Crisp, deep-fried rosette-shaped snacks made from rice flour and coconut
+    milk.
+  </DishCard>
+  <DishCard
+    name="Curd & Treacle"
+    image="/img/food/curd-and-treacle.avif"
+    alt="A clay pot of buffalo curd with kithul treacle poured over it"
+    spice={0}
+    veg
+  >
+    Buffalo-milk curd served with kithul (palm) treacle drizzled on top.
+  </DishCard>
+  <DishCard
+    name="Halapa"
+    image="/img/food/halapa.avif"
+    alt="Halapa, a steamed kurakkan flour sweet wrapped in a leaf"
+    spice={0}
+    veg
+  >
+    A steamed kurakkan-flour and coconut sweet, wrapped and cooked in a leaf.
+  </DishCard>
+  <DishCard
+    name="Lavariya"
+    image="/img/food/laveriya.avif"
+    alt="Lavariya, string hoppers stuffed with a coconut and jaggery filling"
+    spice={0}
+    veg
+  >
+    A string hopper dumpling stuffed with caramelised coconut and jaggery.
+  </DishCard>
+</DishGrid>
+
+## Drinks
+
+These are a few drinks worth trying when you are in Sri Lanka.
+No arrack or other alcoholic drinks listed here; please ask locally if that's of interest.
+
+<DishGrid>
+  <DishCard
+    name="King Coconut (Thambili)"
+    image="/img/food/king-coconut.avif"
+    alt="An orange king coconut with a straw"
+    spice={0}
+    veg
+    tag="Must try"
+  >
+    Natural king coconut water, served straight from the shell.
+  </DishCard>
+  <DishCard
+    name="Wood Apple Juice"
+    image="/img/food/wood-apple-juice.avif"
+    alt="A glass of wood apple juice, pale brown and thick"
+    spice={0}
+    veg
+  >
+    A thick, tart juice made from wood apple pulp.
+  </DishCard>
+  <DishCard
+    name="Sri Lankan Tea"
+    image="/img/food/tea.avif"
+    alt="A cup of Ceylon black tea"
+    spice={0}
+    veg
+  >
+    Ceylon black tea, often served milky and sweet, grown in the hill country.
+  </DishCard>
+  <DishCard
+    name="Faluda"
+    image="/img/food/faluda.avif"
+    alt="A tall glass of faluda with rose syrup and jelly layers"
+    spice={0}
+    veg
+  >
+    A layered rose-syrup drink with basil seeds, jelly and ice cream.
+  </DishCard>
+</DishGrid>
