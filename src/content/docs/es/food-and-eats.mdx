@@ -3,9 +3,304 @@ title: Comida y bebidas
 description: Desde el arroz con curry hasta el kottu callejero, descubre la gastronomía de Sri Lanka. Qué probar, dónde comer y a qué debes prestar atención como visitante.
 ---
 
-import UnderConstruction from "../../../components/home/UnderConstruction.astro";
+import { Badge } from "@astrojs/starlight/components";
 
-<UnderConstruction
-  title="Estamos trabajando en esta página..."
-  message="Disculpe, el contenido de esta página no está disponible en este momento. Estamos trabajando para actualizarlo pronto."
-/>
+import DishGrid from "../../../components/Guides/DishGrid.astro";
+import DishCard from "../../../components/Guides/DishCard.astro";
+
+Aquí, en Sri Lanka, el arroz con curry es la base de la gastronomía.
+Además, lo habitual es compartir los platos y el picante suele estar mucho más presente.
+Aquí encontrarás coco o leche de coco en casi todos los platos, es habitual comer con la mano (la derecha) y descubrirás muchas recetas que probablemente nunca hayas visto en una lista de «comida del sur de Asia».
+
+Estas listas contienen solo una selección de platos; ¡hay muchas más opciones de comida disponibles en Sri Lanka!
+
+Si te interesan las costumbres gastronómicas de Sri Lanka, consulta la página de [Cultura y etiqueta](/es/culture-and-etiquette#comida-y-gastronomía) para más detalles.
+
+{/* TODO: add "Regional Specialties [Especialidades regionales]" category */}
+
+:::note[Platos vegetarianos 🌿]
+La etiqueta `Vegetariano` se refiere únicamente al plato principal en sí,
+no a ningún acompañamiento. Por ejemplo, `Pol Roti` puede ser vegetariano,
+pero podría servirse con un curry a base de carne.
+
+Los productos etiquetados pueden contener **huevos y lácteos**; solo hemos excluido la carne y el pescado para determinar si son vegetarianos.
+:::
+
+## Platos básicos
+
+Estos son los platos principales que muchos habitantes de Sri Lanka comen día a día.
+El arroz con curry es el plato más común en la gastronomía de Sri Lanka. Además de este, el arroz frito, el kottu roti, el kiribath y el pol roti son otras alternativas populares.
+
+<DishGrid>
+  <DishCard
+    name="Arroz con Curry"
+    image="/img/food/rice-and-curry.avif"
+    alt="Un plato de arroz con curry de Sri Lanka con varios curris pequeños"
+    spice={2}
+    tag="Imprescindible"
+  >
+    Arroz con 3 a 5 curris pequeños (verduras, lentejas, sambol de coco, a veces
+    pescado o carne). Toma un poco de cada curry y mézclalo con el arroz.
+  </DishCard>
+  <DishCard
+    name="Kiribath (arroz con leche de coco)"
+    image="/img/food/milk-rice-kiribath.avif"
+    alt="Un plato de kiribath, arroz con leche cortado en rombos"
+    spice={1}
+    veg
+  >
+    Arroz cocido en leche de coco y cortado en rombos, normalmente servido con
+    lunu miris (sambol picante de chile).
+  </DishCard>
+  <DishCard
+    name="Pol Roti (roti de coco)"
+    image="/img/food/pol-roti.avif"
+    alt="Pol roti, un pan plano hecho con coco rallado"
+    spice={1}
+    veg
+  >
+    Un pan plano (como una tortilla de harina) hecho con harina y coco rallado,
+    frito en sartén y normalmente servido con lunu miris o curry.
+  </DishCard>
+  <DishCard
+    name="Pittu"
+    image="/img/food/pittu.avif"
+    alt="Pittu, cilindros de harina de arroz cocidos al vapor"
+    spice={0}
+    veg
+  >
+    Cilindros de harina de arroz cocidos al vapor, rellenos de capas de coco
+    rallado, que se sirven con curry o leche de coco salada.
+  </DishCard>
+  <DishCard
+    name="Arroz Frito"
+    image="/img/food/fried-rice.avif"
+    alt="Arroz frito al estilo de Sri Lanka con huevo y verduras"
+    spice={1}
+  >
+    Arroz frito con huevo, verduras y, a elegir, carne o marisco.
+  </DishCard>
+  <DishCard
+    name="Kottu Roti"
+    image="/img/food/kottu-roti.avif"
+    alt="Kottu roti siendo troceado en una plancha caliente"
+    spice={3}
+    tag="Imprescindible"
+  >
+    Roti troceado y salteado con huevo, verduras y carne, cortado en una plancha
+    caliente con dos cuchillas metálicas.
+  </DishCard>
+  <DishCard
+    name="Hoppers de Huevo"
+    image="/img/food/egg-hoppers.avif"
+    alt="Un hopper con forma de cuenco con un huevo frito en el centro"
+    spice={0}
+    veg
+  >
+    Un panqueque de leche de coco con forma de cuenco, bordes crujientes y un
+    huevo cocido en el centro.
+  </DishCard>
+  <DishCard
+    name="String Hoppers"
+    image="/img/food/string-hoppers.avif"
+    alt="String hoppers al vapor, discos finos de arroz parecidos a fideos"
+    spice={0}
+    veg
+  >
+    Discos de fideos de arroz prensados al vapor, de sabor suave por sí solos y
+    que se comen con curry.
+  </DishCard>
+</DishGrid>
+
+## Comida callejera
+
+Estos son aperitivos rápidos que se venden en panaderías, carritos y puestos por toda la isla.
+Los short eats, el vadai y el isso wade son algunos de los más comunes.
+
+<DishGrid>
+  <DishCard
+    name="Short Eats"
+    image="/img/food/short-eats.avif"
+    alt="Una variedad de short eats de Sri Lanka en una bandeja"
+    spice={1}
+  >
+    Aperitivos fritos y horneados como rollitos, empanadillas, bollos y samosas,
+    vendidos en panaderías.
+  </DishCard>
+  <DishCard
+    name="Ulundhu Vadai / Vadai"
+    image="/img/food/ulundhu-vadai.avif"
+    alt="Ulundhu vadai, un aperitivo frito con forma de rosquilla hecho de lentejas"
+    spice={1}
+    veg
+  >
+    Un buñuelo crujiente con forma de rosquilla. Normalmente se sirve con un
+    curry o salsa.
+  </DishCard>
+  <DishCard
+    name="Isso Wade"
+    image="/img/food/isso-wade.avif"
+    alt="Isso wade, un buñuelo de lentejas cubierto con una gamba entera"
+    spice={2}
+  >
+    Un buñuelo de lentejas cubierto con gambas, vendido en carritos junto a la
+    playa y por vendedores dentro de los trenes.
+  </DishCard>
+  <DishCard
+    name="Croquetas de Pescado"
+    image="/img/food/fish-cutlets.avif"
+    alt="Croquetas de pescado fritas, empanadas y doradas"
+    spice={1}
+  >
+    Bolitas empanadas y fritas de puré de patata especiado y pescado
+    desmenuzado.
+  </DishCard>
+  <DishCard
+    name="Achcharu"
+    image="/img/food/achcharu.avif"
+    alt="Achcharu, una mezcla de fruta encurtida picante"
+    spice={3}
+    veg
+  >
+    Fruta encurtida con chile y sal. Sabor picante, dulce y ácido a la vez.
+  </DishCard>
+</DishGrid>
+
+## Mariscos y platos costeros
+
+Sri Lanka es una isla, así que los curris de marisco son comunes, especialmente en la costa.
+El ambul thiyal, el curry de cangrejo y la sepia deviled son opciones populares.
+
+<DishGrid>
+  <DishCard
+    name="Ambul Thiyal"
+    image="/img/food/ambul-thiyal.avif"
+    alt="Ambul thiyal, un curry de pescado oscuro y ácido"
+    spice={2}
+    tag="Imprescindible"
+  >
+    Un curry de pescado seco y ácido hecho con goraka en lugar de tamarindo,
+    originario de la costa sur.
+  </DishCard>
+  <DishCard
+    name="Curry de Cangrejo"
+    image="/img/food/crab-curry.avif"
+    alt="Curry de cangrejo en una salsa roja especiada"
+    spice={3}
+  >
+    Cangrejo entero cocinado en una salsa de curry picante con especias
+    tostadas.
+  </DishCard>
+  <DishCard
+    name="Sepia Deviled"
+    image="/img/food/deviled-cuttlefish.avif"
+    alt="Sepia deviled salteada con pimientos y cebolla"
+    spice={3}
+  >
+    Sepia salteada con leche de coco, cebolla y salsa.
+  </DishCard>
+</DishGrid>
+
+## Dulces
+
+Estos son dulces tradicionales de Sri Lanka, que a menudo se sirven con té o durante festividades como el Año Nuevo sinhala y tamil.
+
+<DishGrid>
+  <DishCard
+    name="Watalappan"
+    image="/img/food/watalappan.avif"
+    alt="Watalappan, un flan de coco y jaggery"
+    spice={0}
+    veg
+    tag="Imprescindible"
+  >
+    Un flan al vapor de leche de coco y melaza de jaggery, especiado con
+    cardamomo.
+  </DishCard>
+  <DishCard
+    name="Kokis"
+    image="/img/food/kokis.avif"
+    alt="Kokis, rosetas crujientes fritas de harina de arroz"
+    spice={0}
+    veg
+  >
+    Aperitivos crujientes y fritos con forma de roseta, hechos de harina de
+    arroz y leche de coco.
+  </DishCard>
+  <DishCard
+    name="Cuajada con Melaza"
+    image="/img/food/curd-and-treacle.avif"
+    alt="Una olla de barro con cuajada de búfala y melaza de kithul vertida encima"
+    spice={0}
+    veg
+  >
+    Cuajada de leche de búfala servida con melaza de kithul (palma) o miel por
+    encima.
+  </DishCard>
+  <DishCard
+    name="Halapa"
+    image="/img/food/halapa.avif"
+    alt="Halapa, un dulce al vapor de harina de kurakkan envuelto en una hoja"
+    spice={0}
+    veg
+  >
+    Un dulce de harina de kurakkan y coco cocido al vapor, envuelto y cocido en
+    una hoja.
+  </DishCard>
+  <DishCard
+    name="Lavariya"
+    image="/img/food/laveriya.avif"
+    alt="Lavariya, string hoppers rellenos de un relleno de coco y jaggery"
+    spice={0}
+    veg
+  >
+    Un dumpling de string hoppers relleno de coco caramelizado y jaggery.
+  </DishCard>
+</DishGrid>
+
+## Bebidas
+
+Estas son algunas bebidas que vale la pena probar cuando estés en Sri Lanka.
+No se incluyen aquí bebidas alcohólicas; pregunta localmente si te interesa.
+
+<DishGrid>
+  <DishCard
+    name="Coco Rey (Thambili)"
+    image="/img/food/king-coconut.avif"
+    alt="Un coco rey de color naranja con una pajita/popote"
+    spice={0}
+    veg
+    tag="Imprescindible"
+  >
+    Agua natural de coco rey, servida directamente del propio coco.
+  </DishCard>
+  <DishCard
+    name="Zumo de Wood Apple"
+    image="/img/food/wood-apple-juice.avif"
+    alt="Un vaso de zumo de wood apple, de color marrón claro y espeso"
+    spice={0}
+    veg
+  >
+    Un zumo espeso y ácido hecho de pulpa de wood apple.
+  </DishCard>
+  <DishCard
+    name="Té de Sri Lanka"
+    image="/img/food/tea.avif"
+    alt="Una taza de té negro de Ceilán"
+    spice={0}
+    veg
+  >
+    Té negro de Ceilán, que suele servirse con leche y azúcar, cultivado en las
+    zonas montañosas.
+  </DishCard>
+  <DishCard
+    name="Faluda"
+    image="/img/food/faluda.avif"
+    alt="Un vaso alto de faluda con capas de sirope de rosas y gelatina"
+    spice={0}
+    veg
+  >
+    Una bebida en capas de sirope de rosas con semillas de albahaca, gelatina y
+    helado.
+  </DishCard>
+</DishGrid>
