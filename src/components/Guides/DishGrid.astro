@@ -1,0 +1,38 @@
+---
+/*
+ * Wraps a set of <DishCard /> items in a responsive grid
+ * L-3,M-2,S-1 cols
+ *
+ * Usage:
+ *   <DishGrid>
+ *     <DishCard name="..." image="..." alt="...">...</DishCard>
+ *     <DishCard name="..." image="..." alt="...">...</DishCard>
+ *   </DishGrid>
+ */
+---
+
+<div class="dish-grid not-content">
+  <slot />
+</div>
+
+<style>
+  .dish-grid {
+    display: grid;
+    gap: 1.2rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-bottom: 2.5rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (max-width: 900px) {
+    .dish-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .dish-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
