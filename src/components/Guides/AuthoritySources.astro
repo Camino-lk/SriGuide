@@ -24,43 +24,54 @@ const { title = "Official Sources", items = [] } = Astro.props;
 
   <ul class="sources">
     {
-      items.map((item) => (
-        <li class="source">
-          {item.icon && (
-            <span class="source-icon">
-              <Icon name={item.icon} size="0.95rem" />
-            </span>
-          )}
-
-          <div class="content">
-            {item.url && (
-              <a href={item.url} target="_blank" rel="noopener">
-                {item.name}
-              </a>
+      items.map(
+        (item: {
+          icon: any | null | undefined;
+          url: string | URL | null | undefined;
+          name: string;
+          description: string | null | undefined;
+          phone: string[] | null | undefined;
+          email: string[] | null | undefined;
+        }) => (
+          <li class="source">
+            {item.icon && (
+              <span class="source-icon">
+                <Icon name={item.icon} size="0.95rem" />
+              </span>
             )}
 
-            {item.description && <span class="desc">{item.description}</span>}
+            <div class="content">
+              {item.url && (
+                <a href={item.url} target="_blank" rel="noopener">
+                  {item.name}
+                </a>
+              )}
 
-            {(item.phone || item.email) && (
-              <div class="contacts">
-                {item.phone && (
-                  <span class="chip">
-                    <Icon name="phone" size="0.85rem" />
-                    {item.phone}
-                  </span>
-                )}
+              {item.description && <span class="desc">{item.description}</span>}
 
-                {item.email && (
-                  <span class="chip">
-                    <Icon name="email" size="0.85rem" />
-                    {item.email}
-                  </span>
-                )}
-              </div>
-            )}
-          </div>
-        </li>
-      ))
+              {(item.phone || item.email) && (
+                <div class="contacts">
+                  {item.phone &&
+                    item.phone.map((phone) => (
+                      <span class="chip">
+                        <Icon name="phone" size="0.85rem" />
+                        <a href={`tel:${phone}`}>{phone}</a>
+                      </span>
+                    ))}
+
+                  {item.email &&
+                    item.email.map((email) => (
+                      <span class="chip">
+                        <Icon name="email" size="0.85rem" />
+                        <a href={`mailto:${email}`}>{email}</a>
+                      </span>
+                    ))}
+                </div>
+              )}
+            </div>
+          </li>
+        ),
+      )
     }
   </ul>
 </div>
