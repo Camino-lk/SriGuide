@@ -30,6 +30,7 @@
     "mirissa",
     "Mirissa",
     "Mobitel",
+    "nbsp",
     "Negombo",
     "Nuwara",
     "Pettah",
@@ -91,7 +92,7 @@
   ],
   // Automatically copy files - Thanks: https://github.com/HiDeoo
   // Enable pasting files into a Markdown editor to create Markdown links.
-  "markdown.editor.filePaste.enabled": true,
+  "markdown.editor.filePaste.enabled": "smart",
   // Copy pasted media files into a Markdown editor to the workspace.
   "markdown.editor.filePaste.copyIntoWorkspace": "mediaFiles",
   // Copy pasted files in documentation pages to the `src/assets/` directory.
