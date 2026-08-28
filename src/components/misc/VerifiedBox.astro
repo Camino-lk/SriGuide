@@ -1,0 +1,81 @@
+---
+/*
+ * Show verified-by and last updated date
+ *
+ * Props:
+ *   username — Username of the verifier
+ *   updated  — Date of the last update
+ */
+
+const { username, updated } = Astro.props;
+---
+
+<div
+  class="verified-box not-content"
+  aria-label={`Reviewed by ${username} - Last updated on ${updated}`}
+>
+  <div class="verified-left">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="484"
+      height="484"
+      viewBox="0 0 484 484"
+      ><path
+        fill="#49b45b"
+        d="M242 0c11 0 24 25 36 40 10 13 21 10 36 4l28-13c14-6 26 2 28 17l6 38q3 17 22 19l40 7c13 2 19 14 13 27l-14 35q-5 15 9 26l31 25c10 9 8 22-2 31l-30 25q-14 11-8 27l14 37q6 21-15 26l-38 7q-19 2-22 21l-6 38c-2 14-14 20-27 14l-36-15q-16-5-27 10l-23 31q-15 15-30 0l-25-31q-11-15-27-10l-36 15c-13 5-25-2-27-15l-7-38q-2-19-20-21l-38-6c-14-2-20-14-14-27l13-37q6-16-8-27L7 256q-14-15 1-30l31-27q14-10 8-26l-14-34c-6-13 1-25 14-27l39-7q18-2 20-20l6-38c2-14 14-21 27-15l36 14q16 6 27-9l24-30q7-8 16-7"
+      ></path><path fill="#fff" d="m131 244 29-30 51 51 109-109 30 30-139 139Z"
+      ></path></svg
+    >
+  </div>
+  <div class="verified-right">
+    <p class="verified-username">
+      Content reviewed by <span>{username}</span>
+    </p>
+    <p class="last-updated">Last updated on: {updated}</p>
+  </div>
+</div>
+
+<script></script>
+
+<style is:global>
+  .verified-box {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 5px;
+  }
+
+  .verified-left {
+    margin-right: 10px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  .verified-left svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .verified-right {
+    flex: 1;
+  }
+
+  .verified-username {
+    margin: 0;
+    font-size: 0.9rem;
+
+    span {
+      font-style: italic;
+      font-weight: 600;
+    }
+  }
+
+  .last-updated {
+    margin: 0;
+    margin-top: -0.2rem;
+    font-size: 0.8rem;
+    color: #666;
+  }
+</style>
