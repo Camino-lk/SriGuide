@@ -1,6 +1,10 @@
 ---
 title: Política de privacidad
 description: Cómo SriGuide gestiona tus datos - qué información se recopila, cuál no se recopila y qué servicios de terceros se utilizan.
+datePublished: 2026-07-11
+author:
+  name: Dilshan-H
+  url: https://github.com/Dilshan-H
 ---
 
 _Last updated: 2026.06.18_

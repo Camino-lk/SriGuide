@@ -1,6 +1,113 @@
 ---
 import DefaultHead from "@astrojs/starlight/components/Head.astro";
 import { pwaInfo } from "virtual:pwa-info";
+
+const { starlightRoute } = Astro.locals;
+const { entry, siteTitle, siteTitleHref, lang, locale, id, lastUpdated } =
+  starlightRoute;
+const site = Astro.site ?? new URL("https://sri-guide.com");
+const canonicalURL = new URL(Astro.url.pathname, site).href;
+
+// --- Breadcrumbs ---
+// Strip the locale prefix
+const localePrefix = locale ? `${locale}/` : "";
+const pathWithoutLocale = id.startsWith(localePrefix)
+  ? id.slice(localePrefix.length)
+  : id;
+const segments = pathWithoutLocale.split("/").filter(Boolean);
+
+const toTitleCase = (str: string) =>
+  str.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+const breadcrumbItems = segments.map((segment, i) => ({
+  "@type": "ListItem",
+  position: i + 2, // 1 -> Home
+  name: toTitleCase(segment),
+  item: new URL(`${localePrefix}${segments.slice(0, i + 1).join("/")}/`, site)
+    .href,
+}));
+
+const breadcrumbList = {
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: siteTitle,
+      item: siteTitleHref ? new URL(siteTitleHref, site).href : site.href,
+    },
+    ...breadcrumbItems,
+  ],
+};
+
+// --- Article image ---
+const articleImages = entry.data.articleImage
+  ? [new URL(entry.data.articleImage, site).href]
+  : [];
+
+// --- OG image ---
+const defaultOgImage = new URL("/og-image.jpg", site).href;
+const ogImage = articleImages.length ? articleImages[0] : defaultOgImage;
+
+// --- Author [FallbackType: organization] ---
+const author = entry.data.author
+  ? {
+      "@type": "Person",
+      name: entry.data.author.name,
+      ...(entry.data.author.url && { url: entry.data.author.url }),
+    }
+  : { "@type": "Organization", name: siteTitle, url: site.href };
+
+// --- Article schema ---
+const article = {
+  "@type": "Article",
+  "@id": `${canonicalURL}#article`,
+  mainEntityOfPage: canonicalURL,
+  headline: entry.data.title,
+  description: entry.data.description,
+  inLanguage: lang,
+  ...(articleImages.length && { image: articleImages }),
+  ...(entry.data.datePublished && {
+    datePublished: entry.data.datePublished.toISOString(),
+  }),
+  ...(lastUpdated instanceof Date && {
+    dateModified: lastUpdated.toISOString(),
+  }),
+  author,
+  publisher: { "@id": `${site.href}#organization` },
+};
+
+// --- Site-wide schema ---
+const organization = {
+  "@type": "Organization",
+  "@id": `${site.href}#organization`,
+  name: "Camino",
+  alternateName: "Camino-LK",
+  description:
+    "Open Roads, Shared Journeys - Inspiring meaningful travel experiences in Sri Lanka. An online startup foundation focused on tourism sector in Sri Lanka.",
+  url: site.href,
+  logo: new URL("/img/Camino.svg", site).href,
+  email: "contact@sri-guide.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Colombo",
+    addressCountry: "LK",
+  },
+  sameAs: ["https://github.com/Camino-lk/SriGuide"],
+};
+
+const website = {
+  "@type": "WebSite",
+  "@id": `${site.href}#website`,
+  url: site.href,
+  name: "SriGuide",
+  publisher: { "@id": `${site.href}#organization` },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [organization, website, article, breadcrumbList],
+};
 ---
 
 <DefaultHead {...Astro.props}>
@@ -11,9 +118,20 @@ import { pwaInfo } from "virtual:pwa-info";
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 <link rel="mask-icon" href="/favicon.svg" color="#FFFFFF" />
-<meta property="og:image" content="https://sri-guide.com/og-image.jpg" />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="twitter:image" content={ogImage} />
+<meta property="twitter:image:width" content="1200" />
+<meta property="twitter:image:height" content="630" />
 <meta name="msapplication-TileColor" content="#FFFFFF" />
 <meta name="theme-color" content="#42b883" />
 
 {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 <script src="/src/pwa.ts"></script>
+
+<script
+  is:inline
+  type="application/ld+json"
+  set:html={JSON.stringify(jsonLd)}
+/>

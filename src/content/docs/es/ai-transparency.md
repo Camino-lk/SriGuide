@@ -1,6 +1,10 @@
 ---
 title: IA y transparencia de contenidos
 description: Cómo se utilizan las herramientas de IA para crear y redactar SriGuide, qué implica eso para la precisión de la información y cuál es el papel de la revisión humana.
+datePublished: 2026-07-11
+author:
+  name: Dilshan-H
+  url: https://github.com/Dilshan-H
 ---
 
 Esta página existe porque te mereces saber cómo se ha creado SriGuide.

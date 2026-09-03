@@ -1,6 +1,10 @@
 ---
 title: Privacy Policy
 description: How SriGuide handles your data - what is collected, what isn't, and which third-party services are in use.
+datePublished: 2026-04-01
+author:
+  name: Dilshan-H
+  url: https://github.com/Dilshan-H
 ---
 
 _Last updated: 2026.06.18_

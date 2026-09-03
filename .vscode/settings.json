@@ -35,6 +35,7 @@
     "mirissa",
     "Mirissa",
     "Mobitel",
+    "msapplication",
     "nbsp",
     "Negombo",
     "Nuwara",
@@ -102,7 +103,7 @@
   // Copy pasted media files into a Markdown editor to the workspace.
   "markdown.editor.filePaste.copyIntoWorkspace": "mediaFiles",
   // Copy pasted files in documentation pages to the `src/assets/` directory.
-    "markdown.copyFiles.destination": {
+  "markdown.copyFiles.destination": {
     "/src/content/docs/**/*": "/src/assets/images/guides/${documentBaseName}/"
   },
   "editor.formatOnSave": true,

@@ -1,6 +1,10 @@
 ---
 title: AI & Content Transparency
 description: How AI tools are used in building and writing SriGuide, what that means for accuracy, and where human review fits in.
+datePublished: 2026-04-01
+author:
+  name: Dilshan-H
+  url: https://github.com/Dilshan-H
 ---
 
 This page exists because you deserve to know how SriGuide is made. AI tools played a meaningful role in building it; in the writing, the code, and the structure.

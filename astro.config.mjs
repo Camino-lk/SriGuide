@@ -70,7 +70,7 @@ export default defineConfig({
         },
         {
           label: "Things to Do",
-          translations: { es: "Cosas para hacer" },
+          translations: { es: "Cosas que hacer" },
           link: "things-to-do",
         },
         {
