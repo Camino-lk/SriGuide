@@ -4,10 +4,20 @@
  *
  * Props:
  *   username — Username of the verifier
- *   updated  — Date of the last update
+ *   updated  — Last update - forced (optional)
  */
 
-const { username, updated } = Astro.props;
+const { starlightRoute } = Astro.locals;
+const { lastUpdated } = starlightRoute;
+
+const lastUpdatedDate = lastUpdated
+  ? new Date(lastUpdated).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    })
+  : null;
+const { username, updated = lastUpdatedDate } = Astro.props;
 ---
 
 <div

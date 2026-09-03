@@ -1,6 +1,10 @@
 ---
 title: Términos y condiciones
 description: Los términos que se aplican al uso de SriGuide - qué es este sitio, qué no es y qué debes saber antes de confiar en él para planificar tus viajes.
+datePublished: 2026-07-11
+author:
+  name: Dilshan-H
+  url: https://github.com/Dilshan-H
 ---
 
 _Last updated: 2026.06.18_

@@ -1,6 +1,10 @@
 ---
 title: Terms of Use
 description: The terms that apply to using SriGuide - what this site is, what it isn't, and what you should know before relying on it for travel planning.
+datePublished: 2026-04-01
+author:
+  name: Dilshan-H
+  url: https://github.com/Dilshan-H
 ---
 
 _Last updated: 2026.06.18_
