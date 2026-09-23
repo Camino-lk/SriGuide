@@ -5,25 +5,31 @@
  * Props:
  *   username — Username of the verifier
  *   updated  — Last update - forced (optional)
+ *   datePublished — Date the content was published
  */
 
 const { starlightRoute } = Astro.locals;
 const { lastUpdated } = starlightRoute;
 
-const lastUpdatedDate = lastUpdated
-  ? new Date(lastUpdated).toLocaleDateString("en-GB", {
+const { username, updated = lastUpdated, datePublished } = Astro.props;
+
+// Date validation
+if (datePublished && updated && new Date(datePublished) > updated) {
+  throw new Error(
+    `The datePublished (${datePublished}) cannot be later than the last updated date (${updated}).`,
+  );
+}
+
+const formattedDatePublished = datePublished
+  ? new Date(datePublished).toLocaleDateString("en-GB", {
       day: "2-digit",
       month: "short",
       year: "numeric",
     })
   : null;
-const { username, updated = lastUpdatedDate } = Astro.props;
 ---
 
-<div
-  class="verified-box not-content"
-  aria-label={`Reviewed by ${username} - Last updated on ${updated}`}
->
+<div class="verified-box not-content">
   <div class="verified-left">
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -41,11 +47,23 @@ const { username, updated = lastUpdatedDate } = Astro.props;
     <p class="verified-username">
       Content reviewed by <span>{username}</span>
     </p>
-    <p class="last-updated">Last updated on: {updated}</p>
+    <p class="date-stat">
+      Published: {formattedDatePublished} - Updated <span
+        id="vb-updated-time"
+        data-updated={updated.toISOString()}></span>
+    </p>
   </div>
 </div>
 
-<script></script>
+<script>
+  import { timeAgo } from "../../utils/time-ago";
+  const el = document.getElementById("vb-updated-time");
+
+  if (el) {
+    const lastUpdated = el.dataset.updated || "";
+    el.textContent = timeAgo(new Date(lastUpdated));
+  }
+</script>
 
 <style is:global>
   .verified-box {
@@ -82,10 +100,10 @@ const { username, updated = lastUpdatedDate } = Astro.props;
     }
   }
 
-  .last-updated {
-    margin: 0;
-    margin-top: -0.2rem;
-    font-size: 0.8rem;
+  .date-stat {
     color: #666;
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1rem;
   }
 </style>

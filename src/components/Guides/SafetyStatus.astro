@@ -53,7 +53,11 @@ const globalTravel = {
 
     <p class="message">{safety.message}</p>
 
-    <span class="updated">Updated {safety.updated}</span>
+    <span class="updated"
+      >Updated <span id="ss-updated-time" data-updated={safety.updated}
+        >{safety.updated}</span
+      ></span
+    >
 
     <!-- follow news section -->
     <div class="news-src not-content">
@@ -258,8 +262,17 @@ const globalTravel = {
     background-color: var(--sl-color-black);
   }
 
-  /* news section */
+  /* Slight transition on replacing the date */
+  #ss-updated-time {
+    transition:
+      transform 0.5s ease,
+      opacity 0.5s ease;
+  }
+  #ss-updated-time.is-changing {
+    opacity: 0;
+  }
 
+  /* news section */
   .src-title {
     font-size: 0.9rem;
     font-weight: 600;
@@ -333,3 +346,17 @@ const globalTravel = {
     text-align: justify;
   }
 </style>
+
+<script>
+  import { timeAgo } from "../../utils/time-ago";
+
+  const el = document.getElementById("ss-updated-time");
+  if (el) {
+    el.classList.add("is-changing");
+    setTimeout(() => {
+      const updated = el.dataset.updated!;
+      el.textContent = timeAgo(new Date(updated));
+      el.classList.remove("is-changing");
+    }, 250);
+  }
+</script>
