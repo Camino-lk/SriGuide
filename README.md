@@ -27,6 +27,7 @@ This is an attempt at something different: a free, independent, non-commercial g
 - Accurate, practical information focused on real traveler needs
 - Progressive Web App (PWA) support – access critical info anytime, even without internet
 - Built for multilingual growth (i18n ready)
+- Available in English and Spanish (español)
 - Fully open-source and community-driven
 
 ## What's covered?
@@ -46,7 +47,13 @@ This is an attempt at something different: a free, independent, non-commercial g
 
 ## Inside SriGuide
 
-[![Inside-SriGuide](https://github.com/user-attachments/assets/e167def9-c7c7-4f47-936d-6e0c978b002d)](https://sri-guide.com)
+[![Inside-SriGuide](https://github.com/user-attachments/assets/c8c63b9c-521f-4138-a931-06df02958921)](https://sri-guide.com)
+
+
+| <img width="540" height="540" alt="SriGuide is free and has no ads or sign-ups" src="https://github.com/user-attachments/assets/d049c4cd-a06c-4fd3-9d77-02c4c73ea338" /> | <img width="540" height="540" alt="Most travel guides exist to sell you something. But SriGuide is not." src="https://github.com/user-attachments/assets/cd4c9813-d5ab-45db-9b39-c7218e6a09b5" /> |
+|-----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+| <img width="540" height="540" alt="Everything covered! Apps, Food, Transportation and more" src="https://github.com/user-attachments/assets/3008f924-f03d-4e23-a66b-e2f0b7e0f0e4" /> | <img width="540" height="540" alt="SriGuide is available in English and Español" src="https://github.com/user-attachments/assets/b4b23b8d-bd7d-4d72-ba75-ad603a7c9c36" /> |
+
 
 ## Contributing
 
@@ -88,6 +95,10 @@ It helps others discover the project and motivates continued development :)
 **The MIT License**
 
 This program is free software: you can redistribute it and/or modify it under the terms of the MIT License. See the [LICENSE](LICENSE) file for more details. Attribution is required by leaving the author name and license info intact.
+
+## Developers
+
+- Dilshan-H (https://github.com/dilshan-h)
 
 ## Special Thanks
 
