@@ -1,12 +1,12 @@
 <div class="time-card">
   <div
     class="clock"
-    id="lk-clock"
     role="timer"
     aria-label="Current time in Sri Lanka"
     aria-live="off"
   >
-    --:--:--
+    <span class="clock-digits" aria-hidden="true">88:88:88</span>
+    <span class="clock-time" id="lk-clock"> --:--:-- </span>
   </div>
   <div class="time-info">
     <div class="gmt">Sri Lanka Time • GMT+5:30</div>
@@ -118,6 +118,13 @@
       inset 0 2px 4px rgba(255, 255, 255, 0.6),
       inset 0 -2px 8px rgba(0, 0, 0, 0.15),
       0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  .clock .clock-digits {
+    position: absolute;
+    opacity: 0.1;
+  }
+  .clock .clock-time {
+    position: relative;
   }
 
   /* RIGHT SIDE */
