@@ -7,7 +7,7 @@ author:
   url: https://github.com/Dilshan-H
 ---
 
-_Last updated: 2026.06.18_
+_Last updated: 2026.10.16_
 
 Please read these terms before using SriGuide (the "Site"). By accessing or using the Site, you agree to be bound by them.
 
@@ -54,13 +54,33 @@ The Site contains links to external websites — including app stores, governmen
 
 ---
 
-## 5. Third-Party Services
+## 5. Feedback and Communications
 
-The Site integrates the following third-party services. Their respective terms and privacy policies apply when you interact with them:
+By submitting feedback, questions, or other communications through the Site's contact forms or email, you agree that:
+
+- Your submissions are voluntary and non-confidential.
+- The Site may use your feedback to improve the Site or its content without obligation to you.
+- You will not submit any content that is unlawful, defamatory, or infringes on the rights of others.
+- The Site may retain your email address for the purpose of responding to your inquiry.
+- You will not use the Site's contact forms to send spam, solicitations, or commercial messages.
+
+We use automated verification (Cloudflare Turnstile) to prevent abuse of the embedded forms. You agree not to circumvent, disable, or interfere with these protections, or to submit content using automated means. We may reject or block submissions that fail verification or appear abusive. If verification is unavailable, for example because it is blocked by your browser, you may be unable to submit the form.
+
+We reserve the right to block or restrict access to the Site for users who repeatedly submit abusive or spam content. Further, we reserve the right to report content that are illegal, threatening, or harmful to the appropriate authorities.
+
+We do not provide a direct support service for travel planning. While we may respond to inquiries, we cannot guarantee a response or provide personalized travel advice. Any information provided in response to inquiries is for general informational purposes only and should not be relied upon as professional advice.
+
+---
+
+## 6. Third-Party Services
+
+The Site integrates the following third-party services. Their services are governed by their own terms and policies. We are not responsible for their availability or practices, and you should review their terms before using them:
 
 - **ExchangeRate-API**: used for the currency converter tool
 - **OpenStreetMap**: used for the maps in Trip Plans pages
 - **Tally.so**: used for feedback, contact, and testimonial forms
+- **Cloudflare Turnstile**: used for automated verification of form submissions
+- **Resend**: used for maintaining the email services related to the Site
 - **Simple Analytics**: used for privacy-respecting, anonymized traffic analytics
 - **Buy Me a Coffee**: used for voluntary financial support
 - **GitHub**: hosts the open-source repository for this project
@@ -69,19 +89,19 @@ Please refer the [Privacy](/privacy) page for more information.
 
 ---
 
-## 6. Progressive Web App and Local Storage
+## 7. Progressive Web App and Local Storage
 
 The Site may be installed as a Progressive Web App (PWA). Certain features use your browser's local storage to save data (such as checklist progress) on your own device. This data is stored entirely on your device and is not transmitted to any server. You can clear it at any time through your browser settings.
 
 ---
 
-## 7. Open Source
+## 8. Open Source
 
 The source code for the Site is publicly available on GitHub. It is made available under the terms of the license specified in the repository. Contributing to the project — whether through code, content, or feedback is voluntary and subject to the contribution guidelines in the repository.
 
 ---
 
-## 8. No Commercial Relationship
+## 9. No Commercial Relationship
 
 - The Site contains no advertising.
 - The Site contains no affiliate or referral links.
@@ -90,7 +110,7 @@ The source code for the Site is publicly available on GitHub. It is made availab
 
 ---
 
-## 9. Listings & Recommendations
+## 10. Listings & Recommendations
 
 Services, apps, and operators mentioned on this site are included at
 our sole discretion. Inclusion is not guaranteed, purchased, or
@@ -108,25 +128,25 @@ more details.
 
 ---
 
-## 10. Disclaimer of Warranties
+## 11. Disclaimer of Warranties
 
 The Site and its contents are provided **"as is"** without warranties of any kind, express or implied. To the fullest extent permitted by law, the operator of the Site disclaims all warranties including but not limited to accuracy, completeness, fitness for a particular purpose, and non-infringement.
 
 ---
 
-## 11. Limitation of Liability
+## 12. Limitation of Liability
 
 To the fullest extent permitted by applicable law, the operator of the Site shall not be liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of — or inability to use — the Site or the information it contains.
 
 ---
 
-## 12. Changes to These Terms
+## 13. Changes to These Terms
 
 These terms may be updated from time to time. The "last updated" date at the top of this page reflects the most recent revision. Continued use of the Site after any change constitutes acceptance of the updated terms.
 
 ---
 
-## 13. Contact
+## 14. Contact
 
 If you have questions about these terms, reach to us through:
 
