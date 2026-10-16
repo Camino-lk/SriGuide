@@ -18,6 +18,7 @@ import LankaTime from "../../components/Guides/LankaTime.astro";
 import Speak from "../../components/Guides/Speak.astro";
 import Checklist from "../../components/Guides/Checklist.astro";
 import EmergencyCall from "../../components/Guides/EmergencyCall.astro";
+import Feedback from "../../components/misc/Feedback.astro";
 
 <VerifiedBox username="Dilshan-H" datePublished={frontmatter.datePublished} />
 
@@ -435,3 +436,12 @@ Dial the following number to **connect with Tourism Police Division, obtain trav
 ---
 
 **Verify**: Entry requirements change frequently. Always check official [eta.gov.lk](https://www.eta.gov.lk) before booking your trip.
+
+<Feedback
+  title="Your voice matters!"
+  subtitle="How can we improve this page?"
+  label="Your feedback"
+  placeholder="We don't ask for contact details, but including your email helps us get back to you."
+  tos="By submitting this feedback, you agree to our Terms and Privacy Policy."
+  cta="Send feedback"
+/>

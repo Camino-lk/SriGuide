@@ -8,10 +8,23 @@ author:
 ---
 
 import { LinkButton } from "@astrojs/starlight/components";
+import ContactBox from "../../components/misc/ContactBox.astro";
 
 If you have something to say - a correction, a contribution, a question, or just a hello, we'd genuinely like to hear it.
 
 We value your privacy and we do not share any data with third parties. Please read our [Privacy](/privacy) section to read more about how we handle your data.
+
+<ContactBox
+  title="Send us a message"
+  subtitle="We will try to reply within 24-48 hours."
+  nameLabel="Your name"
+  namePlaceholder="Enter your name"
+  emailLabel="Your email"
+  msgLabel="Your message"
+  msgPlaceholder="Did you find something wrong, or have a question? Let us know here."
+  tos="By sending this message, you agree to our Privacy Policy and Terms of Service. We will use your email only to respond to your message and will not share it with any third parties."
+  cta="Send Message"
+/>
 
 ---
 

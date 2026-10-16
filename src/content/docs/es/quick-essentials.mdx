@@ -18,6 +18,7 @@ import LankaTime from "../../../components/Guides/LankaTime.astro";
 import Speak from "../../../components/Guides/Speak.astro";
 import Checklist from "../../../components/Guides/Checklist.astro";
 import EmergencyCall from "../../../components/Guides/EmergencyCall.astro";
+import Feedback from "../../../components/misc/Feedback.astro";
 
 <VerifiedBox username="Dilshan-H" datePublished={frontmatter.datePublished} />
 
@@ -462,3 +463,12 @@ Llame al siguiente número para conectarse con la División de Policía Turísti
 ---
 
 **Atención**: Los requisitos de entrada cambian con frecuencia. Consulta siempre la página web oficial [eta.gov.lk](https://www.eta.gov.lk) antes de reservar tu viaje.
+
+<Feedback
+  title="¡Tu voz importa!"
+  subtitle="¿Cómo podemos mejorar esta página?"
+  label="Tu opinión"
+  placeholder="No pedimos detalles de contacto, pero si incluyes tu correo electrónico podremos responderte."
+  tos="Al enviar este comentario, aceptas nuestros Términos y Política de Privacidad."
+  cta="Enviar comentario"
+/>
