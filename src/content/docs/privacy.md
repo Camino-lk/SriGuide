@@ -7,7 +7,7 @@ author:
   url: https://github.com/Dilshan-H
 ---
 
-_Last updated: 2026.06.18_
+_Last updated: 2026.10.16_
 
 This privacy policy explains what data is collected when you use SriGuide (the "Site"), how it is used, and which third-party services are involved. The Site is operated as an open-source project, initiated under 'Camino', an online startup foundation focused on tourism sector in Sri Lanka and is not a commercial entity.
 
@@ -42,9 +42,9 @@ The Site respects the Do Not Track (DNT) browser setting. Visitors with DNT enab
 
 ---
 
-## 3. Forms: Tally.so
+## 3. Forms (Non-embedded)
 
-The Site uses [Tally](https://tally.so) for feedback and contact forms. Tally is based in Belgium (EU) and complies with the GDPR framework. All form data is encrypted in transit and at rest, and stored on servers within the European Union. For more information, see [Tally's privacy documentation](https://tally.so/help/privacy-policy)
+The Site uses [Tally](https://tally.so) to host standalone forms (linked to, not embedded on the Site's pages). Tally is based in Belgium (EU) and complies with the GDPR framework. All form data is encrypted in transit and at rest, and stored on servers within the European Union. For more information, see [Tally's privacy documentation](https://tally.so/help/privacy-policy)
 
 The following forms will automatically detect and store your country (derived from your IP address). Tally.so may also record your IP address as submission metadata.
 
@@ -81,15 +81,40 @@ To exercise any of these rights, contact [contact@sri-guide.com](mailto:contact@
 
 ---
 
-## 4. Third-Party Services
+## 4. Forms (Embedded)
+
+The Site also includes embedded forms that are directly integrated into the pages. These forms are managed and hosted on the Site itself, ensuring that all data is handled in accordance with the Site's privacy practices.
+
+### 4.1 Page Feedback Forms
+
+These forms allow you to provide feedback on specific pages. When you submit feedback through a page feedback form, we collect the message you write, the page you submitted it from, and, if you provide it, your email address. We use this to read and respond to feedback, to improve the Site, and to contact you if you have provided an email address.
+We keep all submitted feedback for as long as necessary to address the feedback and improve the Site.
+
+### 4.2 Contact Form
+
+This form allows you to contact us directly. When you submit a message through the contact form, we collect the message you write, your email address, and your full name. We use this information to read and respond to your message. We keep all submitted messages for as long as necessary to address the inquiry and maintain a record of communication.
+
+### 4.3 Spam and abuse protection (Cloudflare Turnstile)
+
+To protect the embedded forms from spam and automated abuse, we use Cloudflare Turnstile, provided by Cloudflare, Inc (https://www.cloudflare.com/). Turnstile loads only when you interact with any of the embedded forms. If you never use the forms, no connection to Cloudflare is made for this purpose.
+
+Once loaded, Turnstile runs a verification check in your browser. To perform it, Cloudflare receives technical information such as your IP address, browser and device characteristics, and interaction signals, and uses it to decide whether the request comes from a real person. Cloudflare processes this data under its own privacy policy (https://www.cloudflare.com/privacypolicy/). Our legal basis for using Turnstile is our legitimate interest in protecting the Site from spam and abuse.
+
+### 4.4 Your Rights as a Form Respondent
+
+If you have submitted data through any of the embedded forms mentioned above, you have the right to request access to your personal data, request correction or deletion of your data, and withdraw consent at any time. To exercise any of these rights, contact us at [contact@sri-guide.com](mailto:contact@sri-guide.com).
+
+---
+
+## 5. Third-Party Services
 
 The Site uses certain third-party services to provide functionality and improve the user experience.
 
-### 4.1 Currency Converter: ExchangeRate-API
+### 5.1 Currency Converter: ExchangeRate-API
 
 The currency converter tool on the Site makes client-side API calls to [ExchangeRate-API](https://www.exchangerate-api.com/) to fetch current exchange rates. These requests are originated directly from your browser and therefore include standard request metadata (for example, your IP address) visible to ExchangeRate-API; the tool does not send form inputs or other personal data from the page. ExchangeRate-API may log request metadata according to its policies. Please refer ExchangeRate-API's [Terms & Privacy Policy](https://www.exchangerate-api.com/terms) for more information.
 
-### 4.2 Maps and Mapping Tiles
+### 5.2 Maps and Mapping Tiles
 
 The Site uses Leaflet, an open-source mapping library, together with map tiles provided by OpenStreetMap and/or its tile infrastructure.
 
@@ -97,13 +122,21 @@ When map features are displayed, your browser may request map tiles from OpenStr
 
 For more information about OpenStreetMap and its data practices, please refer to the OpenStreetMap Foundation's [privacy information](https://osmfoundation.org/wiki/Privacy_Policy).
 
-## 5. Audio: Google TTS Recordings
+### 5.3 Email Delivery and Communication
+
+We use Resend (https://resend.com), an email delivery service, to send and deliver emails from the Site, including feedback responses, testimonial confirmations, and other communications. Resend processes your email address, the content of messages, and delivery metadata (such as timestamps and delivery status) on our behalf, under its privacy policy (https://resend.com/legal/privacy-policy). You can unsubscribe from any email communications at any time by following the instructions in the email or contacting us directly.
+
+### 5.4 Service Providers and International Transfers
+
+Service providers may be located outside your country of residence. By using the Site, you acknowledge and consent to the transfer of your data to countries that may have different data protection laws than your own. We take appropriate measures to ensure that your data is handled securely and in accordance with applicable privacy laws. We do not sell your personal information to third parties. We only share your data with service providers as necessary to provide the services described in this policy.
+
+## 6. Audio: Google TTS Recordings
 
 Some pages on the Site include audio pronunciations of Sinhala phrases. These audio files are pre-recorded MP3s, utilizing Google TTS service and stored directly on the Site. No API calls are made to Google or any external service during playback. No data is transmitted to Google when you interact with those audio recordings.
 
 ---
 
-## 6. Progressive Web App and Local Storage
+## 7. Progressive Web App and Local Storage
 
 The Site is installable as a Progressive Web App (PWA) and configured with automatic updates. This means the app may periodically download updated resources (service worker, JavaScript, other assets such as images) in the background to keep the app current without requiring manual action.
 
@@ -111,7 +144,7 @@ Certain features, such as packing checklists save their state using your browser
 
 ---
 
-## 7. Third-Party Links and Services
+## 8. Third-Party Links and Services
 
 The Site contains links to external services including:
 
@@ -126,31 +159,31 @@ Clicking any of these links takes you to an external site governed by its own pr
 
 ---
 
-## 8. No Advertising or Affiliate Links
+## 9. No Advertising or Affiliate Links
 
 The Site displays no advertising and contains no affiliate links. No third-party advertising networks have access to the Site or its visitors.
 
 ---
 
-## 9. Hosting
+## 10. Hosting
 
 The Site is currently hosted on [Vercel](https://vercel.com). Vercel may process server-level request logs (including IP addresses) as part of standard infrastructure operation. These logs are handled in accordance with [Vercel's privacy policy](https://vercel.com/legal/privacy-policy). Vercel analytics have been explicitly disabled on the Site.
 
 ---
 
-## 10. Children's Privacy
+## 11. Children's Privacy
 
 The Site is not directed at children under the age of 16 and does not knowingly collect personal data from children under 16; if we become aware that we have collected personal data from someone under 16, we will delete it promptly.
 
 ---
 
-## 11. Changes to This Policy
+## 12. Changes to This Policy
 
 This policy may be updated from time to time. The "last updated" date at the top of this page will reflect any changes. Continued use of the Site after an update constitutes acceptance of the revised policy.
 
 ---
 
-## 12. Contact
+## 13. Contact
 
 For any privacy-related questions or requests, contact:
 
