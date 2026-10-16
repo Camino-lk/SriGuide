@@ -2,7 +2,7 @@
 const safety = {
   level: 95, // <----- 0-100 value indicating safety level
   label: "Safe to visit", // <----- Short label for safety status
-  updated: "October 4, 2026 10:00 +05:30", // <----- Update date for the safety status
+  updated: "October 16, 2026 14:51 +05:30", // <----- Update date for the safety status
   message:
     "No active wars or significant protests. No significant health risks. Central and Southern regions are experiencing occasional heavy rainfall due to the monsoon.",
 };
@@ -20,7 +20,7 @@ const globalTravel = {
     <h3 class="cursive-text">Travel Safety Status</h3>
     <span class="sr-only">
       Current safety status: {safety.label}. Safety score {safety.level} out of 100.
-      Last updated {new Date(safety.updated).toLocaleString("en-GB")}.
+      Last updated {new Date(safety.updated).toLocaleString()}.
     </span>
     <div
       class="meter"
@@ -55,7 +55,7 @@ const globalTravel = {
 
     <span class="updated"
       >Updated <span id="ss-updated-time" data-updated={safety.updated}
-        >{new Date(safety.updated).toLocaleString("en-GB")}</span
+        >{new Date(safety.updated).toLocaleString()}</span
       ></span
     >
 
