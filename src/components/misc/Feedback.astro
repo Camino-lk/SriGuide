@@ -1,0 +1,442 @@
+---
+/*
+ * Send text feedback about page content
+ */
+
+import { Icon } from "@astrojs/starlight/components";
+
+const { title, subtitle, label, placeholder, tos, cta } = Astro.props;
+---
+
+<div class="contact-box not-content">
+  <div class="cb-top">
+    <span class="cb-title"
+      ><Icon name="pen" class="cb-title-icon" />{title}</span
+    >
+    <span class="cb-subtitle">{subtitle}</span>
+  </div>
+
+  <form data-veloz-form="sg-feedback">
+    <div class="field">
+      <label for="cb-feedback">{label}</label>
+      <textarea
+        id="cb-feedback"
+        name="feedback"
+        placeholder={placeholder}
+        rows="6"
+        required
+        minlength="5"
+        maxlength="1000"></textarea>
+      <span class="err" data-error-for="feedback"></span>
+    </div>
+
+    <div class="_cont_box_ref" aria-hidden="true">
+      <input name="_cont_box_ref" tabindex="-1" autocomplete="off" />
+    </div>
+    <input type="hidden" name="page" value={Astro.url.pathname} />
+    <div class="tos-para">
+      <Icon name="information" class="tos-icon" />
+      <span class="tos-text">
+        {tos}
+      </span>
+    </div>
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAAFK09zqBOGMED8MV"></div>
+    <button type="submit" class="cs-button-solid">{cta}</button>
+
+    <p class="status" role="status" aria-live="polite" tabindex="-1"></p>
+  </form>
+</div>
+
+<style is:global>
+  .contact-box {
+    --cb-bg: color-mix(in srgb, var(--sl-color-gray-5) 40%, transparent);
+    --cb-error: #d92d20;
+    --cb-success: #16a34a;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 12px;
+    background-color: var(--cb-bg);
+  }
+
+  /* header: title | subtitle */
+  .cb-top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 0.75rem;
+    row-gap: 0.25rem;
+  }
+  .cb-title {
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--sl-color-accent-high);
+  }
+  .cb-title-icon {
+    width: 1.1em;
+    height: 1.1em;
+    margin-right: 0.4rem;
+    vertical-align: -0.15em;
+  }
+  .cb-subtitle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.3;
+    color: var(--sl-color-text-secondary);
+  }
+  .cb-subtitle::before {
+    content: "";
+    flex-shrink: 0;
+    width: 1px;
+    height: 1.1em;
+    background-color: var(--sl-color-gray-4);
+  }
+
+  /* form layout */
+  .contact-box form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .field {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  /* label */
+  .field label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+  .field textarea {
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 120px;
+    padding: 0.6rem 0.75rem;
+    font: inherit;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--sl-color-text);
+    background-color: var(--sl-color-black);
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 8px;
+    transition:
+      border-color 0.2s ease-in-out,
+      box-shadow 0.2s ease-in-out;
+  }
+  .field textarea::placeholder {
+    color: var(--sl-color-gray-3);
+  }
+  .field textarea:hover {
+    border-color: var(--sl-color-gray-4);
+  }
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--sl-color-accent);
+    box-shadow: 0 0 0 3px var(--sl-color-accent-low);
+  }
+  .field textarea[aria-invalid="true"],
+  .field textarea:user-invalid {
+    border-color: var(--cb-error);
+  }
+  .err {
+    font-size: 0.75rem;
+    color: var(--cb-error);
+  }
+  .err:empty {
+    display: none;
+  }
+
+  /* terms notice */
+  .tos-para {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    line-height: 1.4;
+    color: var(--sl-color-text-secondary);
+  }
+  .tos-icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+  }
+  .tos-text :global(a) {
+    color: var(--sl-color-accent);
+    text-decoration: underline;
+  }
+
+  /* hp */
+  ._cont_box_ref {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* turnstile */
+  .cf-turnstile {
+    min-height: 65px;
+  }
+  .cf-turnstile:empty {
+    display: none;
+  }
+
+  /* submit button */
+  .cs-button-solid {
+    align-self: flex-start;
+    padding: 0.55rem 1.2rem;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--sl-color-black);
+    background-color: var(--sl-color-text-accent, var(--sl-color-accent));
+    border: 1px solid transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+  }
+  .cs-button-solid:hover {
+    background-color: var(--sl-color-accent-high);
+    transform: translateY(-1px);
+  }
+  .cs-button-solid:focus-visible {
+    outline: 2px solid var(--sl-color-accent);
+    outline-offset: 2px;
+  }
+  .cs-button-solid:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* status message: .status.is-info | .is-success | .is-error (+ .flash) */
+  .status {
+    --st-color: var(--sl-color-text-secondary);
+    margin: 0;
+    padding: 0.55rem 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--st-color);
+    background-color: color-mix(in srgb, var(--st-color) 10%, transparent);
+    border: 1px solid color-mix(in srgb, var(--st-color) 35%, transparent);
+    border-radius: 8px;
+    scroll-margin-bottom: 1rem;
+  }
+  .status:empty {
+    display: none;
+  }
+  .status.is-info {
+    --st-color: var(--sl-color-text-secondary);
+  }
+  .status.is-success {
+    --st-color: var(--cb-success);
+  }
+  .status.is-error {
+    --st-color: var(--cb-error);
+  }
+  .status:focus,
+  .status:focus-visible {
+    outline: none;
+  }
+  .status.flash {
+    animation: cb-pulse 0.9s ease-out;
+  }
+  @keyframes cb-pulse {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--st-color) 55%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 10px transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .status.flash {
+      animation: none;
+    }
+    .cs-button-solid {
+      transition: none;
+    }
+    .cs-button-solid:hover {
+      transform: none;
+    }
+  }
+
+  /* mobile */
+  @media (max-width: 520px) {
+    .contact-box {
+      padding: 1rem;
+    }
+    .cb-top {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .cb-subtitle::before {
+      display: none;
+    }
+    .cs-button-solid {
+      align-self: stretch;
+    }
+  }
+</style>
+
+<script>
+  let tsPromise;
+
+  function loadTurnstile() {
+    if (tsPromise) return tsPromise;
+    tsPromise = new Promise((resolve, reject) => {
+      const s = document.createElement("script");
+      s.src =
+        "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      s.async = true;
+      s.defer = true;
+      s.onload = () => resolve(window.turnstile);
+      s.onerror = () => {
+        tsPromise = null; // allow a retry
+        reject(new Error("Turnstile failed to load"));
+      };
+      document.head.appendChild(s);
+    });
+    return tsPromise;
+  }
+
+  async function mountTurnstile(form) {
+    const box = form.querySelector(".cf-turnstile");
+    if (!box || box.dataset.widgetId) return;
+    const ts = await loadTurnstile();
+    if (box.dataset.widgetId) return; // guard against double mount
+    box.dataset.widgetId = ts.render(box, {
+      sitekey: box.dataset.sitekey,
+      theme: "auto",
+    });
+  }
+
+  // load on first sign of intent
+  document.querySelectorAll("[data-veloz-form]").forEach((form) => {
+    form.addEventListener("focusin", () => mountTurnstile(form), {
+      once: true,
+    });
+  });
+</script>
+
+<script>
+  // Veloz-Connector endpoint
+  const ENDPOINT = "https://veloz.sri-guide.com/send";
+
+  const MESSAGES = {
+    captcha: "Verification failed. Please try again.",
+    validation: "Please check the highlighted fields.",
+    rate_limited: "Too many attempts. Please wait a few minutes.",
+    forbidden: "This form is not allowed to send messages.",
+    unknown_form: "This form is not allowed to send messages.",
+    server: "Something went wrong on our side. Please try again later.",
+  };
+
+  document.querySelectorAll("form[data-veloz-form]").forEach((form) => {
+    const button: HTMLButtonElement | null = form.querySelector(
+      'button[type="submit"]',
+    )!;
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      form
+        .querySelectorAll("[data-error-for]")
+        .forEach((el) => (el.textContent = ""));
+
+      const fd = new FormData(form);
+      const token = fd.get("cf-turnstile-response");
+      if (!token) {
+        showStatus(form, "Please complete the verification.", "error");
+        return;
+      }
+
+      const fields = {};
+      for (const [key, value] of fd.entries()) {
+        if (
+          typeof value === "string" &&
+          key !== "_cont_box_ref" &&
+          key !== "cf-turnstile-response"
+        ) {
+          fields[key] = value;
+        }
+      }
+
+      button.disabled = true;
+      showStatus(form, "Sending feedback…", "info");
+      let resetChallenge = true;
+
+      try {
+        const res = await fetch(ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            form: form.dataset.velozForm,
+            token,
+            hp: fd.get("_cont_box_ref") || "",
+            fields,
+          }),
+        });
+        const data = await res.json().catch(() => ({}));
+
+        if (res.ok && data.ok) {
+          form.reset();
+          showStatus(form, "Thanks! Your feedback was sent.", "success");
+        } else {
+          showStatus(form, MESSAGES[data.error] || MESSAGES.server, "error");
+
+          for (const [key, msg] of Object.entries(data.fields || {})) {
+            const el = form.querySelector(
+              `[data-error-for="${CSS.escape(key)}"]`,
+            );
+            if (el) el.textContent = msg;
+          }
+          // Validation errors don't consume the Turnstile token, so keep it.
+          if (data.error === "validation") resetChallenge = false;
+        }
+      } catch {
+        showStatus(form, "Network error. Please try again.", "error");
+      } finally {
+        button.disabled = false;
+        if (resetChallenge && window.turnstile) {
+          turnstile.reset(form.querySelector(".cf-turnstile"));
+        }
+      }
+    });
+  });
+
+  function showStatus(form, message, type = "info") {
+    const el = form.querySelector(".status");
+    if (!el) return;
+    el.textContent = message;
+    el.className = `status is-${type}`; // info | success | error
+    if (type === "info") return;
+
+    void el.offsetWidth; // restart the pulse animation
+    el.classList.add("flash");
+    const calm = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: calm ? "auto" : "smooth", block: "nearest" });
+    el.focus({ preventScroll: true });
+  }
+</script>
