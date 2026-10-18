@@ -6,7 +6,7 @@
 
 /* THANKS */
 	Pagefind PWA Fix: Abdulhakim Alshanqiti
-	Telegram: abdullhakim_alshanqiti
+	Contact: https://github.com/abdulhakim-alshanqiti/
 
 
 /* SITE */
@@ -14,4 +14,4 @@
 	Language: English / Spanish
 	Doctype:HTML5
 	IDE: VS Code
-    Tools: Inkscape, Photoshop
+	Tools: Inkscape, Photoshop
