@@ -70,7 +70,7 @@ Help us by:
 
 ## Security
 - Attempting to exploit vulnerabilities in the SriGuide project is strictly prohibited and may result in legal action.
-- You should not attempt to access, modify, or disrupt the services or data of SriGuide under any circumstances.
+- You should not attempt to modify, tamper, or disrupt the services or data of SriGuide under any circumstances.
 - All security vulnerabilities should be reported responsibly to the maintainers and not publicly disclosed until a fix is available.
 - Report security issues to: contact@sri-guide.com
 
